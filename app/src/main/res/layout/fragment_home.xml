@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/ScreenBg"
+    tools:context=".Screens.Fragments.HomeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingVertical="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginHorizontal="30dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="-3dp"
+                style="@style/authLogo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Urban"
+                style="@style/navBoldTitle"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Harmony"
+                style="@style/navThinTitle"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="."
+                android:layout_weight="1"
+                style="@style/navDotTitle"/>
+
+            <ImageView
+                android:id="@+id/settingsBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/setting"
+                style="@style/navIcon"/>
+
+        </LinearLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/sliderViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="30dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="30dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categories"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                style="@style/dashboardTitle"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="See more"
+                style="@style/dashboardBtn"/>
+
+        </LinearLayout>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Shop Supply"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginLeft="30dp"
+                    style="@style/customButton"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Monthly Supply"
+                    android:layout_marginRight="12dp"
+                    style="@style/customButton"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stocks"
+                    android:layout_marginRight="12dp"
+                    style="@style/customButton"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Credit"
+                    android:layout_marginRight="12dp"
+                    style="@style/customButton"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Expences"
+                    android:layout_marginRight="12dp"
+                    style="@style/customButton"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Workers Pay"
+                    android:layout_marginRight="30dp"
+                    style="@style/customButton"/>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="30dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recommended For You"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                style="@style/dashboardTitle"/>
+
+            <TextView
+                android:id="@+id/seeMoreBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="See more"
+                style="@style/dashboardBtn"/>
+
+        </LinearLayout>
+
+
+        <!--        <GridLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:columnCount="2"-->
+        <!--            android:fadingEdge="horizontal|vertical"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:paddingHorizontal="30dp"-->
+        <!--            android:rowCount="2">-->
+
+        <!--            <LinearLayout-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_columnWeight="1"-->
+        <!--                android:orientation="vertical"-->
+        <!--                android:layout_marginBottom="16dp">-->
+
+        <!--                <FrameLayout-->
+        <!--                    android:layout_width="160dp"-->
+        <!--                    android:layout_height="160dp"-->
+        <!--                    android:layout_gravity="center"-->
+        <!--                    tools:ignore="UselessParent">-->
+
+        <!--                    <ImageView-->
+        <!--                        android:layout_width="200dp"-->
+        <!--                        android:layout_height="200dp"-->
+        <!--                        android:layout_gravity="center"-->
+        <!--                        android:scaleType="fitCenter"-->
+        <!--                        android:src="@drawable/shop" />-->
+
+        <!--                    <TextView-->
+        <!--                        style="@style/dashboardReleaseTitle"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginTop="12dp"-->
+        <!--                        android:text="Shop Supply"-->
+        <!--                        android:layout_gravity="bottom|center"-->
+        <!--                        android:layout_marginHorizontal="8dp"/>-->
+
+        <!--                </FrameLayout>-->
+
+        <!--            </LinearLayout>-->
+
+        <!--            <LinearLayout-->
+        <!--                android:id="@+id/monthlySupplyBtn"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_columnWeight="1"-->
+        <!--                android:orientation="vertical"-->
+        <!--                android:layout_marginBottom="16dp">-->
+
+        <!--                <FrameLayout-->
+        <!--                    android:layout_width="160dp"-->
+        <!--                    android:layout_height="160dp"-->
+        <!--                    android:layout_gravity="center"-->
+        <!--                    tools:ignore="UselessParent">-->
+
+        <!--                    <ImageView-->
+        <!--                        android:layout_width="200dp"-->
+        <!--                        android:layout_height="200dp"-->
+        <!--                        android:layout_gravity="center"-->
+        <!--                        android:scaleType="fitCenter"-->
+        <!--                        android:src="@drawable/supply" />-->
+
+        <!--                    <TextView-->
+        <!--                        style="@style/dashboardReleaseTitle"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginTop="12dp"-->
+        <!--                        android:text="Monthly Supply"-->
+        <!--                        android:layout_gravity="bottom|center"-->
+        <!--                        android:layout_marginHorizontal="8dp"/>-->
+
+        <!--                </FrameLayout>-->
+
+        <!--            </LinearLayout>-->
+
+        <!--            <LinearLayout-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_columnWeight="1"-->
+        <!--                android:orientation="vertical"-->
+        <!--                android:layout_marginBottom="16dp">-->
+
+        <!--                <FrameLayout-->
+        <!--                    android:layout_width="160dp"-->
+        <!--                    android:layout_height="160dp"-->
+        <!--                    android:layout_gravity="center"-->
+        <!--                    tools:ignore="UselessParent">-->
+
+        <!--                    <ImageView-->
+        <!--                        android:layout_width="200dp"-->
+        <!--                        android:layout_height="200dp"-->
+        <!--                        android:layout_gravity="center"-->
+        <!--                        android:scaleType="fitCenter"-->
+        <!--                        android:src="@drawable/stocks" />-->
+
+        <!--                    <TextView-->
+        <!--                        style="@style/dashboardReleaseTitle"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginTop="12dp"-->
+        <!--                        android:text="Stocks"-->
+        <!--                        android:layout_gravity="bottom|center"-->
+        <!--                        android:layout_marginHorizontal="8dp"/>-->
+
+        <!--                </FrameLayout>-->
+
+        <!--            </LinearLayout>-->
+
+        <!--            <LinearLayout-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_columnWeight="1"-->
+        <!--                android:orientation="vertical"-->
+        <!--                android:layout_marginBottom="16dp">-->
+
+        <!--                <FrameLayout-->
+        <!--                    android:layout_width="160dp"-->
+        <!--                    android:layout_height="160dp"-->
+        <!--                    android:layout_gravity="center">-->
+
+        <!--                    <ImageView-->
+        <!--                        android:layout_width="200dp"-->
+        <!--                        android:layout_height="180dp"-->
+        <!--                        android:layout_gravity="center"-->
+        <!--                        android:scaleType="fitCenter"-->
+        <!--                        android:src="@drawable/credit" />-->
+
+        <!--                    <TextView-->
+        <!--                        style="@style/dashboardReleaseTitle"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginTop="12dp"-->
+        <!--                        android:text="Credit"-->
+        <!--                        android:layout_gravity="bottom|center"-->
+        <!--                        android:layout_marginHorizontal="8dp"/>-->
+
+        <!--                </FrameLayout>-->
+
+        <!--            </LinearLayout>-->
+
+        <!--            <LinearLayout-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_columnWeight="1"-->
+        <!--                android:orientation="vertical"-->
+        <!--                android:layout_marginBottom="16dp">-->
+
+        <!--                <FrameLayout-->
+        <!--                    android:layout_width="160dp"-->
+        <!--                    android:layout_height="160dp"-->
+        <!--                    android:layout_gravity="center"-->
+        <!--                    tools:ignore="UselessParent">-->
+
+        <!--                    <ImageView-->
+        <!--                        android:layout_width="200dp"-->
+        <!--                        android:layout_height="200dp"-->
+        <!--                        android:layout_gravity="center"-->
+        <!--                        android:scaleType="fitCenter"-->
+        <!--                        android:src="@drawable/expences" />-->
+
+        <!--                    <TextView-->
+        <!--                        style="@style/dashboardReleaseTitle"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginTop="12dp"-->
+        <!--                        android:text="Expences"-->
+        <!--                        android:layout_gravity="bottom|center"-->
+        <!--                        android:layout_marginHorizontal="8dp"/>-->
+
+        <!--                </FrameLayout>-->
+
+        <!--            </LinearLayout>-->
+
+        <!--            <LinearLayout-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_columnWeight="1"-->
+        <!--                android:orientation="vertical"-->
+        <!--                android:layout_marginBottom="16dp">-->
+
+        <!--                <FrameLayout-->
+        <!--                    android:layout_width="160dp"-->
+        <!--                    android:layout_height="160dp"-->
+        <!--                    android:layout_gravity="center"-->
+        <!--                    tools:ignore="UselessParent">-->
+
+        <!--                    <ImageView-->
+        <!--                        android:layout_width="160dp"-->
+        <!--                        android:layout_height="160dp"-->
+        <!--                        android:layout_gravity="center"-->
+        <!--                        android:scaleType="fitCenter"-->
+        <!--                        android:src="@drawable/pay" />-->
+
+        <!--                    <TextView-->
+        <!--                        style="@style/dashboardReleaseTitle"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginTop="12dp"-->
+        <!--                        android:text="Workers Pay"-->
+        <!--                        android:layout_gravity="bottom|center"-->
+        <!--                        android:layout_marginHorizontal="8dp"/>-->
+
+        <!--                </FrameLayout>-->
+
+        <!--            </LinearLayout>-->
+
+        <!--            <LinearLayout-->
+        <!--                android:id="@+id/settingRatesBtn"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_columnWeight="1"-->
+        <!--                android:orientation="vertical"-->
+        <!--                android:layout_marginBottom="16dp">-->
+
+        <!--                <FrameLayout-->
+        <!--                    android:layout_width="160dp"-->
+        <!--                    android:layout_height="160dp"-->
+        <!--                    android:layout_gravity="center"-->
+        <!--                    tools:ignore="UselessParent">-->
+
+        <!--                    <ImageView-->
+        <!--                        android:layout_width="120dp"-->
+        <!--                        android:layout_height="120dp"-->
+        <!--                        android:layout_gravity="center"-->
+        <!--                        android:scaleType="fitCenter"-->
+        <!--                        android:src="@drawable/settings" />-->
+
+        <!--                    <TextView-->
+        <!--                        style="@style/dashboardReleaseTitle"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginTop="12dp"-->
+        <!--                        android:text="Settings"-->
+        <!--                        android:layout_gravity="bottom|center"-->
+        <!--                        android:layout_marginHorizontal="8dp"/>-->
+
+        <!--                </FrameLayout>-->
+
+        <!--            </LinearLayout>-->
+
+        <!--            <LinearLayout-->
+        <!--                android:id="@+id/otherItemsBtn"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_columnWeight="1"-->
+        <!--                android:orientation="vertical"-->
+        <!--                android:layout_marginBottom="16dp">-->
+
+        <!--                <FrameLayout-->
+        <!--                    android:layout_width="160dp"-->
+        <!--                    android:layout_height="160dp"-->
+        <!--                    android:layout_gravity="center"-->
+        <!--                    tools:ignore="UselessParent">-->
+
+        <!--                    <ImageView-->
+        <!--                        android:layout_width="160dp"-->
+        <!--                        android:layout_height="120dp"-->
+        <!--                        android:layout_gravity="center"-->
+        <!--                        android:scaleType="fitCenter"-->
+        <!--                        android:src="@drawable/items" />-->
+
+        <!--                    <TextView-->
+        <!--                        style="@style/dashboardReleaseTitle"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginTop="12dp"-->
+        <!--                        android:text="Other Items"-->
+        <!--                        android:layout_gravity="bottom|center"-->
+        <!--                        android:layout_marginHorizontal="8dp"/>-->
+
+        <!--                </FrameLayout>-->
+
+        <!--            </LinearLayout>-->
+
+        <!--        </GridLayout>-->
+
+    </LinearLayout>
+
+</ScrollView>

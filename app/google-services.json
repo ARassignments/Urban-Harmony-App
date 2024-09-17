@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "472699821355",
+    "project_id": "urban-harmony-8fd99",
+    "storage_bucket": "urban-harmony-8fd99.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472699821355:android:d540ede123f6f58133b96e",
+        "android_client_info": {
+          "package_name": "com.example.urbanharmony"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsOb4Ndw0aYvKCkBhlsdKjeBn2N3vkB74"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
