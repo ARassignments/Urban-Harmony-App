@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void checkStatus(Context context, String UID){
-        db.child("Users").child(UID).addValueEventListener(new ValueEventListener() {
+        db.child("Users").child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){

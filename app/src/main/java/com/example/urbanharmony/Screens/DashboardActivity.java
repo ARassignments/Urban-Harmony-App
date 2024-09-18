@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -16,12 +17,15 @@ import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.R;
 import com.example.urbanharmony.Screens.Fragments.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 public class DashboardActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     static String UID = "";
-    static String name, email, role, image, milkRate, stockRate, created_on;
+    static String name, email, role, image, username, contact, created_on;
     BottomNavigationView bottomAppBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,29 @@ public class DashboardActivity extends AppCompatActivity {
         if(!sharedPreferences.contains("loginStatus")){
             startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
             finish();
+        }
+
+        if(!sharedPreferences.getString("UID","").equals("")){
+            UID = sharedPreferences.getString("UID","").toString();
+            MainActivity.db.child("Users").child(UID).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        name = snapshot.child("name").getValue().toString();
+                        email = snapshot.child("email").getValue().toString();
+                        image = snapshot.child("image").getValue().toString();
+                        role = snapshot.child("role").getValue().toString();
+                        username = snapshot.child("username").getValue().toString();
+                        contact = snapshot.child("contact").getValue().toString();
+                        created_on = snapshot.child("created_on").getValue().toString();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
 
         // Check User's Status
