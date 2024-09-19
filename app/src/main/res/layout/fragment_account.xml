@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/ScreenBg"
+    tools:context=".Screens.Fragments.AccountFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingVertical="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginHorizontal="30dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="10dp"
+                style="@style/authLogo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My"
+                style="@style/navBoldTitle"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Account"
+                style="@style/navThinTitle"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="."
+                android:layout_weight="1"
+                style="@style/navDotTitle"/>
+
+            <ImageView
+                android:id="@+id/settingsBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/setting"
+                style="@style/navIcon"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="32dp"
+            android:paddingVertical="16dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="20dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_marginVertical="8dp"
+                android:elevation="10dp"
+                style="@style/authLogo"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/profileName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="User Name"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_bold"
+                    style="@style/authTitle"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ID: "
+                        android:fontFamily="@font/poppins_semibold"
+                        style="@style/authLabel"/>
+
+                    <TextView
+                        android:id="@+id/userId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="260304023"
+                        style="@style/authLabel"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                style="@style/customButton">
+
+                <LinearLayout
+                    android:id="@+id/profileBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/user_outlined"
+                        style="@style/appBarIcon"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Profile"
+                        android:textSize="11sp"
+                        android:textAlignment="center"
+                        android:layout_marginTop="5dp"
+                        style="@style/authLabel"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    style="@style/verticalRow"/>
+
+                <LinearLayout
+                    android:id="@+id/wishlistBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/favorite_list"
+                        style="@style/appBarIcon"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Wishlist"
+                        android:textSize="11sp"
+                        android:textAlignment="center"
+                        android:layout_marginTop="5dp"
+                        style="@style/authLabel"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    style="@style/verticalRow"/>
+
+                <LinearLayout
+                    android:id="@+id/ordersBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/tag"
+                        style="@style/appBarIcon"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Orders"
+                        android:textSize="11sp"
+                        android:textAlignment="center"
+                        android:layout_marginTop="5dp"
+                        style="@style/authLabel"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            style="@style/horizontalRow"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My Designs"
+            android:layout_marginTop="2dp"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="32dp"
+            style="@style/settingsItems"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            style="@style/horizontalRow"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My Consultations"
+            android:layout_marginTop="2dp"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="32dp"
+            style="@style/settingsItems"/>
+
+        <LinearLayout
+            android:id="@+id/adminOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                style="@style/horizontalRow"/>
+
+            <TextView
+                android:id="@+id/categoriesBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Categories"
+                android:layout_marginTop="2dp"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="32dp"
+                style="@style/settingsItems"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                style="@style/horizontalRow"/>
+
+            <TextView
+                android:id="@+id/brandsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Brands"
+                android:layout_marginTop="2dp"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="32dp"
+                style="@style/settingsItems"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                style="@style/horizontalRow"/>
+
+            <TextView
+                android:id="@+id/stylesBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Styles"
+                android:layout_marginTop="2dp"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="32dp"
+                style="@style/settingsItems"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                style="@style/horizontalRow"/>
+
+            <TextView
+                android:id="@+id/productsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Products"
+                android:layout_marginTop="2dp"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="32dp"
+                style="@style/settingsItems"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                style="@style/horizontalRow"/>
+
+            <TextView
+                android:id="@+id/usersBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Users"
+                android:layout_marginTop="2dp"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="32dp"
+                style="@style/settingsItems"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                style="@style/horizontalRow"/>
+
+            <TextView
+                android:id="@+id/reportsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reports"
+                android:layout_marginTop="2dp"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="32dp"
+                style="@style/settingsItems"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            style="@style/horizontalRow"/>
+
+        <TextView
+            android:id="@+id/subscriptionBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Subscription"
+            android:layout_marginTop="2dp"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="32dp"
+            style="@style/settingsItems"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            style="@style/horizontalRow"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Linked Account"
+            android:layout_marginTop="2dp"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="32dp"
+            style="@style/settingsItems"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            style="@style/horizontalRow"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="About Urban Harmony"
+            android:layout_marginTop="2dp"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="32dp"
+            style="@style/settingsItems"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            style="@style/horizontalRow"/>
+
+        <Button
+            android:id="@+id/logoutBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Log Out"
+            android:layout_marginVertical="28dp"
+            android:layout_marginHorizontal="30dp"
+            style="@style/logoutButton"/>
+
+    </LinearLayout>
+
+</ScrollView>

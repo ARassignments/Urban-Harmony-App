@@ -1,0 +1,842 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="30dp"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    style="@style/bottomDialogBg">
+
+    <LinearLayout
+        android:layout_width="35dp"
+        android:layout_height="4dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/small_handle"
+        style="@style/strokeBgColor"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose Profile Image"
+        android:textAlignment="center"
+        style="@style/authTitle"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginVertical="15dp"
+        style="@style/horizontalRow"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="10dp">
+
+        <Button
+            android:id="@+id/boyBtn"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/boy"
+            android:text=""
+            android:layout_marginEnd="10dp"
+            style="@style/customButton"/>
+
+        <Button
+            android:id="@+id/girlBtn"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/girl"
+            android:text=""
+            style="@style/customButton"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/boysContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/boy_1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/boy_1"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/boy_2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/boy_2"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/boy_3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/boy_3"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/boy_4"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/boy_4"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/boy_5"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/boy_5"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/boy_6"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/boy_6"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/boy_7"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/boy_7"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/boy_8"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/boy_8"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/boy_9"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/boy_9"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/boy_10"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/boy_10"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/boy_11"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/boy_11"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/boy_12"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/boy_12"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/boy_13"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/boy_13"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/boy_14"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/boy_14"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/boy_15"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/boy_15"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/boy_16"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/boy_16"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/boy_17"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/boy_17"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/boy_18"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/boy_18"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/girlsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_1"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_2"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_3"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_4"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_4"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_5"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_5"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_6"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_6"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_7"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_7"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_8"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_8"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_9"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_9"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_10"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_10"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_11"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_11"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_12"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_12"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_13"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_13"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_14"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_14"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_15"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_15"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_16"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_16"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_17"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_17"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_18"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_18"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_19"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_19"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/girl_20"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@null"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/girl_20"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/cancelBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:layout_marginTop="16dp"
+        style="@style/logoutButton"/>
+
+</LinearLayout>

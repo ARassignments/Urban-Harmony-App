@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/transparent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
+        android:layout_margin="20dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="30dp"
+                android:orientation="vertical"
+                style="@style/ScreenBg">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add Product"
+                    android:textAlignment="center"
+                    android:layout_marginBottom="5dp"
+                    style="@style/authTitle"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="5dp"
+                        android:layout_marginVertical="10dp"
+                        android:backgroundTint="@color/white">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/productImage"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:src="@drawable/logo"
+                                style="@style/sliderImageBg"/>
+
+                            <ImageView
+                                android:id="@+id/editImageBtn"
+                                android:layout_width="23dp"
+                                android:layout_height="23dp"
+                                android:src="@drawable/edit"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_gravity="top|end"
+                                android:elevation="5dp"
+                                app:tint="@color/neutral_80"
+                                android:padding="4dp"
+                                android:background="@drawable/onboarding_indicator_active"
+                                android:backgroundTint="@color/white"/>
+
+                        </FrameLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/imageErrorText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Category Image is required!!!"
+                    android:textColor="#D34343"
+                    android:layout_marginBottom="16dp"
+                    android:textAlignment="center"
+                    android:visibility="gone"
+                    style="@style/searchLabelText"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pNameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:endIconMode="clear_text"
+                    app:counterMaxLength="30"
+                    app:helperText="Only Text Allowed"
+                    android:hint="Product Name"
+                    style="@style/inputTextMaterial">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/pNameInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:maxLength="30"
+                        style="@style/inputTextEditMaterial"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pDescriptionLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:endIconMode="clear_text"
+                    app:counterMaxLength="1000"
+                    app:helperText="Only Text Allowed"
+                    android:hint="Product Description"
+                    style="@style/inputTextMaterial">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/pDescriptionInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:maxLength="1000"
+                        style="@style/inputTextEditMaterial"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pPriceLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:endIconMode="clear_text"
+                    app:counterMaxLength="8"
+                    app:helperText="Only Digit  Allowed"
+                    android:hint="Product Price"
+                    app:prefixText="Rs "
+                    app:suffixText="/-"
+                    style="@style/inputTextMaterial">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/pPriceInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="8"
+                        style="@style/inputTextEditMaterial"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pDiscountLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:endIconMode="clear_text"
+                    app:counterMaxLength="2"
+                    app:helperText="Only Digit  Allowed"
+                    android:hint="Product Price Discount"
+                    app:suffixText="%"
+                    style="@style/inputTextMaterial">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/pDiscountInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        style="@style/inputTextEditMaterial"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pStockLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:endIconMode="clear_text"
+                    app:counterMaxLength="4"
+                    app:helperText="Only Digit  Allowed"
+                    android:hint="Product Stock"
+                    app:suffixText=" qty"
+                    style="@style/inputTextMaterial">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/pStockInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="4"
+                        style="@style/inputTextEditMaterial"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="16dp">
+
+                    <Button
+                        android:id="@+id/addDataBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Add Data"
+                        android:layout_marginRight="16dp"
+                        style="@style/flatButton"/>
+
+                    <Button
+                        android:id="@+id/cancelBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="Cancel"
+                        style="@style/logoutButton"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

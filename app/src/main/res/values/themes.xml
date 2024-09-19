@@ -428,6 +428,10 @@
         <item name="android:fontFamily">@font/poppins_medium</item>
     </style>
 
+    <style name="radioButton">
+        <item name="android:buttonTint">@color/neutral_80</item>
+    </style>
+
     <!--    Bottom Navigation Bar-->
 
     <style name="BottomNavigationViewTextStyleActive">
@@ -498,6 +502,20 @@
 
     <style name="horizontalRow">
         <item name="android:background">@color/primary_5</item>
+    </style>
+
+    <style name="verticalRow">
+        <item name="android:background">@color/primary_10</item>
+    </style>
+
+    <style name="listImageBg">
+        <item name="android:background">@color/neutral_10</item>
+        <item name="android:tint">@color/neutral_30</item>
+    </style>
+
+    <style name="categoryImageBg">
+        <item name="android:background">@color/neutral_5</item>
+        <item name="android:tint">@color/neutral_30</item>
     </style>
 
     <!--    Authentications-->
@@ -656,6 +674,10 @@
         <item name="android:drawableTint">@color/neutral_80</item>
         <item name="android:drawablePadding">8dp</item>
         <item name="android:tint">@color/neutral_80</item>
+    </style>
+
+    <style name="sliderImageBg">
+        <item name="android:background">@color/neutral_5</item>
     </style>
 
     <style name="dashboardBestsellerTitle">

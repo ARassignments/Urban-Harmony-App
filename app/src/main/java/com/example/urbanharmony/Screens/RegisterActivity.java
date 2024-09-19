@@ -14,8 +14,11 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -45,6 +48,9 @@ public class RegisterActivity extends AppCompatActivity {
     EditText nameInput, usernameInput, contactInput, emailInput, pwdInput, cpwdInput;
     Button registerBtn;
     ProgressBar loader;
+    LinearLayout roleUserContainer, roleDesignerContainer;
+    RadioButton userRadioBtn, designerRadioBtn;
+    TextView roleErrorText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,11 @@ public class RegisterActivity extends AppCompatActivity {
         cpwdInput = findViewById(R.id.cpwdInput);
         registerBtn = findViewById(R.id.registerBtn);
         loader = findViewById(R.id.loader);
+        roleUserContainer = findViewById(R.id.roleUserContainer);
+        roleDesignerContainer = findViewById(R.id.roleDesignerContainer);
+        userRadioBtn = findViewById(R.id.userRadioBtn);
+        designerRadioBtn = findViewById(R.id.designerRadioBtn);
+        roleErrorText = findViewById(R.id.roleErrorText);
 
         nameInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -178,20 +189,52 @@ public class RegisterActivity extends AppCompatActivity {
                 RegisterActivity.super.onBackPressed();
             }
         });
+
+        roleUserContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userRadioBtn.setChecked(true);
+                designerRadioBtn.setChecked(false);
+            }
+        });
+
+        userRadioBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userRadioBtn.setChecked(true);
+                designerRadioBtn.setChecked(false);
+            }
+        });
+
+        roleDesignerContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userRadioBtn.setChecked(false);
+                designerRadioBtn.setChecked(true);
+            }
+        });
+
+        designerRadioBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userRadioBtn.setChecked(false);
+                designerRadioBtn.setChecked(true);
+            }
+        });
     }
 
-    public boolean nameValidation(){
+    public boolean nameValidation() {
         String input = nameInput.getText().toString().trim();
         String regex = "^[a-zA-Z\\s]*$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
-        if(input.equals("")){
+        if (input.equals("")) {
             nameInput.setError("Name is Required!!!");
             return false;
-        } else if(input.length() < 3){
+        } else if (input.length() < 3) {
             nameInput.setError("Name at least 3 Characters!!!");
             return false;
-        } else if(!matcher.matches()){
+        } else if (!matcher.matches()) {
             nameInput.setError("Only text allowed!!!");
             return false;
         } else {
@@ -200,18 +243,18 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    public boolean usernameValidation(){
+    public boolean usernameValidation() {
         String input = usernameInput.getText().toString().trim();
         String regex = "^[a-zA-Z\\s]*$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
-        if(input.equals("")){
+        if (input.equals("")) {
             usernameInput.setError("Username is Required!!!");
             return false;
-        } else if(input.length() < 5){
+        } else if (input.length() < 5) {
             usernameInput.setError("Username at least 5 Characters!!!");
             return false;
-        } else if(!matcher.matches()){
+        } else if (!matcher.matches()) {
             usernameInput.setError("Only text allowed!!!");
             return false;
         } else {
@@ -220,18 +263,18 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    public boolean contactValidation(){
+    public boolean contactValidation() {
         String input = contactInput.getText().toString().trim();
         String regex = "^[0-9\\s]*$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
-        if(input.equals("")){
+        if (input.equals("")) {
             contactInput.setError("Contact No is Required!!!");
             return false;
-        } else if(input.length() < 11){
+        } else if (input.length() < 11) {
             contactInput.setError("Contact No at least 11 Digits!!!");
             return false;
-        } else if(!matcher.matches()){
+        } else if (!matcher.matches()) {
             contactInput.setError("Only Digits allowed!!!");
             return false;
         } else {
@@ -240,12 +283,12 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    public boolean emailValidation(){
+    public boolean emailValidation() {
         String input = emailInput.getText().toString().trim();
-        if(input.equals("")){
+        if (input.equals("")) {
             emailInput.setError("Email Address is Required!!!");
             return false;
-        } else if(!Patterns.EMAIL_ADDRESS.matcher(input).matches()){
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(input).matches()) {
             emailInput.setError("Enter Valid Email Address!!!");
             return false;
         } else {
@@ -254,12 +297,12 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    public boolean pwdValidation(){
+    public boolean pwdValidation() {
         String input = pwdInput.getText().toString().trim();
-        if(input.equals("")){
+        if (input.equals("")) {
             pwdInput.setError("Password is Required!!!");
             return false;
-        } else if(input.length() < 8){
+        } else if (input.length() < 8) {
             pwdInput.setError("Password at least 8 Characters!!!");
             return false;
         } else {
@@ -268,16 +311,16 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    public boolean cpwdValidation(){
+    public boolean cpwdValidation() {
         String input = cpwdInput.getText().toString().trim();
         String pwd = pwdInput.getText().toString().trim();
-        if(input.equals("")){
+        if (input.equals("")) {
             cpwdInput.setError("Confirm Password is Required!!!");
             return false;
-        } else if(input.length() < 8){
+        } else if (input.length() < 8) {
             cpwdInput.setError("Confirm Password at least 8 Characters!!!");
             return false;
-        } else if(!input.equals(pwd)){
+        } else if (!input.equals(pwd)) {
             cpwdInput.setError("Confirm Password is not matched!!!");
             return false;
         } else {
@@ -286,16 +329,28 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    public boolean roleValidation() {
+        if (userRadioBtn.isChecked() == false && designerRadioBtn.isChecked() == false) {
+            roleErrorText.setText("Role is Required!!!");
+            roleErrorText.setVisibility(View.VISIBLE);
+            return false;
+        } else {
+            roleErrorText.setVisibility(View.GONE);
+            return true;
+        }
+    }
+
     public void validation(){
         if(MainActivity.connectionCheck(RegisterActivity.this)){
-            boolean nameErr = false, usernameErr = false, contactErr = false, emailErr = false, pwdErr = false, cpwdErr = false;
+            boolean nameErr = false, usernameErr = false, contactErr = false, emailErr = false, pwdErr = false, cpwdErr = false, roleErr = false;
             nameErr = nameValidation();
             usernameErr = usernameValidation();
             contactErr = contactValidation();
             emailErr = emailValidation();
             pwdErr = pwdValidation();
             cpwdErr = cpwdValidation();
-            if((nameErr && usernameErr && contactErr && emailErr && pwdErr && cpwdErr) == true){
+            roleErr = roleValidation();
+            if((nameErr && usernameErr && contactErr && emailErr && pwdErr && cpwdErr && roleErr) == true){
                 loader.setVisibility(View.VISIBLE);
                 registerBtn.setVisibility(View.GONE);
                 Dialog dialog = new Dialog(RegisterActivity.this);
@@ -335,7 +390,13 @@ public class RegisterActivity extends AppCompatActivity {
                                 obj.put("email",auth.getCurrentUser().getEmail());
                                 obj.put("pwd",pwdInput.getText().toString().trim());
                                 obj.put("image","");
-                                obj.put("role","user");
+                                if(userRadioBtn.isChecked()){
+                                    obj.put("role","user");
+                                } else if(designerRadioBtn.isChecked()){
+                                    obj.put("role","designer");
+                                }
+                                obj.put("address","");
+                                obj.put("shipping","");
                                 obj.put("created_on",currentDate);
                                 obj.put("status","1");
 

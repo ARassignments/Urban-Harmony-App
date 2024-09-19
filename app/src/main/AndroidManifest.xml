@@ -17,10 +17,35 @@
         android:theme="@style/Theme.UrbanHarmony"
         tools:targetApi="31">
         <activity
-            android:name=".Screens.DashboardActivity"
+            android:name=".Screens.ProductsActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
+        <activity
+            android:name=".Screens.StylesActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
+        <activity
+            android:name=".Screens.BrandsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
+        <activity
+            android:name=".Screens.CategoryActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
+        <activity
+            android:name=".Screens.ProfileActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
+        <activity
+            android:name=".Screens.DashboardActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
         <activity
             android:name=".Screens.EmailSentActivity"
             android:exported="false"

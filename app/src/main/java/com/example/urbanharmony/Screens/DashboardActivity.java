@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.R;
+import com.example.urbanharmony.Screens.Fragments.AccountFragment;
 import com.example.urbanharmony.Screens.Fragments.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -82,6 +83,9 @@ public class DashboardActivity extends AppCompatActivity {
                 case "Home":
                     replaceFragment(new HomeFragment());
                     break;
+                case "Account":
+                    replaceFragment(new AccountFragment());
+                    break;
 //                case "Search":
 //                    replaceFragment(new SearchFragment());
 //                    break;
@@ -95,5 +99,33 @@ public class DashboardActivity extends AppCompatActivity {
 
     public void replaceFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.frame,fragment).commit();
+    }
+
+    public static String getName() {
+        return name;
+    }
+
+    public static String getEmail() {
+        return email;
+    }
+
+    public static String getRole() {
+        return role;
+    }
+
+    public static String getImage() {
+        return image;
+    }
+
+    public static String getUsername() {
+        return username;
+    }
+
+    public static String getContact() {
+        return contact;
+    }
+
+    public static String getCreatedOn() {
+        return created_on;
     }
 }
