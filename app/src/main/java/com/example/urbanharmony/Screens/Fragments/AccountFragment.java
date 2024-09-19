@@ -25,6 +25,7 @@ import com.example.urbanharmony.R;
 import com.example.urbanharmony.Screens.BrandsActivity;
 import com.example.urbanharmony.Screens.CategoryActivity;
 import com.example.urbanharmony.Screens.LoginActivity;
+import com.example.urbanharmony.Screens.OrderActivity;
 import com.example.urbanharmony.Screens.ProductsActivity;
 import com.example.urbanharmony.Screens.ProfileActivity;
 import com.example.urbanharmony.Screens.StylesActivity;
@@ -92,6 +93,13 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), ProfileActivity.class));
+            }
+        });
+
+        view.findViewById(R.id.ordersBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), OrderActivity.class));
             }
         });
 

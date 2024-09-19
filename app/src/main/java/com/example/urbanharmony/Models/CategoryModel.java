@@ -1,15 +1,16 @@
 package com.example.urbanharmony.Models;
 
 public class CategoryModel {
-    String id, name, image;
+    String id, name, image, SubCategory;
 
     public CategoryModel() {
     }
 
-    public CategoryModel(String id, String name, String image) {
+    public CategoryModel(String id, String name, String image, String subCategory) {
         this.id = id;
         this.name = name;
         this.image = image;
+        this.SubCategory = subCategory;
     }
 
     public String getId() {
@@ -34,5 +35,13 @@ public class CategoryModel {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getSubCategory() {
+        return SubCategory;
+    }
+
+    public void setSubCategory(String subCategory) {
+        this.SubCategory = subCategory;
     }
 }

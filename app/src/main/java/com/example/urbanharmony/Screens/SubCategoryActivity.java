@@ -2,7 +2,6 @@ package com.example.urbanharmony.Screens;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -22,18 +21,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.urbanharmony.MainActivity;
-import com.example.urbanharmony.Models.CategoryModel;
+import com.example.urbanharmony.Models.BrandModel;
+import com.example.urbanharmony.Models.SubCategoryModel;
 import com.example.urbanharmony.R;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -42,18 +40,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
-public class CategoryActivity extends AppCompatActivity {
-
+public class SubCategoryActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     static String UID = "";
@@ -64,33 +57,30 @@ public class CategoryActivity extends AppCompatActivity {
     EditText searchInput;
     TextView searchedWord, totalCount;
     ExtendedFloatingActionButton addBtn;
-    ArrayList<CategoryModel> datalist = new ArrayList<>();
+    ArrayList<SubCategoryModel> datalist = new ArrayList<>();
+    String categoryId, categoryName;
 
     //    Dialog Elements
-    Dialog categoryDialog, dialogImage;
+    Dialog subCategoryDialog;
     Button cancelBtn, addDataBtn;
     TextInputEditText nameInput;
     TextInputLayout nameLayout;
-    TextView title, imageErrorText, imageIdText;
-    ImageView categoryImage, editImageBtn;
-    CardView sofa, bed, dining, stove, chair;
-    int[] images = {
-            R.drawable.sofa,
-            R.drawable.bed,
-            R.drawable.dining,
-            R.drawable.stove,
-            R.drawable.chair
-    };
-
+    TextView title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_category);
+        setContentView(R.layout.activity_sub_category);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         sharedPreferences = getSharedPreferences("myData",MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            categoryId = extras.getString("categoryId");
+            categoryName = extras.getString("categoryName");
+        }
 
         if(!sharedPreferences.getString("UID","").equals("")){
             UID = sharedPreferences.getString("UID","").toString();
@@ -127,7 +117,7 @@ public class CategoryActivity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                categoryForm("add","");
+                subCategoryForm("add","");
             }
         });
 
@@ -143,7 +133,7 @@ public class CategoryActivity extends AppCompatActivity {
         findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CategoryActivity.super.onBackPressed();
+                SubCategoryActivity.super.onBackPressed();
             }
         });
     }
@@ -160,25 +150,21 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     public void fetchData(String data){
-        MainActivity.db.child("Category").addListenerForSingleValueEvent(new ValueEventListener() {
+        MainActivity.db.child("Category").child(categoryId).child("SubCategory").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     datalist.clear();
                     for (DataSnapshot ds: snapshot.getChildren()){
                         if(data.equals("")){
-                            CategoryModel model = new CategoryModel(ds.getKey(),
-                                    ds.child("name").getValue().toString(),
-                                    ds.child("image").getValue().toString(),
-                                    ds.child("SubCategory").getValue().toString()
+                            SubCategoryModel model = new SubCategoryModel(ds.getKey(),
+                                    ds.child("name").getValue().toString()
                             );
                             datalist.add(model);
                         } else {
                             if(ds.child("name").getValue().toString().trim().toLowerCase().contains(data.toLowerCase().trim())){
-                                CategoryModel model = new CategoryModel(ds.getKey(),
-                                        ds.child("name").getValue().toString(),
-                                        ds.child("image").getValue().toString(),
-                                        ds.child("SubCategory").getValue().toString()
+                                SubCategoryModel model = new SubCategoryModel(ds.getKey(),
+                                        ds.child("name").getValue().toString()
                                 );
                                 datalist.add(model);
                             }
@@ -191,7 +177,7 @@ public class CategoryActivity extends AppCompatActivity {
                         if(sortingStatus.equals("dsc")){
                             Collections.reverse(datalist);
                         }
-                        MyAdapter adapter = new MyAdapter(CategoryActivity.this,datalist);
+                        MyAdapter adapter = new MyAdapter(SubCategoryActivity.this,datalist);
                         listView.setAdapter(adapter);
                     } else {
                         loader.setVisibility(View.GONE);
@@ -216,24 +202,20 @@ public class CategoryActivity extends AppCompatActivity {
         });
     }
 
-    public void categoryForm(String purpose, String productId){
-        categoryDialog = new Dialog(CategoryActivity.this);
-        categoryDialog.setContentView(R.layout.dialog_add_categories);
-        categoryDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        categoryDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        categoryDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        categoryDialog.getWindow().setGravity(Gravity.CENTER);
-        categoryDialog.setCancelable(false);
-        categoryDialog.setCanceledOnTouchOutside(false);
-        cancelBtn = categoryDialog.findViewById(R.id.cancelBtn);
-        addDataBtn = categoryDialog.findViewById(R.id.addDataBtn);
-        title = categoryDialog.findViewById(R.id.title);
-        nameInput = categoryDialog.findViewById(R.id.nameInput);
-        nameLayout = categoryDialog.findViewById(R.id.nameLayout);
-        categoryImage = categoryDialog.findViewById(R.id.categoryImage);
-        editImageBtn = categoryDialog.findViewById(R.id.editImageBtn);
-        imageErrorText = categoryDialog.findViewById(R.id.imageErrorText);
-        imageIdText = categoryDialog.findViewById(R.id.imageIdText);
+    public void subCategoryForm(String purpose, String productId){
+        subCategoryDialog = new Dialog(SubCategoryActivity.this);
+        subCategoryDialog.setContentView(R.layout.dialog_add_subcategories);
+        subCategoryDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        subCategoryDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        subCategoryDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        subCategoryDialog.getWindow().setGravity(Gravity.CENTER);
+        subCategoryDialog.setCancelable(false);
+        subCategoryDialog.setCanceledOnTouchOutside(false);
+        cancelBtn = subCategoryDialog.findViewById(R.id.cancelBtn);
+        addDataBtn = subCategoryDialog.findViewById(R.id.addDataBtn);
+        title = subCategoryDialog.findViewById(R.id.title);
+        nameInput = subCategoryDialog.findViewById(R.id.nameInput);
+        nameLayout = subCategoryDialog.findViewById(R.id.nameLayout);
 
         nameInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -262,83 +244,17 @@ public class CategoryActivity extends AppCompatActivity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                categoryDialog.dismiss();
-            }
-        });
-
-        editImageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogImage = new Dialog(CategoryActivity.this);
-                dialogImage.setContentView(R.layout.dialog_bottom_category_image);
-                dialogImage.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialogImage.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                dialogImage.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationBottom;
-                dialogImage.getWindow().setGravity(Gravity.BOTTOM);
-                dialogImage.setCanceledOnTouchOutside(false);
-                dialogImage.setCancelable(false);
-                Button cancelBtnImage;
-                cancelBtnImage = dialogImage.findViewById(R.id.cancelBtn);
-                sofa = dialogImage.findViewById(R.id.sofa);
-                bed = dialogImage.findViewById(R.id.bed);
-                dining = dialogImage.findViewById(R.id.dining);
-                stove = dialogImage.findViewById(R.id.stove);
-                chair = dialogImage.findViewById(R.id.chair);
-                dialogImage.show();
-
-                sofa.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        setProfileImage(0);
-                    }
-                });
-
-                bed.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        setProfileImage(1);
-                    }
-                });
-
-                dining.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        setProfileImage(2);
-                    }
-                });
-
-                stove.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        setProfileImage(3);
-                    }
-                });
-
-                chair.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        setProfileImage(4);
-                    }
-                });
-
-                cancelBtnImage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogImage.dismiss();
-                    }
-                });
+                subCategoryDialog.dismiss();
             }
         });
 
         if(purpose.equals("edit")){
-            title.setText("Edit Category");
-            MainActivity.db.child("Category").child(productId).addListenerForSingleValueEvent(new ValueEventListener() {
+            title.setText("Edit Sub Category");
+            MainActivity.db.child("Category").child(categoryId).child("SubCategory").child(productId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
                         nameInput.setText(snapshot.child("name").getValue().toString().trim());
-                        categoryImage.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString().trim()));
-                        imageIdText.setText(snapshot.child("image").getValue().toString().trim());
                     }
                 }
 
@@ -349,7 +265,7 @@ public class CategoryActivity extends AppCompatActivity {
             });
         }
 
-        categoryDialog.show();
+        subCategoryDialog.show();
     }
 
     public boolean nameValidation(){
@@ -358,10 +274,10 @@ public class CategoryActivity extends AppCompatActivity {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
         if(input.equals("")){
-            nameLayout.setError("Category Name is Required!!!");
+            nameLayout.setError("Sub Category Name is Required!!!");
             return false;
         } else if(input.length() < 3){
-            nameLayout.setError("Category Name at least 3 Characters!!!");
+            nameLayout.setError("Sub Category Name at least 3 Characters!!!");
             return false;
         } else if(!matcher.matches()){
             nameLayout.setError("Only text allowed!!!");
@@ -372,32 +288,18 @@ public class CategoryActivity extends AppCompatActivity {
         }
     }
 
-    public boolean imageValidation(){
-        String input = imageIdText.getText().toString().trim();
-        if(input.equals("")){
-            imageErrorText.setText("Category Image is required!!!");
-            imageErrorText.setVisibility(View.VISIBLE);
-            return false;
-        } else {
-            imageErrorText.setText(null);
-            imageErrorText.setVisibility(View.GONE);
-            return true;
-        }
-    }
-
     private void validation(String purpose, String productId) {
-        boolean nameErr = false, imageErr = false;
+        boolean nameErr = false;
         nameErr = nameValidation();
-        imageErr = imageValidation();
 
-        if((nameErr && imageErr) == true){
+        if((nameErr) == true){
             persons(purpose, productId);
         }
     }
 
     private void persons(String purpose, String productId){
-        if(MainActivity.connectionCheck(CategoryActivity.this)){
-            Dialog alertdialog = new Dialog(CategoryActivity.this);
+        if(MainActivity.connectionCheck(SubCategoryActivity.this)){
+            Dialog alertdialog = new Dialog(SubCategoryActivity.this);
             alertdialog.setContentView(R.layout.dialog_success);
             alertdialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
             alertdialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -411,21 +313,18 @@ public class CategoryActivity extends AppCompatActivity {
             if(purpose.equals("add")){
                 HashMap<String, String> mydata = new HashMap<String, String>();
                 mydata.put("name", nameInput.getText().toString().trim());
-                mydata.put("image", imageIdText.getText().toString().trim());
-                mydata.put("SubCategory", "");
-                MainActivity.db.child("Category").push().setValue(mydata);
-                message.setText("Category Added Successfully!!!");
+                MainActivity.db.child("Category").child(categoryId).child("SubCategory").push().setValue(mydata);
+                message.setText("Sub Category Added Successfully!!!");
             } else if(purpose.equals("edit")){
-                MainActivity.db.child("Category").child(productId).child("name").setValue(nameInput.getText().toString().trim());
-                MainActivity.db.child("Category").child(productId).child("image").setValue(imageIdText.getText().toString().trim());
-                message.setText("Category Edited Successfully!!!");
+                MainActivity.db.child("Category").child(categoryId).child("SubCategory").child(productId).child("name").setValue(nameInput.getText().toString().trim());
+                message.setText("Sub Category Edited Successfully!!!");
             }
 
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     alertdialog.dismiss();
-                    categoryDialog.dismiss();
+                    subCategoryDialog.dismiss();
                     fetchData("");
                 }
             },2000);
@@ -451,36 +350,12 @@ public class CategoryActivity extends AppCompatActivity {
         }
     }
 
-    public void setProfileImage(int value){
-        categoryImage.setImageResource(images[value]);
-        imageIdText.setText(""+images[value]);
-        imageValidation();
-        Dialog dialogSuccess = new Dialog(CategoryActivity.this);
-        dialogSuccess.setContentView(R.layout.dialog_success);
-        dialogSuccess.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialogSuccess.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialogSuccess.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        dialogSuccess.getWindow().setGravity(Gravity.CENTER);
-        dialogSuccess.setCanceledOnTouchOutside(false);
-        dialogSuccess.setCancelable(false);
-        TextView msg = dialogSuccess.findViewById(R.id.msgDialog);
-        msg.setText("Category Image Selected!!!");
-        dialogSuccess.show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dialogSuccess.dismiss();
-                dialogImage.dismiss();
-            }
-        },2000);
-    }
-
     class MyAdapter extends BaseAdapter {
 
         Context context;
-        ArrayList<CategoryModel> data;
+        ArrayList<SubCategoryModel> data;
 
-        public MyAdapter(Context context, ArrayList<CategoryModel> data) {
+        public MyAdapter(Context context, ArrayList<SubCategoryModel> data) {
             this.context = context;
             this.data = data;
         }
@@ -501,30 +376,16 @@ public class CategoryActivity extends AppCompatActivity {
 
         @Override
         public View getView(int i, View convertView, ViewGroup parent) {
-            View customListItem = LayoutInflater.from(context).inflate(R.layout.categories_custom_listview,null);
-            LinearLayout listItem;
+            View customListItem = LayoutInflater.from(context).inflate(R.layout.subcategories_custom_listview,null);
             TextView sno, name;
-            ImageView menu, image;
+            ImageView menu;
 
-            listItem = customListItem.findViewById(R.id.listItem);
             sno = customListItem.findViewById(R.id.sno);
             name = customListItem.findViewById(R.id.name);
             menu = customListItem.findViewById(R.id.menu);
-            image = customListItem.findViewById(R.id.image);
 
             sno.setText(""+(i+1));
             name.setText(data.get(i).getName());
-            image.setImageResource(Integer.parseInt(data.get(i).getImage()));
-
-            listItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, SubCategoryActivity.class);
-                    intent.putExtra("categoryId",data.get(i).getId());
-                    intent.putExtra("categoryName",data.get(i).getName());
-                    startActivity(intent);
-                }
-            });
 
             menu.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -541,7 +402,7 @@ public class CategoryActivity extends AppCompatActivity {
                     editBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            categoryForm("edit",""+data.get(i).getId());
+                            subCategoryForm("edit",""+data.get(i).getId());
                             loaddialog.dismiss();
                         }
                     });
@@ -569,7 +430,11 @@ public class CategoryActivity extends AppCompatActivity {
                             yesBtn.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    MainActivity.db.child("Category").child(data.get(i).getId()).removeValue();
+                                    if(data.size() < 2){
+                                        MainActivity.db.child("Category").child(categoryId).child("SubCategory").setValue("");
+                                    } else {
+                                        MainActivity.db.child("Category").child(categoryId).child("SubCategory").child(data.get(i).getId()).removeValue();
+                                    }
                                     Dialog dialog = new Dialog(context);
                                     dialog.setContentView(R.layout.dialog_success);
                                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -610,7 +475,6 @@ public class CategoryActivity extends AppCompatActivity {
             }
             customListItem.setAlpha(0f);
             customListItem.animate().alpha(1f).setDuration(200).setStartDelay(i * 2).start();
-
             return customListItem;
         }
     }
