@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    style="@style/ScreenBg"
+    android:id="@+id/item">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_marginTop="5dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            style="@style/customButton">
+
+            <ImageView
+                android:id="@+id/pImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/logo"
+                android:scaleType="fitCenter"
+                android:backgroundTint="@color/transparent"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/wishlistBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/heart_outlined"
+            android:layout_gravity="top|right"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/pDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="50% OFF"
+            android:layout_margin="10dp"
+            android:background="@drawable/pill_shape"
+            android:backgroundTint="#CD2E2E"
+            android:textColor="@color/white"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="10dp"
+            android:alpha="0.8"
+            android:visibility="gone"
+            android:textSize="10sp"
+            style="@style/authTitle"/>
+
+        <LinearLayout
+            android:id="@+id/options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="bottom|right"
+            android:alpha="0.8"
+            android:layout_margin="15dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/editBtn"
+                android:layout_width="20dp"
+                android:layout_height="22dp"
+                android:src="@drawable/edit"
+                app:tint="#416AE4"
+                android:layout_marginBottom="5dp"/>
+
+            <ImageView
+                android:id="@+id/deleteBtn"
+                android:layout_width="20dp"
+                android:layout_height="22dp"
+                android:src="@drawable/delete"
+                app:tint="#E64747" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/pName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:text="Sansevieria Trifasci..."
+        android:textSize="18dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        style="@style/authTitle"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="-8dp">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/rating_star"/>
+
+        <TextView
+            android:id="@+id/pRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.5 |"
+            android:paddingLeft="5dp"
+            android:paddingRight="8dp"
+            android:textSize="12sp"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/poppins_regular"
+            style="@style/authTitle"/>
+
+        <TextView
+            android:id="@+id/pStock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="23 Stock"
+            android:background="@drawable/product_stock_bg"
+            android:textColor="@color/accent_50"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="10dp"
+            android:fontFamily="@font/urbanist_semibold"
+            android:textSize="12dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="-3dp">
+
+        <TextView
+            android:id="@+id/pPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$23"
+            android:fontFamily="@font/urbanist_bold"
+            android:textColor="@color/accent_50"
+            android:textSize="18sp"
+            android:layout_marginRight="5dp"
+            android:layout_marginVertical="5dp"/>
+
+        <TextView
+            android:id="@+id/pPriceOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$23"
+            android:fontFamily="@font/urbanist_bold"
+            android:textColor="#9F9F9F"
+            android:textSize="13sp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/line"
+            android:backgroundTint="#9F9F9F"/>
+
+    </LinearLayout>
+
+</LinearLayout>

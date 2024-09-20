@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    style="@style/ScreenBg"
+    tools:context=".Screens.ProductDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back"
+            style="@style/appBarIcon"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product Detail"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            style="@style/appBarTitle"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back"
+            android:visibility="invisible"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="15dp"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="20dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    style="@style/sliderImageBg">
+
+                    <TextView
+                        android:id="@+id/pNameTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="products"
+                        android:textAllCaps="true"
+                        android:fontFamily="@font/urbanist_black"
+                        android:textAlignment="center"
+                        android:layout_marginHorizontal="20dp"
+                        android:textSize="55sp"
+                        android:layout_gravity="center"
+                        style="@style/productTitle"/>
+
+                    <ImageView
+                        android:id="@+id/pImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/logo"
+                        android:scaleType="fitCenter"
+                        android:padding="40dp"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/pDiscountText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="50% OFF"
+                        android:layout_margin="15dp"
+                        android:background="@drawable/pill_shape"
+                        android:backgroundTint="#CD2E2E"
+                        android:textColor="@color/white"
+                        android:paddingVertical="5dp"
+                        android:paddingHorizontal="10dp"
+                        android:alpha="0.8"
+                        android:visibility="gone"
+                        android:textSize="10sp"
+                        android:layout_gravity="end"
+                        style="@style/authTitle"/>
+
+                </FrameLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/pName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Harry Potter and the Sorcer..."
+                    style="@style/detailBookTitle"/>
+
+                <ImageView
+                    android:id="@+id/wishlistBtn"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:src="@drawable/heart_outlined"
+                    android:layout_marginLeft="15dp"
+                    app:tint="@color/accent_50"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/pCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:text="J.K. Rowling"
+                style="@style/detailBookAuther"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/pStockText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="23 Stock"
+                    android:background="@drawable/product_stock_bg"
+                    android:textColor="@color/accent_50"
+                    android:paddingVertical="5dp"
+                    android:paddingHorizontal="10dp"
+                    android:fontFamily="@font/urbanist_semibold"
+                    android:textSize="10sp"
+                    style="@style/stockBg"/>
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/rating_star"
+                    android:layout_marginLeft="15dp"/>
+
+                <TextView
+                    android:id="@+id/pRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.6 (4,749 reviews)"
+                    android:layout_marginLeft="5dp"
+                    android:fontFamily="@font/urbanist_medium"
+                    style="@style/detailBookContent"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginHorizontal="30dp"
+                style="@style/horizontalRow"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:text="Description"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/urbanist_bold"
+                android:textSize="18sp"
+                style="@style/detailBookSubTitle"/>
+
+            <TextView
+                android:id="@+id/pDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:text="Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet."
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="20dp"
+                android:lineBreakWordStyle="phrase"
+                style="@style/detailBookContent"/>
+
+            <LinearLayout
+                android:id="@+id/qtyContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="30dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quantity"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:textSize="18sp"
+                    android:layout_marginRight="15dp"
+                    style="@style/detailBookSubTitle"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:paddingVertical="8dp"
+                    android:paddingHorizontal="15dp"
+                    android:background="@drawable/pill_shape"
+                    style="@style/bgQuantity">
+
+                    <ImageView
+                        android:id="@+id/qtyMinus"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/subtraction_icon"
+                        style="@style/btnQuantity"/>
+
+                    <TextView
+                        android:id="@+id/pQtyText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:textSize="18sp"
+                        android:layout_marginHorizontal="15dp"
+                        style="@style/searchText"/>
+
+                    <ImageView
+                        android:id="@+id/qtyAdd"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/addition_icon"
+                        style="@style/btnQuantity"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginHorizontal="30dp"
+                style="@style/horizontalRow"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginHorizontal="30dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/totalContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="0.3">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total price"
+                        android:fontFamily="@font/urbanist_medium"
+                        android:textSize="12sp"
+                        android:lineHeight="17dp"
+                        style="@style/textColorLight"/>
+
+                    <TextView
+                        android:id="@+id/totalPriceText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="$0"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:textSize="24sp"
+                        style="@style/detailBookSubTitle"/>
+
+                    <TextView
+                        android:id="@+id/pPriceOff"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$0"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:textColor="#9F9F9F"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="10dp"
+                        android:visibility="gone"
+                        android:background="@drawable/line"
+                        android:backgroundTint="#9F9F9F"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnAddToCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="58dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:paddingVertical="8dp"
+                    style="@style/flatButton">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/cart"
+                        android:layout_marginRight="10dp"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add to Cart"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnOutOfStock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="58dp"
+                    android:text="Out of Stock"
+                    android:layout_weight="1"
+                    android:visibility="gone"
+                    style="@style/flatButtonDisabled"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:text="Review"
+                android:layout_marginTop="20dp"
+                style="@style/detailBookSubTitle"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        app:cardCornerRadius="8dp"
+                        android:backgroundTint="@color/primary_50">
+
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/boy_14"/>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="16dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Ronald Richards"
+                            style="@style/detailBookReviewTitle"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/star"
+                                app:tint="@color/accent_50" />
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/star"
+                                app:tint="@color/accent_50" />
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/star"
+                                app:tint="@color/accent_50" />
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/star"
+                                app:tint="@color/accent_50" />
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_marginRight="12dp"
+                                android:src="@drawable/star_outline"
+                                app:tint="@color/accent_50" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2 days ago"
+                                style="@style/detailBookReviewRatingText"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis enim velit mollit. "
+                    android:layout_marginTop="12dp"
+                    android:lineBreakWordStyle="phrase"
+                    style="@style/detailBookContent"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginRight="12dp"
+                    android:src="@drawable/onboarding_indicator_inactive"/>
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginRight="12dp"
+                    android:src="@drawable/onboarding_indicator_inactive"
+                    style="@style/detailBookReviewRatingIndicator"/>
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/onboarding_indicator_inactive"
+                    style="@style/detailBookReviewRatingIndicator"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View More"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd"
+                    style="@style/detailBookReviewRatingViewMoreText"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

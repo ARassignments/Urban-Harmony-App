@@ -264,7 +264,7 @@ public class BrandsActivity extends AppCompatActivity {
 
     public boolean nameValidation(){
         String input = nameInput.getText().toString().trim();
-        String regex = "^[a-zA-Z0-9\\s]*$";
+        String regex = "^[a-zA-Z\\s]*$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
         if(input.equals("")){

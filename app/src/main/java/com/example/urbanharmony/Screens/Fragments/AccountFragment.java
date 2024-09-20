@@ -29,6 +29,7 @@ import com.example.urbanharmony.Screens.OrderActivity;
 import com.example.urbanharmony.Screens.ProductsActivity;
 import com.example.urbanharmony.Screens.ProfileActivity;
 import com.example.urbanharmony.Screens.StylesActivity;
+import com.example.urbanharmony.Screens.UsersActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,7 +41,7 @@ public class AccountFragment extends Fragment {
 
     View view;
     Button logoutBtn;
-    TextView profileName, userId, categoriesBtn, brandsBtn, stylesBtn, productsBtn;
+    TextView profileName, userId, categoriesBtn, brandsBtn, stylesBtn, productsBtn, usersBtn;
     LinearLayout adminOptions;
     static String UID = "";
     SharedPreferences sharedPreferences;
@@ -61,6 +62,7 @@ public class AccountFragment extends Fragment {
         brandsBtn = view.findViewById(R.id.brandsBtn);
         stylesBtn = view.findViewById(R.id.stylesBtn);
         productsBtn = view.findViewById(R.id.productsBtn);
+        usersBtn = view.findViewById(R.id.usersBtn);
 
         sharedPreferences = getContext().getSharedPreferences("myData",MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -128,6 +130,13 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), ProductsActivity.class));
+            }
+        });
+
+        usersBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), UsersActivity.class));
             }
         });
 

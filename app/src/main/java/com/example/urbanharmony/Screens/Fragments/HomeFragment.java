@@ -2,6 +2,8 @@ package com.example.urbanharmony.Screens.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -11,13 +13,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.urbanharmony.Adapter.SliderAdapter;
+import com.example.urbanharmony.MainActivity;
+import com.example.urbanharmony.Models.CategoryModel;
 import com.example.urbanharmony.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,6 +38,7 @@ public class HomeFragment extends Fragment {
     View view;
     ViewPager2 sliderViewPager;
     TabLayout tabLayout;
+    LinearLayout categoryContainer;
     private Handler sliderHandler = new Handler(Looper.getMainLooper());
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +47,7 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         sliderViewPager = view.findViewById(R.id.sliderViewPager);
         tabLayout = view.findViewById(R.id.tabLayout);
+        categoryContainer = view.findViewById(R.id.categoryContainer);
 
         List<String> imageUrls = Arrays.asList(
                 "https://myfolio-web.netlify.app/assets/images/projects/19.png",
@@ -69,6 +83,42 @@ public class HomeFragment extends Fragment {
 
             tab.setCustomView(customTab);
         }).attach();
+
+        MainActivity.db.child("Category").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    ArrayList<CategoryModel> datalist = new ArrayList<>();
+                    int i = 0;
+                    for (DataSnapshot ds: snapshot.getChildren()){
+                        CategoryModel model = new CategoryModel(ds.getKey(),
+                                ds.child("name").getValue().toString(),
+                                ds.child("image").getValue().toString(),
+                                ds.child("SubCategory").getValue().toString()
+                        );
+                        datalist.add(model);
+                        View itemView = getLayoutInflater().inflate(R.layout.categories_icon_custom_listview,null);
+                        ImageView image;
+                        CardView listItem;
+                        image = itemView.findViewById(R.id.image);
+                        listItem = itemView.findViewById(R.id.listItem);
+                        image.setImageResource(Integer.parseInt(model.getImage()));
+                        if(i==0){
+                            itemView.setPadding(50, 0,itemView.getPaddingRight(), 0);
+                        }
+                        itemView.setAlpha(0f);
+                        itemView.animate().alpha(1f).setDuration(300).setStartDelay(i * 100).start();
+                        i++;
+                        categoryContainer.addView(itemView);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         return view;
     }

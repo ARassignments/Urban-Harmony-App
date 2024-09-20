@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="30dp"
+    style="@style/ScreenBg"
+    tools:context=".Screens.Fragments.CartFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginHorizontal="30dp">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="10dp"
+            style="@style/authLogo"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My"
+            style="@style/navBoldTitle"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cart"
+            style="@style/navThinTitle"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="."
+            android:layout_weight="1"
+            style="@style/navDotTitle"/>
+
+        <ImageView
+            android:id="@+id/settingsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/setting"
+            style="@style/navIcon"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/notfoundContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_marginHorizontal="30dp"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            style="@style/notFoundImage"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your cart is empty"
+                android:textSize="18sp"
+                style="@style/authTitle"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You don't have any items added to cart yet. You need to add items to cart before checkout."
+                android:textAlignment="center"
+                android:layout_marginTop="5dp"
+                style="@style/notFoundMessageText"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/cartContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:dividerHeight="0dp"
+            android:divider="@null"
+            android:scrollbars="none"
+            tools:listitem="@layout/products_custom_listview"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="30dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            style="@style/bottomDialogBg">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="0.3">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total price"
+                    android:fontFamily="@font/urbanist_medium"
+                    android:textSize="12sp"
+                    android:lineHeight="17dp"
+                    style="@style/textColorLight"/>
+
+                <TextView
+                    android:id="@+id/totalPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="$0"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:textSize="24sp"
+                    style="@style/detailBookSubTitle"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnCheckout"
+                android:layout_width="wrap_content"
+                android:layout_height="58dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:paddingVertical="8dp"
+                style="@style/flatButton">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Checkout"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/arrow__right"
+                    android:layout_marginLeft="10dp"
+                    app:tint="@color/white" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnOutOfStock"
+                android:layout_width="wrap_content"
+                android:layout_height="58dp"
+                android:text="Out of Stock"
+                android:layout_weight="1"
+                android:visibility="gone"
+                style="@style/flatButtonDisabled"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

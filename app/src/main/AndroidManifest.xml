@@ -17,6 +17,15 @@
         android:theme="@style/Theme.UrbanHarmony"
         tools:targetApi="31">
         <activity
+            android:name=".Screens.ProductDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Screens.UserProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Screens.UsersActivity"
+            android:exported="false" />
+        <activity
             android:name=".Screens.SubCategoryActivity"
             android:exported="false" />
         <activity

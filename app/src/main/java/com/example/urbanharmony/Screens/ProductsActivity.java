@@ -18,9 +18,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -31,11 +35,16 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.urbanharmony.MainActivity;
+import com.example.urbanharmony.Models.BrandModel;
+import com.example.urbanharmony.Models.CategoryModel;
+import com.example.urbanharmony.Models.ProductModel;
 import com.example.urbanharmony.Models.StyleModel;
 import com.example.urbanharmony.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -63,7 +72,7 @@ public class ProductsActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     static String UID = "";
     static String sortingStatus = "dsc";
-    ListView listView;
+    GridView gridView;
     LinearLayout loader, notifyBar, notfoundContainer;
     ImageView sortBtn;
     EditText searchInput;
@@ -72,13 +81,14 @@ public class ProductsActivity extends AppCompatActivity {
     StorageReference mStorage;
     StorageTask uploadTask;
     Uri imageUri;
-    ArrayList<StyleModel> datalist = new ArrayList<>();
+    ArrayList<ProductModel> datalist = new ArrayList<>();
 
     //    Dialog Elements
     Dialog productDialog;
     Button cancelBtn, addDataBtn;
-    TextInputEditText pNameInput;
-    TextInputLayout pNameLayout;
+    TextInputEditText pNameInput, pDescriptionInput, pPriceInput, pDiscountInput, pStockInput;
+    TextInputLayout pNameLayout, pDescriptionLayout, pPriceLayout, pDiscountLayout, pStockLayout, pCategoryLayout, pSubcategoryLayout, pBrandLayout, pStyleLayout;
+    AutoCompleteTextView pCategoryInput, pSubcategoryInput, pBrandInput, pStyleInput;
     TextView title, imageErrorText;
     ImageView productImage, editImageBtn;
 
@@ -97,7 +107,7 @@ public class ProductsActivity extends AppCompatActivity {
             UID = sharedPreferences.getString("UID","").toString();
         }
 
-        listView = findViewById(R.id.listView);
+        gridView = findViewById(R.id.gridView);
         notifyBar = findViewById(R.id.notifyBar);
         notfoundContainer = findViewById(R.id.notfoundContainer);
         loader = findViewById(R.id.loader);
@@ -168,14 +178,34 @@ public class ProductsActivity extends AppCompatActivity {
                     datalist.clear();
                     for (DataSnapshot ds: snapshot.getChildren()){
                         if(data.equals("")){
-                            StyleModel model = new StyleModel(ds.getKey(),
-                                    ds.child("name").getValue().toString()
+                            ProductModel model = new ProductModel(ds.getKey(),
+                                    ds.child("pName").getValue().toString(),
+                                    ds.child("pPrice").getValue().toString(),
+                                    ds.child("pStock").getValue().toString(),
+                                    ds.child("pDiscount").getValue().toString(),
+                                    ds.child("pImage").getValue().toString(),
+                                    ds.child("pDesc").getValue().toString(),
+                                    ds.child("pCategory").getValue().toString(),
+                                    ds.child("pSubcategory").getValue().toString(),
+                                    ds.child("pBrand").getValue().toString(),
+                                    ds.child("pStyle").getValue().toString(),
+                                    ds.child("status").getValue().toString()
                             );
                             datalist.add(model);
                         } else {
-                            if(ds.child("name").getValue().toString().trim().toLowerCase().contains(data.toLowerCase().trim())){
-                                StyleModel model = new StyleModel(ds.getKey(),
-                                        ds.child("name").getValue().toString()
+                            if(ds.child("pName").getValue().toString().trim().toLowerCase().contains(data.toLowerCase().trim())){
+                                ProductModel model = new ProductModel(ds.getKey(),
+                                        ds.child("pName").getValue().toString(),
+                                        ds.child("pPrice").getValue().toString(),
+                                        ds.child("pStock").getValue().toString(),
+                                        ds.child("pDiscount").getValue().toString(),
+                                        ds.child("pImage").getValue().toString(),
+                                        ds.child("pDesc").getValue().toString(),
+                                        ds.child("pCategory").getValue().toString(),
+                                        ds.child("pSubcategory").getValue().toString(),
+                                        ds.child("pBrand").getValue().toString(),
+                                        ds.child("pStyle").getValue().toString(),
+                                        ds.child("status").getValue().toString()
                                 );
                                 datalist.add(model);
                             }
@@ -183,16 +213,16 @@ public class ProductsActivity extends AppCompatActivity {
                     }
                     if(datalist.size() > 0){
                         loader.setVisibility(View.GONE);
-                        listView.setVisibility(View.VISIBLE);
+                        gridView.setVisibility(View.VISIBLE);
                         notfoundContainer.setVisibility(View.GONE);
                         if(sortingStatus.equals("dsc")){
                             Collections.reverse(datalist);
                         }
                         MyAdapter adapter = new MyAdapter(ProductsActivity.this,datalist);
-                        listView.setAdapter(adapter);
+                        gridView.setAdapter(adapter);
                     } else {
                         loader.setVisibility(View.GONE);
-                        listView.setVisibility(View.GONE);
+                        gridView.setVisibility(View.GONE);
                         notfoundContainer.setVisibility(View.VISIBLE);
                         if(!data.equals("")){
                             notfoundContainer.setVisibility(View.VISIBLE);
@@ -201,7 +231,7 @@ public class ProductsActivity extends AppCompatActivity {
                     totalCount.setText(datalist.size()+" found");
                 } else {
                     loader.setVisibility(View.GONE);
-                    listView.setVisibility(View.GONE);
+                    gridView.setVisibility(View.GONE);
                     notfoundContainer.setVisibility(View.VISIBLE);
                 }
             }
@@ -230,6 +260,22 @@ public class ProductsActivity extends AppCompatActivity {
         imageErrorText = productDialog.findViewById(R.id.imageErrorText);
         pNameInput = productDialog.findViewById(R.id.pNameInput);
         pNameLayout = productDialog.findViewById(R.id.pNameLayout);
+        pDescriptionLayout = productDialog.findViewById(R.id.pDescriptionLayout);
+        pDescriptionInput = productDialog.findViewById(R.id.pDescriptionInput);
+        pPriceLayout = productDialog.findViewById(R.id.pPriceLayout);
+        pPriceInput = productDialog.findViewById(R.id.pPriceInput);
+        pDiscountLayout = productDialog.findViewById(R.id.pDiscountLayout);
+        pDiscountInput = productDialog.findViewById(R.id.pDiscountInput);
+        pStockLayout = productDialog.findViewById(R.id.pStockLayout);
+        pStockInput = productDialog.findViewById(R.id.pStockInput);
+        pCategoryLayout = productDialog.findViewById(R.id.pCategoryLayout);
+        pCategoryInput = productDialog.findViewById(R.id.pCategoryInput);
+        pSubcategoryLayout = productDialog.findViewById(R.id.pSubcategoryLayout);
+        pSubcategoryInput = productDialog.findViewById(R.id.pSubcategoryInput);
+        pBrandLayout = productDialog.findViewById(R.id.pBrandLayout);
+        pBrandInput = productDialog.findViewById(R.id.pBrandInput);
+        pStyleLayout = productDialog.findViewById(R.id.pStyleLayout);
+        pStyleInput = productDialog.findViewById(R.id.pStyleInput);
 
         pNameInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -239,12 +285,190 @@ public class ProductsActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                nameValidation();
+                pNameValidation();
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
 
+            }
+        });
+        pDescriptionInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                pDescValidation();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        pPriceInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                pPriceValidation();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        pStockInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                pStockValidation();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        pDiscountInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                pDiscountValidation();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        ArrayList<CategoryModel> categoriesList = new ArrayList<>();
+        ArrayList<String> subcategoriesList = new ArrayList<>();
+        ArrayList<BrandModel> brandList = new ArrayList<>();
+        ArrayList<StyleModel> styleList = new ArrayList<>();
+        MainActivity.db.child("Category").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        CategoryModel model = new CategoryModel(ds.getKey(),
+                                ds.child("name").getValue().toString(),
+                                ds.child("image").getValue().toString(),
+                                ds.child("SubCategory").getValue().toString()
+                        );
+                        categoriesList.add(model);
+                    }
+
+                    // Populate categoryInput with category names
+                    ArrayList<String> categoryNames = new ArrayList<>();
+                    for (CategoryModel category : categoriesList) {
+                        categoryNames.add(category.getName());
+                    }
+                    ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(ProductsActivity.this, android.R.layout.simple_dropdown_item_1line, categoryNames);
+                    pCategoryInput.setAdapter(categoryAdapter);
+
+                    // Add listener to categoryInput to handle subcategory population
+                    pCategoryInput.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            // Get the selected category
+                            String selectedCategory = categoryNames.get(position);
+
+                            // Clear previous subcategories
+                            subcategoriesList.clear();
+                            pSubcategoryInput.setText("");
+
+                            // Find the selected category model and populate subcategories
+                            for (CategoryModel categoryModel : categoriesList) {
+                                if (categoryModel.getName().equals(selectedCategory)) {
+                                    // Fetch the subcategories from the model
+                                    DataSnapshot subcategorySnapshot = snapshot.child(categoryModel.getId()).child("SubCategory");
+                                    for (DataSnapshot subcategory : subcategorySnapshot.getChildren()) {
+                                        subcategoriesList.add(subcategory.child("name").getValue().toString());
+                                    }
+                                    break;
+                                }
+                            }
+
+                            // Populate subcategoryInput with subcategories
+                            ArrayAdapter<String> subcategoryAdapter = new ArrayAdapter<>(ProductsActivity.this, android.R.layout.simple_dropdown_item_1line, subcategoriesList);
+                            pSubcategoryInput.setAdapter(subcategoryAdapter);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle error
+            }
+        });
+
+        MainActivity.db.child("Brands").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        BrandModel model = new BrandModel(ds.getKey(),
+                                ds.child("name").getValue().toString()
+                        );
+                        brandList.add(model);
+                    }
+
+                    ArrayList<String> brandNames = new ArrayList<>();
+                    for (BrandModel brand : brandList) {
+                        brandNames.add(brand.getName());
+                    }
+                    ArrayAdapter<String> brandAdapter = new ArrayAdapter<>(ProductsActivity.this, android.R.layout.simple_dropdown_item_1line, brandNames);
+                    pBrandInput.setAdapter(brandAdapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle error
+            }
+        });
+
+        MainActivity.db.child("Styles").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        StyleModel model = new StyleModel(ds.getKey(),
+                                ds.child("name").getValue().toString()
+                        );
+                        styleList.add(model);
+                    }
+
+                    ArrayList<String> styleNames = new ArrayList<>();
+                    for (StyleModel style : styleList) {
+                        styleNames.add(style.getName());
+                    }
+                    ArrayAdapter<String> styleAdapter = new ArrayAdapter<>(ProductsActivity.this, android.R.layout.simple_dropdown_item_1line, styleNames);
+                    pStyleInput.setAdapter(styleAdapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle error
             }
         });
 
@@ -304,7 +528,16 @@ public class ProductsActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
-                        pNameInput.setText(snapshot.child("name").getValue().toString().trim());
+                        Glide.with(ProductsActivity.this).load(snapshot.child("pImage").getValue().toString().trim()).into(productImage);
+                        pNameInput.setText(snapshot.child("pName").getValue().toString().trim());
+                        pDescriptionInput.setText(snapshot.child("pDesc").getValue().toString().trim());
+                        pPriceInput.setText(snapshot.child("pPrice").getValue().toString().trim());
+                        pStockInput.setText(snapshot.child("pStock").getValue().toString().trim());
+                        pDiscountInput.setText(snapshot.child("pDiscount").getValue().toString().trim());
+                        pCategoryInput.setText(snapshot.child("pCategory").getValue().toString().trim());
+                        pSubcategoryInput.setText(snapshot.child("pSubcategory").getValue().toString().trim());
+                        pBrandInput.setText(snapshot.child("pBrand").getValue().toString().trim());
+                        pStyleInput.setText(snapshot.child("pStyle").getValue().toString().trim());
                     }
                 }
 
@@ -318,9 +551,9 @@ public class ProductsActivity extends AppCompatActivity {
         productDialog.show();
     }
 
-    public boolean nameValidation(){
+    public boolean pNameValidation(){
         String input = pNameInput.getText().toString().trim();
-        String regex = "^[a-zA-Z0-9\\s]*$";
+        String regex = "^[a-zA-Z\\s]*$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
         if(input.equals("")){
@@ -334,6 +567,113 @@ public class ProductsActivity extends AppCompatActivity {
             return false;
         } else {
             pNameLayout.setError(null);
+            return true;
+        }
+    }
+    public boolean pDescValidation(){
+        String input = pDescriptionInput.getText().toString().trim();
+        String regex = "^[a-zA-Z.,'()\\s]*$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        if(input.equals("")){
+            pDescriptionLayout.setError("Product Description is Required!!!");
+            return false;
+        } else if(input.length() < 20){
+            pDescriptionLayout.setError("Product Description at least 20 Characters!!!");
+            return false;
+        } else if(!matcher.matches()){
+            pDescriptionLayout.setError("Only text allowed!!!");
+            return false;
+        } else {
+            pDescriptionLayout.setError(null);
+            return true;
+        }
+    }
+    public boolean pPriceValidation(){
+        String input = pPriceInput.getText().toString().trim();
+        String regex = "^[0-9\\s]*$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        if(input.equals("")){
+            pPriceLayout.setError("Product Price is Required!!!");
+            return false;
+        } else if(!matcher.matches()){
+            pPriceLayout.setError("Only digits allowed!!!");
+            return false;
+        } else {
+            pPriceLayout.setError(null);
+            return true;
+        }
+    }
+    public boolean pStockValidation(){
+        String input = pStockInput.getText().toString().trim();
+        String regex = "^[0-9\\s]*$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        if(input.equals("")){
+            pStockLayout.setError("Product Stock is Required!!!");
+            return false;
+        } else if(!matcher.matches()){
+            pStockLayout.setError("Only digits allowed!!!");
+            return false;
+        } else {
+            pStockLayout.setError(null);
+            return true;
+        }
+    }
+    public boolean pDiscountValidation(){
+        String input = pDiscountInput.getText().toString().trim();
+        String regex = "^[0-9\\s]*$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        if(input.equals("")){
+            pDiscountLayout.setError("Product Discount is Required!!!");
+            return false;
+        } else if(!matcher.matches()){
+            pDiscountLayout.setError("Only digits allowed!!!");
+            return false;
+        } else {
+            pDiscountLayout.setError(null);
+            return true;
+        }
+    }
+    public boolean pCategoryValidation(){
+        String input = pCategoryInput.getText().toString().trim();
+        if(input.equals("")){
+            pCategoryLayout.setError("Product Category is Required!!!");
+            return false;
+        } else {
+            pCategoryLayout.setError(null);
+            return true;
+        }
+    }
+    public boolean pSubcategoryValidation(){
+        String input = pSubcategoryInput.getText().toString().trim();
+        if(input.equals("")){
+            pSubcategoryLayout.setError("Product Sub Category is Required!!!");
+            return false;
+        } else {
+            pSubcategoryLayout.setError(null);
+            return true;
+        }
+    }
+    public boolean pBrandValidation(){
+        String input = pBrandInput.getText().toString().trim();
+        if(input.equals("")){
+            pBrandLayout.setError("Product Brand is Required!!!");
+            return false;
+        } else {
+            pBrandLayout.setError(null);
+            return true;
+        }
+    }
+    public boolean pStyleValidation(){
+        String input = pStyleInput.getText().toString().trim();
+        if(input.equals("")){
+            pStyleLayout.setError("Product Style is Required!!!");
+            return false;
+        } else {
+            pStyleLayout.setError(null);
             return true;
         }
     }
@@ -366,14 +706,22 @@ public class ProductsActivity extends AppCompatActivity {
     }
 
     private void validation(String imageStatus, String purpose, String productId) {
-        boolean imageErr = false, nameErr = false;
-        nameErr = nameValidation();
+        boolean imageErr = false, pNameErr = false, pDescErr = false, pPriceErr = false, pStockErr = false, pDiscountErr = false, pCategoryErr = false, pSubcategoryErr = false, pBrandErr = false, pStyleErr = false;
+        pNameErr = pNameValidation();
+        pDescErr = pDescValidation();
+        pPriceErr = pPriceValidation();
+        pStockErr = pStockValidation();
+        pDiscountErr = pDiscountValidation();
+        pCategoryErr = pCategoryValidation();
+        pSubcategoryErr = pSubcategoryValidation();
+        pBrandErr = pBrandValidation();
+        pStyleErr = pStyleValidation();
         if(imageStatus.equals("true")){
             imageErr = true;
         } else {
             imageErr = imageValidation();
         }
-        if((imageErr && nameErr) == true){
+        if((imageErr && pNameErr && pDescErr && pPriceErr && pStockErr && pDiscountErr && pCategoryErr && pSubcategoryErr && pBrandErr && pStyleErr) == true){
             persons(purpose, productId);
         }
     }
@@ -414,28 +762,36 @@ public class ProductsActivity extends AppCompatActivity {
                                 alertdialog.getWindow().setGravity(Gravity.CENTER);
                                 alertdialog.setCancelable(false);
                                 alertdialog.setCanceledOnTouchOutside(false);
-                                TextView message = alertdialog.findViewById(R.id.message);
+                                TextView messageAlert = alertdialog.findViewById(R.id.message);
                                 alertdialog.show();
 
                                 if(purpose.equals("add")){
                                     HashMap<String, String> mydata = new HashMap<String, String>();
                                     mydata.put("pImage", "" + photoLink);
-//                                    mydata.put("pName", pNameEditText.getText().toString().trim());
-//                                    mydata.put("pDesc", pDescriptionEditText.getText().toString().trim());
-//                                    mydata.put("pStock", pStockEditText.getText().toString().trim());
-//                                    mydata.put("pPrice", pPriceEditText.getText().toString().trim());
-//                                    mydata.put("pDiscount", pDiscountEditText.getText().toString().trim());
+                                    mydata.put("pName", pNameInput.getText().toString().trim());
+                                    mydata.put("pDesc", pDescriptionInput.getText().toString().trim());
+                                    mydata.put("pStock", pStockInput.getText().toString().trim());
+                                    mydata.put("pPrice", pPriceInput.getText().toString().trim());
+                                    mydata.put("pDiscount", pDiscountInput.getText().toString().trim());
+                                    mydata.put("pCategory", pCategoryInput.getText().toString().trim());
+                                    mydata.put("pSubcategory", pSubcategoryInput.getText().toString().trim());
+                                    mydata.put("pBrand", pBrandInput.getText().toString().trim());
+                                    mydata.put("pStyle", pStyleInput.getText().toString().trim());
                                     mydata.put("status", "1");
                                     MainActivity.db.child("Products").push().setValue(mydata);
-                                    message.setText("Product Added Successfully!!!");
+                                    messageAlert.setText("Product Added Successfully!!!");
                                 } else if(purpose.equals("edit")){
                                     MainActivity.db.child("Products").child(productId).child("pImage").setValue(photoLink);
-//                                    MainActivity.db.child("Products").child(productId).child("pName").setValue(pNameEditText.getText().toString().trim());
-//                                    MainActivity.db.child("Products").child(productId).child("pDesc").setValue(pDescriptionEditText.getText().toString().trim());
-//                                    MainActivity.db.child("Products").child(productId).child("pStock").setValue(pStockEditText.getText().toString().trim());
-//                                    MainActivity.db.child("Products").child(productId).child("pPrice").setValue(pPriceEditText.getText().toString().trim());
-//                                    MainActivity.db.child("Products").child(productId).child("pDiscount").setValue(pDiscountEditText.getText().toString().trim());
-                                    message.setText("Product Edited Successfully!!!");
+                                    MainActivity.db.child("Products").child(productId).child("pName").setValue(pNameInput.getText().toString().trim());
+                                    MainActivity.db.child("Products").child(productId).child("pDesc").setValue(pDescriptionInput.getText().toString().trim());
+                                    MainActivity.db.child("Products").child(productId).child("pStock").setValue(pStockInput.getText().toString().trim());
+                                    MainActivity.db.child("Products").child(productId).child("pPrice").setValue(pPriceInput.getText().toString().trim());
+                                    MainActivity.db.child("Products").child(productId).child("pDiscount").setValue(pDiscountInput.getText().toString().trim());
+                                    MainActivity.db.child("Products").child(productId).child("pCategory").setValue(pCategoryInput.getText().toString().trim());
+                                    MainActivity.db.child("Products").child(productId).child("pSubcategory").setValue(pSubcategoryInput.getText().toString().trim());
+                                    MainActivity.db.child("Products").child(productId).child("pBrand").setValue(pBrandInput.getText().toString().trim());
+                                    MainActivity.db.child("Products").child(productId).child("pStyle").setValue(pStyleInput.getText().toString().trim());
+                                    messageAlert.setText("Product Edited Successfully!!!");
 
                                 }
 
@@ -466,11 +822,15 @@ public class ProductsActivity extends AppCompatActivity {
                 alertdialog.show();
 
                 if(purpose.equals("edit")){
-//                    MainActivity.db.child("Products").child(productId).child("pName").setValue(pNameEditText.getText().toString().trim());
-//                    MainActivity.db.child("Products").child(productId).child("pDesc").setValue(pDescriptionEditText.getText().toString().trim());
-//                    MainActivity.db.child("Products").child(productId).child("pStock").setValue(pStockEditText.getText().toString().trim());
-//                    MainActivity.db.child("Products").child(productId).child("pPrice").setValue(pPriceEditText.getText().toString().trim());
-//                    MainActivity.db.child("Products").child(productId).child("pDiscount").setValue(pDiscountEditText.getText().toString().trim());
+                    MainActivity.db.child("Products").child(productId).child("pName").setValue(pNameInput.getText().toString().trim());
+                    MainActivity.db.child("Products").child(productId).child("pDesc").setValue(pDescriptionInput.getText().toString().trim());
+                    MainActivity.db.child("Products").child(productId).child("pStock").setValue(pStockInput.getText().toString().trim());
+                    MainActivity.db.child("Products").child(productId).child("pPrice").setValue(pPriceInput.getText().toString().trim());
+                    MainActivity.db.child("Products").child(productId).child("pDiscount").setValue(pDiscountInput.getText().toString().trim());
+                    MainActivity.db.child("Products").child(productId).child("pCategory").setValue(pCategoryInput.getText().toString().trim());
+                    MainActivity.db.child("Products").child(productId).child("pSubcategory").setValue(pSubcategoryInput.getText().toString().trim());
+                    MainActivity.db.child("Products").child(productId).child("pBrand").setValue(pBrandInput.getText().toString().trim());
+                    MainActivity.db.child("Products").child(productId).child("pStyle").setValue(pStyleInput.getText().toString().trim());
                 }
 
                 new Handler().postDelayed(new Runnable() {
@@ -507,9 +867,9 @@ public class ProductsActivity extends AppCompatActivity {
     class MyAdapter extends BaseAdapter {
 
         Context context;
-        ArrayList<StyleModel> data;
+        ArrayList<ProductModel> data;
 
-        public MyAdapter(Context context, ArrayList<StyleModel> data) {
+        public MyAdapter(Context context, ArrayList<ProductModel> data) {
             this.context = context;
             this.data = data;
         }
@@ -530,90 +890,116 @@ public class ProductsActivity extends AppCompatActivity {
 
         @Override
         public View getView(int i, View convertView, ViewGroup parent) {
-            View customListItem = LayoutInflater.from(context).inflate(R.layout.styles_custom_listview,null);
-            TextView sno, name;
-            ImageView menu;
+            View customListItem = LayoutInflater.from(context).inflate(R.layout.products_custom_listview,null);
+            ImageView pImage, wishlistBtn, editBtn, deleteBtn;
+            TextView pDiscount, pName, pRating, pStock, pPrice, pPriceOff;
+            LinearLayout options, item;
 
-            sno = customListItem.findViewById(R.id.sno);
-            name = customListItem.findViewById(R.id.name);
-            menu = customListItem.findViewById(R.id.menu);
+            pImage = customListItem.findViewById(R.id.pImage);
+            wishlistBtn = customListItem.findViewById(R.id.wishlistBtn);
+            editBtn = customListItem.findViewById(R.id.editBtn);
+            deleteBtn = customListItem.findViewById(R.id.deleteBtn);
+            pDiscount = customListItem.findViewById(R.id.pDiscount);
+            pName = customListItem.findViewById(R.id.pName);
+            pRating = customListItem.findViewById(R.id.pRating);
+            pStock = customListItem.findViewById(R.id.pStock);
+            pPrice = customListItem.findViewById(R.id.pPrice);
+            pPriceOff = customListItem.findViewById(R.id.pPriceOff);
+            options = customListItem.findViewById(R.id.options);
+            item = customListItem.findViewById(R.id.item);
 
-            sno.setText(""+(i+1));
-            name.setText(data.get(i).getName());
+            if(!data.get(i).getpDiscount().equals("0")){
+                pDiscount.setVisibility(View.VISIBLE);
+                pDiscount.setText(data.get(i).getpDiscount()+"% OFF");
+            } else {
+                pPriceOff.setVisibility(View.GONE);
+            }
+            pName.setText(data.get(i).getpName());
+            pStock.setText(data.get(i).getpStock()+" Stock");
+            pPriceOff.setText("$"+data.get(i).getpPrice());
+            Glide.with(context).load(data.get(i).getpImage()).into(pImage);
 
-            menu.setOnClickListener(new View.OnClickListener() {
+            double discount = Double.parseDouble(data.get(i).getpDiscount())/100;
+            double calcDiscount = Double.parseDouble(data.get(i).getpPrice()) * discount;
+            double totalPrice = Double.parseDouble(data.get(i).getpPrice()) - calcDiscount;
+            pPrice.setText("$"+Math.round(totalPrice));
+
+            wishlistBtn.setVisibility(View.GONE);
+
+            MainActivity.db.child("Users").child(UID).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        String roleCheck = snapshot.child("role").getValue().toString().trim();
+                        if(roleCheck.equals("user")){
+                            options.setVisibility(View.GONE);
+                        } else if(roleCheck.equals("admin")){
+                            options.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+            deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Dialog loaddialog = new Dialog(context);
-                    loaddialog.setContentView(R.layout.dialog_actions);
-                    loaddialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                    loaddialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                    loaddialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-                    loaddialog.getWindow().setGravity(Gravity.CENTER);
-                    Button editBtn, deleteBtn;
-                    editBtn = loaddialog.findViewById(R.id.editBtn);
-                    deleteBtn = loaddialog.findViewById(R.id.deleteBtn);
-                    editBtn.setOnClickListener(new View.OnClickListener() {
+                    Dialog actiondialog = new Dialog(context);
+                    actiondialog.setContentView(R.layout.dialog_confirm);
+                    actiondialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                    actiondialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                    actiondialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+                    actiondialog.getWindow().setGravity(Gravity.CENTER);
+                    actiondialog.setCancelable(false);
+                    actiondialog.setCanceledOnTouchOutside(false);
+                    Button cancelBtn, yesBtn;
+                    yesBtn = actiondialog.findViewById(R.id.yesBtn);
+                    cancelBtn = actiondialog.findViewById(R.id.cancelBtn);
+                    cancelBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(View v) {
-                            productForm("edit",""+data.get(i).getId());
-                            loaddialog.dismiss();
+                        public void onClick(View view) {
+                            actiondialog.dismiss();
                         }
                     });
-
-                    deleteBtn.setOnClickListener(new View.OnClickListener() {
+                    yesBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(View v) {
-                            Dialog actiondialog = new Dialog(context);
-                            actiondialog.setContentView(R.layout.dialog_confirm);
-                            actiondialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                            actiondialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                            actiondialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-                            actiondialog.getWindow().setGravity(Gravity.CENTER);
-                            actiondialog.setCancelable(false);
-                            actiondialog.setCanceledOnTouchOutside(false);
-                            Button cancelBtn, yesBtn;
-                            yesBtn = actiondialog.findViewById(R.id.yesBtn);
-                            cancelBtn = actiondialog.findViewById(R.id.cancelBtn);
-                            cancelBtn.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View view) {
+                            MainActivity.db.child("Products").child(data.get(i).getId()).removeValue();
+                            Dialog dialog = new Dialog(context);
+                            dialog.setContentView(R.layout.dialog_success);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+                            dialog.getWindow().setGravity(Gravity.CENTER);
+                            dialog.setCanceledOnTouchOutside(false);
+                            dialog.setCancelable(false);
+                            TextView msg = dialog.findViewById(R.id.msgDialog);
+                            msg.setText("Deleted Successfully!!!");
+                            dialog.show();
+
+                            new Handler().postDelayed(new Runnable() {
                                 @Override
-                                public void onClick(View view) {
+                                public void run() {
+                                    dialog.dismiss();
                                     actiondialog.dismiss();
+                                    fetchData("");
                                 }
-                            });
-                            yesBtn.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    MainActivity.db.child("Styles").child(data.get(i).getId()).removeValue();
-                                    Dialog dialog = new Dialog(context);
-                                    dialog.setContentView(R.layout.dialog_success);
-                                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                                    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                    dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-                                    dialog.getWindow().setGravity(Gravity.CENTER);
-                                    dialog.setCanceledOnTouchOutside(false);
-                                    dialog.setCancelable(false);
-                                    TextView msg = dialog.findViewById(R.id.msgDialog);
-                                    msg.setText("Deleted Successfully!!!");
-                                    dialog.show();
-
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            dialog.dismiss();
-                                            actiondialog.dismiss();
-                                            loaddialog.dismiss();
-                                            fetchData("");
-                                        }
-                                    },2000);
-                                }
-                            });
-
-                            actiondialog.show();
+                            },2000);
                         }
                     });
 
-                    loaddialog.show();
+                    actiondialog.show();
+                }
+            });
+
+            editBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    productForm("edit",""+data.get(i).getId());
                 }
             });
 

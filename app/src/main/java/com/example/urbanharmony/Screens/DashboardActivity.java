@@ -16,7 +16,9 @@ import androidx.fragment.app.Fragment;
 import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.R;
 import com.example.urbanharmony.Screens.Fragments.AccountFragment;
+import com.example.urbanharmony.Screens.Fragments.CartFragment;
 import com.example.urbanharmony.Screens.Fragments.HomeFragment;
+import com.example.urbanharmony.Screens.Fragments.WishlistFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -85,6 +87,12 @@ public class DashboardActivity extends AppCompatActivity {
                     break;
                 case "Account":
                     replaceFragment(new AccountFragment());
+                    break;
+                case "Wishlist":
+                    replaceFragment(new WishlistFragment());
+                    break;
+                case "Cart":
+                    replaceFragment(new CartFragment());
                     break;
 //                case "Search":
 //                    replaceFragment(new SearchFragment());

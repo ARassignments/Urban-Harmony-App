@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +36,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.Models.CategoryModel;
+import com.example.urbanharmony.Models.SubCategoryModel;
 import com.example.urbanharmony.R;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -354,7 +360,7 @@ public class CategoryActivity extends AppCompatActivity {
 
     public boolean nameValidation(){
         String input = nameInput.getText().toString().trim();
-        String regex = "^[a-zA-Z0-9\\s]*$";
+        String regex = "^[a-zA-Z\\s]*$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
         if(input.equals("")){
@@ -505,12 +511,15 @@ public class CategoryActivity extends AppCompatActivity {
             LinearLayout listItem;
             TextView sno, name;
             ImageView menu, image;
+            ChipGroup subcategoryChipgroup;
+            ArrayList<String> subcategories = new ArrayList<String>();
 
             listItem = customListItem.findViewById(R.id.listItem);
             sno = customListItem.findViewById(R.id.sno);
             name = customListItem.findViewById(R.id.name);
             menu = customListItem.findViewById(R.id.menu);
             image = customListItem.findViewById(R.id.image);
+            subcategoryChipgroup = customListItem.findViewById(R.id.subcategoryChipgroup);
 
             sno.setText(""+(i+1));
             name.setText(data.get(i).getName());
@@ -523,6 +532,39 @@ public class CategoryActivity extends AppCompatActivity {
                     intent.putExtra("categoryId",data.get(i).getId());
                     intent.putExtra("categoryName",data.get(i).getName());
                     startActivity(intent);
+                }
+            });
+
+            MainActivity.db.child("Category").child(data.get(i).getId()).child("SubCategory").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        subcategories.clear();
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            SubCategoryModel data = dataSnapshot.getValue(SubCategoryModel.class);
+                            subcategories.add(data.getName());
+                        }
+                        for (String name:subcategories) {
+                            Chip chip = new Chip(new ContextThemeWrapper(context, R.style.CustomChipStyle));
+                            chip.setText(""+name);
+                            chip.setCheckable(false);
+                            chip.setEnabled(false);
+                            int heightInPixels = (int) TypedValue.applyDimension(
+                                    TypedValue.COMPLEX_UNIT_DIP, 35, context.getResources().getDisplayMetrics());
+                            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
+                                    ViewGroup.LayoutParams.WRAP_CONTENT,  // Set width as WRAP_CONTENT
+                                    heightInPixels
+                            );
+                            chip.setLayoutParams(params);
+                            subcategoryChipgroup.addView(chip);
+                        }
+                    }
+                }
+
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
                 }
             });
 

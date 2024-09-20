@@ -199,6 +199,122 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pCategoryLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:endIconMode="dropdown_menu"
+                    app:counterMaxLength="0"
+                    app:counterEnabled="false"
+                    app:helperText=""
+                    helperTextEnabled="false"
+                    android:hint="Select Category"
+                    style="@style/inputTextMaterial">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/pCategoryInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:maxLength="20"
+                        android:paddingHorizontal="20dp"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:clickable="false"
+                        style="@style/inputTextEditMaterial"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pSubcategoryLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:endIconMode="dropdown_menu"
+                    app:counterMaxLength="0"
+                    app:counterEnabled="false"
+                    app:helperText=""
+                    helperTextEnabled="false"
+                    android:hint="Select Sub Category"
+                    style="@style/inputTextMaterial">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/pSubcategoryInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:maxLength="20"
+                        android:paddingHorizontal="20dp"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:clickable="false"
+                        style="@style/inputTextEditMaterial"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pBrandLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:endIconMode="dropdown_menu"
+                    app:counterMaxLength="0"
+                    app:counterEnabled="false"
+                    app:helperText=""
+                    helperTextEnabled="false"
+                    android:hint="Select Brand"
+                    style="@style/inputTextMaterial">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/pBrandInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:maxLength="20"
+                        android:paddingHorizontal="20dp"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:clickable="false"
+                        style="@style/inputTextEditMaterial"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pStyleLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:endIconMode="dropdown_menu"
+                    app:counterMaxLength="0"
+                    app:counterEnabled="false"
+                    app:helperText=""
+                    helperTextEnabled="false"
+                    android:hint="Select Style"
+                    style="@style/inputTextMaterial">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/pStyleInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:maxLength="20"
+                        android:paddingHorizontal="20dp"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:clickable="false"
+                        style="@style/inputTextEditMaterial"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
