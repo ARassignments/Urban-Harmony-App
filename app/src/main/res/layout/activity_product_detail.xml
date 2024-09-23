@@ -178,6 +178,108 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="16dp"
+                style="@style/customButton">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sub Category"
+                        android:textSize="9sp"
+                        android:textAlignment="center"
+                        style="@style/authTitle"/>
+
+                    <TextView
+                        android:id="@+id/pSubcategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Office Room"
+                        android:textSize="11sp"
+                        android:textAlignment="center"
+                        android:layout_marginTop="3dp"
+                        style="@style/authLabel"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    style="@style/verticalRow"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Brand"
+                        android:textSize="9sp"
+                        android:textAlignment="center"
+                        style="@style/authTitle"/>
+
+                    <TextView
+                        android:id="@+id/pBrand"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dawlance"
+                        android:textSize="11sp"
+                        android:textAlignment="center"
+                        android:layout_marginTop="3dp"
+                        style="@style/authLabel"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    style="@style/verticalRow"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Style"
+                        android:textSize="9sp"
+                        android:textAlignment="center"
+                        style="@style/authTitle"/>
+
+                    <TextView
+                        android:id="@+id/pStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Modern"
+                        android:textSize="11sp"
+                        android:textAlignment="center"
+                        android:layout_marginTop="3dp"
+                        style="@style/authLabel"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginHorizontal="30dp"

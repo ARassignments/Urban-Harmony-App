@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ScreenBg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Screens.CheckoutActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="30dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/backBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/back"
+                    style="@style/appBarIcon"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Checkout"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    style="@style/appBarTitle"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/back"
+                    android:visibility="invisible"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                style="@style/horizontalRow"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:text="Shipping Address"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/urbanist_bold"
+                android:textSize="18sp"
+                style="@style/detailBookSubTitle"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:layout_marginHorizontal="30dp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="20dp"
+                style="@style/customButton">
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/circle_shape"
+                    android:backgroundTint="#1401B763"
+                    android:padding="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/circle_shape"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/location"
+                            app:tint="@color/white" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/locationName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/urbanist_semibold"
+                        android:text="Home"
+                        android:textAlignment="textStart"
+                        style="@style/authTitle"/>
+
+                    <TextView
+                        android:id="@+id/locationAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/urbanist_medium"
+                        android:text="61480 Sunbrook Park, PC 5679"
+                        android:textAlignment="textStart"
+                        android:textSize="12sp"
+                        style="@style/authLabel"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/locationEditBtn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/edit"
+                    style="@style/appBarIcon"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginVertical="10dp"
+                style="@style/horizontalRow"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/urbanist_bold"
+                android:text="Order List"
+                android:textSize="18sp"
+                style="@style/detailBookSubTitle"/>
+
+            <LinearLayout
+                android:id="@+id/orderList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginVertical="20dp"
+                style="@style/horizontalRow"/>
+
+            <LinearLayout
+                style="@style/customButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/urbanist_medium"
+                        android:text="Amount"
+                        android:textAlignment="textStart"
+                        android:textSize="14sp"
+                        style="@style/authLabel"/>
+
+                    <TextView
+                        android:id="@+id/totalAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/urbanist_semibold"
+                        android:text="-"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        style="@style/authTitle"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/urbanist_medium"
+                        android:text="Shipping"
+                        android:textAlignment="textStart"
+                        android:textSize="14sp"
+                        style="@style/authLabel"/>
+
+                    <TextView
+                        android:id="@+id/shippingAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/urbanist_semibold"
+                        android:text="-"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        style="@style/authTitle"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/urbanist_medium"
+                        android:text="Promo"
+                        android:textAlignment="textStart"
+                        android:textSize="14sp"
+                        style="@style/authLabel"/>
+
+                    <TextView
+                        android:id="@+id/promoAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/urbanist_semibold"
+                        android:text="-"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        style="@style/authTitle"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginVertical="10dp"
+                    android:visibility="gone"
+                    style="@style/horizontalRow"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/urbanist_medium"
+                        android:text="Total"
+                        android:textAlignment="textStart"
+                        android:textSize="14sp"
+                        style="@style/authLabel"/>
+
+                    <TextView
+                        android:id="@+id/grandTotalAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/urbanist_semibold"
+                        android:text="-"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        style="@style/authTitle"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_gravity="bottom"
+        android:paddingHorizontal="30dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        style="@style/bottomDialogBg">
+
+        <LinearLayout
+            android:id="@+id/btnOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:paddingVertical="8dp"
+            style="@style/flatButton">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirm Order"
+                android:fontFamily="@font/urbanist_bold"
+                android:textSize="16sp"
+                android:textColor="@color/white"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/arrow__right"
+                android:layout_marginLeft="10dp"
+                app:tint="@color/white" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

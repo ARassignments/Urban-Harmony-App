@@ -762,7 +762,7 @@ public class ProductsActivity extends AppCompatActivity {
                                 alertdialog.getWindow().setGravity(Gravity.CENTER);
                                 alertdialog.setCancelable(false);
                                 alertdialog.setCanceledOnTouchOutside(false);
-                                TextView messageAlert = alertdialog.findViewById(R.id.message);
+                                TextView messageAlert = alertdialog.findViewById(R.id.msgDialog);
                                 alertdialog.show();
 
                                 if(purpose.equals("add")){

@@ -17,20 +17,77 @@
         android:theme="@style/Theme.UrbanHarmony"
         tools:targetApi="31">
         <activity
-            android:name=".Screens.ProductDetailActivity"
+            android:name=".Screens.SubscriptionActivity"
             android:exported="false" />
+        <activity
+            android:name=".Screens.SlotsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Screens.SchedulesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Screens.PortfolioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Screens.DesignerDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Screens.ProjectDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Screens.ProjectsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Screens.FilteredProductsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Screens.SubcategoriesViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Screens.AddNewAddressActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+        <activity
+            android:name=".Screens.AddressActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+        <activity
+            android:name=".Screens.SelectAddressActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+        <activity
+            android:name=".Screens.CheckoutActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+        <activity
+            android:name=".Screens.ProductDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
         <activity
             android:name=".Screens.UserProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
         <activity
             android:name=".Screens.UsersActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
         <activity
             android:name=".Screens.SubCategoryActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
         <activity
             android:name=".Screens.OrderActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
         <activity
             android:name=".Screens.ProductsActivity"
             android:exported="false"

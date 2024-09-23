@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    style="@style/ScreenBg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Screens.AddNewAddressActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back"
+            style="@style/appBarIcon"/>
+
+        <TextView
+            android:id="@+id/navTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add New Address"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            style="@style/appBarTitle"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back"
+            android:visibility="invisible"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        style="@style/horizontalRow"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/mapImage"
+            android:scaleType="matrix"/>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/map_pointer"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileimage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/boy_14"
+                app:civ_border_width="3dp"
+                app:civ_border_color="@color/white"/>
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="-50dp"
+        style="@style/bottomDialogBg">
+
+        <LinearLayout
+            android:layout_width="35dp"
+            android:layout_height="4dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/small_handle"
+            style="@style/strokeBgColor"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Address Details"
+            android:textAlignment="center"
+            style="@style/authTitle"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginVertical="15dp"
+            style="@style/horizontalRow"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:endIconMode="clear_text"
+            app:counterMaxLength="20"
+            app:helperText="Only Text Allowed"
+            android:hint="Address Name"
+            style="@style/inputTextMaterial">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/nameInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:maxLength="20"
+                style="@style/inputTextEditMaterial"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addressLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:endIconMode="clear_text"
+            app:counterMaxLength="500"
+            app:helperText="Only Text Allowed"
+            android:hint="Address Detail"
+            style="@style/inputTextMaterial">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addressInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:maxLength="500"
+                style="@style/inputTextEditMaterial"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/defaultAddressCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="13sp"
+            android:text="Make this as the default address"
+            style="@style/authCheckbox"/>
+
+        <Button
+            android:id="@+id/addBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:layout_marginTop="16dp"
+            style="@style/flatButton"/>
+
+    </LinearLayout>
+
+</LinearLayout>

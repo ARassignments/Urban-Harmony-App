@@ -166,7 +166,7 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     public void fetchData(String data){
-        MainActivity.db.child("Category").addListenerForSingleValueEvent(new ValueEventListener() {
+        MainActivity.db.child("Category").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){

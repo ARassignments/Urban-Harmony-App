@@ -394,6 +394,12 @@ public class RegisterActivity extends AppCompatActivity {
                                     obj.put("role","user");
                                 } else if(designerRadioBtn.isChecked()){
                                     obj.put("role","designer");
+                                    HashMap<String,String> objPortfolio = new HashMap<String,String>();
+                                    objPortfolio.put("image","");
+                                    objPortfolio.put("shortBio","");
+                                    objPortfolio.put("longBio","");
+                                    objPortfolio.put("portfolioStatus","0");
+                                    myRef.child("Portfolio").child(userId).setValue(objPortfolio);
                                 }
                                 obj.put("address","");
                                 obj.put("shipping","");

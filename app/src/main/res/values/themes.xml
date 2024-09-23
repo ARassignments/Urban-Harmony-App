@@ -513,6 +513,15 @@
         <item name="android:tint">@color/neutral_30</item>
     </style>
 
+    <style name="listItemBg">
+        <item name="android:background">@color/neutral_10</item>
+        <item name="android:backgroundTint">@color/neutral_10</item>
+    </style>
+
+    <style name="mapImage">
+        <item name="android:src">@drawable/map_img</item>
+    </style>
+
     <style name="categoryHomeImageBg">
         <item name="android:background">@color/neutral_5</item>
         <item name="android:tint">@color/neutral_30</item>
@@ -571,6 +580,13 @@
         <item name="android:fontFamily">@font/poppins_regular</item>
         <item name="android:textColor">@color/neutral_50</item>
         <item name="android:backgroundTint">@color/neutral_10</item>
+    </style>
+
+    <style name="CustomCategoryChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:textSize">11sp</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/neutral_50</item>
+        <item name="chipBackgroundColor">@color/neutral_10</item>
     </style>
 
     <!--    Bill List-->

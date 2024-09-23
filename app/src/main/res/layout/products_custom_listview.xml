@@ -16,7 +16,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="20dp"
             app:cardElevation="0dp"
             style="@style/customButton">
 
@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/heart_outlined"
             android:layout_gravity="top|right"
+            app:tint="@color/accent_50"
             android:layout_margin="15dp" />
 
         <TextView
@@ -66,18 +67,24 @@
 
             <ImageView
                 android:id="@+id/editBtn"
-                android:layout_width="20dp"
-                android:layout_height="22dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/edit"
                 app:tint="#416AE4"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:padding="4dp"
+                android:background="@drawable/onboarding_indicator_active"
+                android:backgroundTint="@color/white"/>
 
             <ImageView
                 android:id="@+id/deleteBtn"
-                android:layout_width="20dp"
-                android:layout_height="22dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/delete"
-                app:tint="#E64747" />
+                app:tint="#E64747"
+                android:padding="4dp"
+                android:background="@drawable/onboarding_indicator_active"
+                android:backgroundTint="@color/white"/>
 
         </LinearLayout>
 

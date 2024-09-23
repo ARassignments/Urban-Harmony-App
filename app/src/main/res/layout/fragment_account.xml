@@ -213,6 +213,21 @@
             style="@style/horizontalRow"/>
 
         <TextView
+            android:id="@+id/addressBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My Address"
+            android:layout_marginTop="2dp"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="32dp"
+            style="@style/settingsItems"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            style="@style/horizontalRow"/>
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="My Designs"
@@ -236,11 +251,70 @@
             style="@style/settingsItems"/>
 
         <LinearLayout
+            android:id="@+id/designerOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                style="@style/horizontalRow"/>
+
+            <TextView
+                android:id="@+id/projectsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Projects"
+                android:layout_marginTop="2dp"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="32dp"
+                style="@style/settingsItems"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                style="@style/horizontalRow"/>
+
+            <TextView
+                android:id="@+id/portfolioBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Portfolio"
+                android:layout_marginTop="2dp"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="32dp"
+                style="@style/settingsItems"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                style="@style/horizontalRow"/>
+
+            <TextView
+                android:id="@+id/scheduleBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="My Schedules"
+                android:layout_marginTop="2dp"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="32dp"
+                style="@style/settingsItems"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                style="@style/horizontalRow"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/adminOptions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"

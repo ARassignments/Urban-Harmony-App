@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingVertical="10dp"
+    style="@style/ScreenBg">
+
+    <LinearLayout
+        android:id="@+id/itemContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="20dp"
+        style="@style/customButton">
+
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/circle_shape"
+            android:backgroundTint="#1401B763"
+            android:padding="6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circle_shape"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/location"
+                    app:tint="@color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/addressName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:text="Home"
+                    android:textAlignment="textStart"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    style="@style/authTitle"/>
+
+                <TextView
+                    android:id="@+id/defaultStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Default"
+                    android:background="@drawable/product_stock_bg"
+                    android:textColor="@color/accent_50"
+                    android:paddingVertical="5dp"
+                    android:paddingHorizontal="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:fontFamily="@font/urbanist_semibold"
+                    android:textSize="10sp"
+                    android:visibility="gone"
+                    style="@style/stockBg"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/addressDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/urbanist_medium"
+                android:text="61480 Sunbrook Park, PC 5679"
+                android:textAlignment="textStart"
+                android:textSize="12sp"
+                style="@style/authLabel"/>
+
+        </LinearLayout>
+
+        <RadioButton
+            android:id="@+id/radioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            style="@style/radioButton"/>
+
+    </LinearLayout>
+
+</LinearLayout>

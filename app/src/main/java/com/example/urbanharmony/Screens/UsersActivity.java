@@ -34,6 +34,7 @@ import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.Models.BrandModel;
 import com.example.urbanharmony.Models.UsersModel;
 import com.example.urbanharmony.R;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,11 +54,13 @@ public class UsersActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     static String UID = "";
     static String sortingStatus = "dsc";
+    static String filterStatus = "all";
     ListView listView;
     LinearLayout loader, notifyBar, notfoundContainer;
     ImageView sortBtn;
     EditText searchInput;
     TextView searchedWord, totalCount;
+    Chip allChip, usersChip, designersChip;
     ArrayList<UsersModel> datalist = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,9 @@ public class UsersActivity extends AppCompatActivity {
         totalCount = findViewById(R.id.totalCount);
         searchInput = findViewById(R.id.searchInput);
         sortBtn = findViewById(R.id.sortBtn);
+        allChip = findViewById(R.id.allChip);
+        usersChip = findViewById(R.id.usersChip);
+        designersChip = findViewById(R.id.designersChip);
 
         searchInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -102,6 +108,27 @@ public class UsersActivity extends AppCompatActivity {
 
         fetchData("");
 
+        allChip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filtering("all");
+            }
+        });
+
+        usersChip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filtering("users");
+            }
+        });
+
+        designersChip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filtering("designers");
+            }
+        });
+
         sortBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +142,11 @@ public class UsersActivity extends AppCompatActivity {
                 UsersActivity.super.onBackPressed();
             }
         });
+    }
+
+    public void filtering(String status){
+        filterStatus = status;
+        fetchData("");
     }
 
     public void sorting(){
@@ -137,36 +169,101 @@ public class UsersActivity extends AppCompatActivity {
                     for (DataSnapshot ds: snapshot.getChildren()){
                         if(data.equals("")){
                             if(!ds.getKey().equals(UID)){
-                                if(ds.child("role").getValue().toString().equals("user")||ds.child("role").getValue().toString().equals("designer")){
-                                    UsersModel model = new UsersModel(ds.getKey(),
-                                            ds.child("name").getValue().toString(),
-                                            ds.child("email").getValue().toString(),
-                                            ds.child("pwd").getValue().toString(),
-                                            ds.child("image").getValue().toString(),
-                                            ds.child("role").getValue().toString(),
-                                            ds.child("address").getValue().toString(),
-                                            ds.child("shipping").getValue().toString(),
-                                            ds.child("created_on").getValue().toString(),
-                                            ds.child("status").getValue().toString()
-                                    );
-                                    datalist.add(model);
+                                if(filterStatus.equals("all")){
+                                    if(ds.child("role").getValue().toString().equals("user")||ds.child("role").getValue().toString().equals("designer")){
+                                        UsersModel model = new UsersModel(ds.getKey(),
+                                                ds.child("name").getValue().toString(),
+                                                ds.child("email").getValue().toString(),
+                                                ds.child("pwd").getValue().toString(),
+                                                ds.child("image").getValue().toString(),
+                                                ds.child("role").getValue().toString(),
+                                                ds.child("address").getValue().toString(),
+                                                ds.child("shipping").getValue().toString(),
+                                                ds.child("created_on").getValue().toString(),
+                                                ds.child("status").getValue().toString()
+                                        );
+                                        datalist.add(model);
+                                    }
+                                } else if(filterStatus.equals("users")){
+                                    if(ds.child("role").getValue().toString().equals("user")){
+                                        UsersModel model = new UsersModel(ds.getKey(),
+                                                ds.child("name").getValue().toString(),
+                                                ds.child("email").getValue().toString(),
+                                                ds.child("pwd").getValue().toString(),
+                                                ds.child("image").getValue().toString(),
+                                                ds.child("role").getValue().toString(),
+                                                ds.child("address").getValue().toString(),
+                                                ds.child("shipping").getValue().toString(),
+                                                ds.child("created_on").getValue().toString(),
+                                                ds.child("status").getValue().toString()
+                                        );
+                                        datalist.add(model);
+                                    }
+                                } else if(filterStatus.equals("designers")){
+                                    if(ds.child("role").getValue().toString().equals("designer")){
+                                        UsersModel model = new UsersModel(ds.getKey(),
+                                                ds.child("name").getValue().toString(),
+                                                ds.child("email").getValue().toString(),
+                                                ds.child("pwd").getValue().toString(),
+                                                ds.child("image").getValue().toString(),
+                                                ds.child("role").getValue().toString(),
+                                                ds.child("address").getValue().toString(),
+                                                ds.child("shipping").getValue().toString(),
+                                                ds.child("created_on").getValue().toString(),
+                                                ds.child("status").getValue().toString()
+                                        );
+                                        datalist.add(model);
+                                    }
                                 }
+
                             }
                         } else {
                             if(!ds.getKey().equals(UID)){
-                                if(ds.child("name").getValue().toString().trim().toLowerCase().contains(data.toLowerCase().trim())&&(ds.child("role").getValue().toString().equals("user")||ds.child("role").getValue().toString().equals("designer"))){
-                                    UsersModel model = new UsersModel(ds.getKey(),
-                                            ds.child("name").getValue().toString(),
-                                            ds.child("email").getValue().toString(),
-                                            ds.child("pwd").getValue().toString(),
-                                            ds.child("image").getValue().toString(),
-                                            ds.child("role").getValue().toString(),
-                                            ds.child("address").getValue().toString(),
-                                            ds.child("shipping").getValue().toString(),
-                                            ds.child("created_on").getValue().toString(),
-                                            ds.child("status").getValue().toString()
-                                    );
-                                    datalist.add(model);
+                                if(filterStatus.equals("all")){
+                                    if(ds.child("name").getValue().toString().trim().toLowerCase().contains(data.toLowerCase().trim())&&(ds.child("role").getValue().toString().equals("user")||ds.child("role").getValue().toString().equals("designer"))){
+                                        UsersModel model = new UsersModel(ds.getKey(),
+                                                ds.child("name").getValue().toString(),
+                                                ds.child("email").getValue().toString(),
+                                                ds.child("pwd").getValue().toString(),
+                                                ds.child("image").getValue().toString(),
+                                                ds.child("role").getValue().toString(),
+                                                ds.child("address").getValue().toString(),
+                                                ds.child("shipping").getValue().toString(),
+                                                ds.child("created_on").getValue().toString(),
+                                                ds.child("status").getValue().toString()
+                                        );
+                                        datalist.add(model);
+                                    }
+                                } else if(filterStatus.equals("users")){
+                                    if(ds.child("name").getValue().toString().trim().toLowerCase().contains(data.toLowerCase().trim())&&ds.child("role").getValue().toString().equals("user")){
+                                        UsersModel model = new UsersModel(ds.getKey(),
+                                                ds.child("name").getValue().toString(),
+                                                ds.child("email").getValue().toString(),
+                                                ds.child("pwd").getValue().toString(),
+                                                ds.child("image").getValue().toString(),
+                                                ds.child("role").getValue().toString(),
+                                                ds.child("address").getValue().toString(),
+                                                ds.child("shipping").getValue().toString(),
+                                                ds.child("created_on").getValue().toString(),
+                                                ds.child("status").getValue().toString()
+                                        );
+                                        datalist.add(model);
+                                    }
+                                } else if(filterStatus.equals("designers")){
+                                    if(ds.child("name").getValue().toString().trim().toLowerCase().contains(data.toLowerCase().trim())&&ds.child("role").getValue().toString().equals("designer")){
+                                        UsersModel model = new UsersModel(ds.getKey(),
+                                                ds.child("name").getValue().toString(),
+                                                ds.child("email").getValue().toString(),
+                                                ds.child("pwd").getValue().toString(),
+                                                ds.child("image").getValue().toString(),
+                                                ds.child("role").getValue().toString(),
+                                                ds.child("address").getValue().toString(),
+                                                ds.child("shipping").getValue().toString(),
+                                                ds.child("created_on").getValue().toString(),
+                                                ds.child("status").getValue().toString()
+                                        );
+                                        datalist.add(model);
+                                    }
                                 }
                             }
                         }

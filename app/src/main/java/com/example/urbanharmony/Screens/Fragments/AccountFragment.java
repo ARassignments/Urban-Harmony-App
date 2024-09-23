@@ -22,13 +22,18 @@ import android.widget.TextView;
 
 import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.R;
+import com.example.urbanharmony.Screens.AddressActivity;
 import com.example.urbanharmony.Screens.BrandsActivity;
 import com.example.urbanharmony.Screens.CategoryActivity;
 import com.example.urbanharmony.Screens.LoginActivity;
 import com.example.urbanharmony.Screens.OrderActivity;
+import com.example.urbanharmony.Screens.PortfolioActivity;
 import com.example.urbanharmony.Screens.ProductsActivity;
 import com.example.urbanharmony.Screens.ProfileActivity;
+import com.example.urbanharmony.Screens.ProjectsActivity;
+import com.example.urbanharmony.Screens.SchedulesActivity;
 import com.example.urbanharmony.Screens.StylesActivity;
+import com.example.urbanharmony.Screens.SubscriptionActivity;
 import com.example.urbanharmony.Screens.UsersActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -41,8 +46,8 @@ public class AccountFragment extends Fragment {
 
     View view;
     Button logoutBtn;
-    TextView profileName, userId, categoriesBtn, brandsBtn, stylesBtn, productsBtn, usersBtn;
-    LinearLayout adminOptions;
+    TextView profileName, userId, categoriesBtn, brandsBtn, stylesBtn, productsBtn, usersBtn, addressBtn, projectsBtn, portfolioBtn, scheduleBtn, subscriptionBtn;
+    LinearLayout adminOptions, designerOptions;
     static String UID = "";
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -55,6 +60,7 @@ public class AccountFragment extends Fragment {
 
         logoutBtn = view.findViewById(R.id.logoutBtn);
         adminOptions = view.findViewById(R.id.adminOptions);
+        designerOptions = view.findViewById(R.id.designerOptions);
         profileName = view.findViewById(R.id.profileName);
         profileImage = view.findViewById(R.id.profileImage);
         userId = view.findViewById(R.id.userId);
@@ -63,6 +69,11 @@ public class AccountFragment extends Fragment {
         stylesBtn = view.findViewById(R.id.stylesBtn);
         productsBtn = view.findViewById(R.id.productsBtn);
         usersBtn = view.findViewById(R.id.usersBtn);
+        addressBtn = view.findViewById(R.id.addressBtn);
+        projectsBtn = view.findViewById(R.id.projectsBtn);
+        portfolioBtn = view.findViewById(R.id.portfolioBtn);
+        scheduleBtn = view.findViewById(R.id.scheduleBtn);
+        subscriptionBtn = view.findViewById(R.id.subscriptionBtn);
 
         sharedPreferences = getContext().getSharedPreferences("myData",MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -80,6 +91,8 @@ public class AccountFragment extends Fragment {
                         }
                         if(snapshot.child("role").getValue().toString().equals("admin")){
                             adminOptions.setVisibility(View.VISIBLE);
+                        } else if(snapshot.child("role").getValue().toString().equals("designer")) {
+                            designerOptions.setVisibility(View.VISIBLE);
                         }
                     }
                 }
@@ -137,6 +150,41 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), UsersActivity.class));
+            }
+        });
+
+        addressBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), AddressActivity.class));
+            }
+        });
+
+        projectsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), ProjectsActivity.class));
+            }
+        });
+
+        portfolioBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), PortfolioActivity.class));
+            }
+        });
+
+        scheduleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), SchedulesActivity.class));
+            }
+        });
+
+        subscriptionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), SubscriptionActivity.class));
             }
         });
 

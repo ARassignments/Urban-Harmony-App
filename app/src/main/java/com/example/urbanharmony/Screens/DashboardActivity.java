@@ -3,6 +3,7 @@ package com.example.urbanharmony.Screens;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 
 import androidx.activity.EdgeToEdge;
@@ -17,8 +18,10 @@ import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.R;
 import com.example.urbanharmony.Screens.Fragments.AccountFragment;
 import com.example.urbanharmony.Screens.Fragments.CartFragment;
+import com.example.urbanharmony.Screens.Fragments.CatalogFragment;
 import com.example.urbanharmony.Screens.Fragments.HomeFragment;
 import com.example.urbanharmony.Screens.Fragments.WishlistFragment;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,6 +33,7 @@ public class DashboardActivity extends AppCompatActivity {
     static String UID = "";
     static String name, email, role, image, username, contact, created_on;
     BottomNavigationView bottomAppBar;
+    public static BadgeDrawable badgeCart, badgeWishlist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +81,14 @@ public class DashboardActivity extends AppCompatActivity {
         // Check Toaster
         MainActivity.checkMaintainance(DashboardActivity.this);
 
+        badgeCart = bottomAppBar.getOrCreateBadge(R.id.cart);
+        badgeCart.setVisible(false);
+        badgeCart.setBackgroundColor(getResources().getColor(R.color.accent_50));
+
+        badgeWishlist = bottomAppBar.getOrCreateBadge(R.id.wishlist);
+        badgeWishlist.setVisible(false);
+        badgeWishlist.setBackgroundColor(getResources().getColor(R.color.accent_50));
+
         // Set Default Home Fragment
         getSupportFragmentManager().beginTransaction().add(R.id.frame,new HomeFragment()).commit();
 
@@ -94,6 +106,9 @@ public class DashboardActivity extends AppCompatActivity {
                 case "Cart":
                     replaceFragment(new CartFragment());
                     break;
+                case "Catalog":
+                    replaceFragment(new CatalogFragment());
+                    break;
 //                case "Search":
 //                    replaceFragment(new SearchFragment());
 //                    break;
@@ -103,6 +118,59 @@ public class DashboardActivity extends AppCompatActivity {
             }
             return true;
         });
+
+        MainActivity.db.child("Wishlist").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int favoriteCount = 0;
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    if (UID.equals(ds.child("UID").getValue())) {
+                        favoriteCount++;
+                    }
+                }
+                updateWishlistCount(favoriteCount);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("TAG", "onCancelled: " + error.getMessage());
+            }
+        });
+
+        MainActivity.db.child("AddToCart").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int cartCount = 0;
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    if (UID.equals(ds.child("UID").getValue())) {
+                        cartCount++;
+                    }
+                }
+                updateCartCount(cartCount);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("TAG", "onCancelled: " + error.getMessage());
+            }
+        });
+    }
+
+    public static void updateCartCount(int number){
+        if (number > 0) {
+            badgeCart.setVisible(true);
+            badgeCart.setNumber(number);
+        } else {
+            badgeCart.setVisible(false);
+        }
+    }
+    public static void updateWishlistCount(int number){
+        if (number > 0) {
+            badgeWishlist.setVisible(true);
+            badgeWishlist.setNumber(number);
+        } else {
+            badgeWishlist.setVisible(false);
+        }
     }
 
     public void replaceFragment(Fragment fragment){

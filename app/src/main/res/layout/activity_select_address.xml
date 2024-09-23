@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ScreenBg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Screens.SelectAddressActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="30dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/backBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/back"
+                    style="@style/appBarIcon"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Shipping Address"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    style="@style/appBarTitle"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/back"
+                    android:visibility="invisible"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                style="@style/horizontalRow"/>
+
+            <LinearLayout
+                android:id="@+id/addressContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"/>
+
+            <Button
+                android:id="@+id/newAddressBtn"
+                android:text="Add New Address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
+                style="@style/outlineButton"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_gravity="bottom"
+        android:paddingHorizontal="30dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        style="@style/bottomDialogBg">
+
+        <LinearLayout
+            android:id="@+id/applyBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:paddingVertical="8dp"
+            style="@style/flatButton">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apply"
+                android:fontFamily="@font/urbanist_bold"
+                android:textSize="16sp"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

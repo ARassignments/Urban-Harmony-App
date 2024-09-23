@@ -42,7 +42,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     String fvrtItemId = "";
     int pPrice = 0, pStock = 0, pQty = 1, pDiscount = 0;
     ImageView pImage, wishlistBtn, qtyMinus, qtyAdd;
-    TextView pNameTitle, pName, pCategory, pStockText, pRating, pDesc, pQtyText, totalPriceText, pPriceOff, pDiscountText;
+    TextView pNameTitle, pName, pCategory, pStockText, pRating, pDesc, pQtyText, totalPriceText, pPriceOff, pDiscountText, pSubcategory, pBrand, pStyle;
     LinearLayout qtyContainer, totalContainer, btnAddToCart;
     Button btnOutOfStock;
 
@@ -76,6 +76,9 @@ public class ProductDetailActivity extends AppCompatActivity {
         totalPriceText = findViewById(R.id.totalPriceText);
         pPriceOff = findViewById(R.id.pPriceOff);
         pDiscountText = findViewById(R.id.pDiscountText);
+        pSubcategory = findViewById(R.id.pSubcategory);
+        pBrand = findViewById(R.id.pBrand);
+        pStyle = findViewById(R.id.pStyle);
         wishlistBtn = findViewById(R.id.wishlistBtn);
         qtyMinus = findViewById(R.id.qtyMinus);
         qtyAdd = findViewById(R.id.qtyAdd);
@@ -93,6 +96,9 @@ public class ProductDetailActivity extends AppCompatActivity {
                     pCategory.setText(snapshot.child("pCategory").getValue().toString().trim());
                     pNameTitle.setText(snapshot.child("pCategory").getValue().toString().trim());
                     pDesc.setText(snapshot.child("pDesc").getValue().toString().trim());
+                    pSubcategory.setText(snapshot.child("pSubcategory").getValue().toString().trim());
+                    pBrand.setText(snapshot.child("pBrand").getValue().toString().trim());
+                    pStyle.setText(snapshot.child("pStyle").getValue().toString().trim());
 
                     if(Integer.parseInt(snapshot.child("pStock").getValue().toString().trim()) < 1){
                         pStockText.setText("Out Of Stock");
@@ -255,7 +261,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             alertdialog.getWindow().setGravity(Gravity.CENTER);
             alertdialog.setCancelable(false);
             alertdialog.setCanceledOnTouchOutside(false);
-            TextView message = alertdialog.findViewById(R.id.message);
+            TextView message = alertdialog.findViewById(R.id.msgDialog);
             message.setText("Product Removed From Wishlist Successfully");
             alertdialog.show();
 
@@ -278,7 +284,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             alertdialog.getWindow().setGravity(Gravity.CENTER);
             alertdialog.setCancelable(false);
             alertdialog.setCanceledOnTouchOutside(false);
-            TextView message = alertdialog.findViewById(R.id.message);
+            TextView message = alertdialog.findViewById(R.id.msgDialog);
             message.setText("Product is Added into Wishlist");
             alertdialog.show();
 
@@ -341,7 +347,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                     alertdialog.getWindow().setGravity(Gravity.CENTER);
                     alertdialog.setCancelable(false);
                     alertdialog.setCanceledOnTouchOutside(false);
-                    TextView message = alertdialog.findViewById(R.id.message);
+                    TextView message = alertdialog.findViewById(R.id.msgDialog);
                     message.setText("Product Quantity Updated into Cart Successfully");
                     alertdialog.show();
 
@@ -365,7 +371,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                     alertdialog.getWindow().setGravity(Gravity.CENTER);
                     alertdialog.setCancelable(false);
                     alertdialog.setCanceledOnTouchOutside(false);
-                    TextView message = alertdialog.findViewById(R.id.message);
+                    TextView message = alertdialog.findViewById(R.id.msgDialog);
                     message.setText("Product Added into Cart Successfully");
                     alertdialog.show();
 

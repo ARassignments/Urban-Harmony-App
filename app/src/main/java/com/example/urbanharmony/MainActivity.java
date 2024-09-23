@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         editor = sharedPreferences.edit();
 
         if(db == null){
-            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+//            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
             db = FirebaseDatabase.getInstance().getReference();
         }
 

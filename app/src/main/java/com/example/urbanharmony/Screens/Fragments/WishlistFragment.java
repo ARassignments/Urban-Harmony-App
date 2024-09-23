@@ -72,7 +72,7 @@ public class WishlistFragment extends Fragment {
     }
 
     public void fetchData(String data){
-        MainActivity.db.child("Wishlist").addListenerForSingleValueEvent(new ValueEventListener() {
+        MainActivity.db.child("Wishlist").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
@@ -206,7 +206,7 @@ public class WishlistFragment extends Fragment {
                     alertdialog.getWindow().setGravity(Gravity.CENTER);
                     alertdialog.setCancelable(false);
                     alertdialog.setCanceledOnTouchOutside(false);
-                    TextView message = alertdialog.findViewById(R.id.message);
+                    TextView message = alertdialog.findViewById(R.id.msgDialog);
                     message.setText("Product Removed From Wishlist Successfully");
                     alertdialog.show();
 

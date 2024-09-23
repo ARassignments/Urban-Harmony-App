@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingHorizontal="30dp"
+    android:paddingTop="20dp"
+    android:background="@color/transparent">
+
+    <LinearLayout
+        android:id="@+id/listItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="15dp"
+        style="@style/customButton">
+
+        <TextView
+            android:id="@+id/sno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            style="@style/authLabel"/>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="16dp">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Day Name"
+                style="@style/authTitle"/>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/slotsChipgroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-8dp"
+                app:chipSpacingHorizontal="5dp"
+                app:chipSpacingVertical="2dp"
+                app:singleSelection="false"
+                app:selectionRequired="false"
+                app:singleLine="false">
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/menu"
+            style="@style/appBarIcon" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,10 +1,15 @@
 package com.example.urbanharmony.Screens.Fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Handler;
@@ -19,10 +24,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.urbanharmony.Adapter.DesignerAdapter;
 import com.example.urbanharmony.Adapter.SliderAdapter;
 import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.Models.CategoryModel;
+import com.example.urbanharmony.Models.UsersModel;
 import com.example.urbanharmony.R;
+import com.example.urbanharmony.Screens.DesignerDetailActivity;
+import com.example.urbanharmony.Screens.SubCategoryActivity;
+import com.example.urbanharmony.Screens.SubcategoriesViewActivity;
+import com.example.urbanharmony.Screens.UsersActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.database.DataSnapshot;
@@ -31,28 +42,42 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     View view;
+    static String UID = "";
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     ViewPager2 sliderViewPager;
     TabLayout tabLayout;
     LinearLayout categoryContainer;
+    RecyclerView designerView;
+    ArrayList<UsersModel> datalist = new ArrayList<>();
     private Handler sliderHandler = new Handler(Looper.getMainLooper());
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
+        sharedPreferences = getContext().getSharedPreferences("myData",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        if(!sharedPreferences.getString("UID","").equals("")){
+            UID = sharedPreferences.getString("UID","").toString();
+        }
+
         sliderViewPager = view.findViewById(R.id.sliderViewPager);
         tabLayout = view.findViewById(R.id.tabLayout);
         categoryContainer = view.findViewById(R.id.categoryContainer);
+        designerView = view.findViewById(R.id.designerView);
 
         List<String> imageUrls = Arrays.asList(
-                "https://myfolio-web.netlify.app/assets/images/projects/19.png",
-                "https://myfolio-web.netlify.app/assets/images/projects/20.png",
-                "https://myfolio-web.netlify.app/assets/images/projects/21.png"
+                "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/home-banner1.jpg?alt=media&token=6fcc7087-b0f3-4f28-89b3-fa7372da2986",
+                "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/home-banner2.jpg?alt=media&token=ef6112d2-40e6-436d-ad12-8ddc91fc3409",
+                "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/home-banner3.jpg?alt=media&token=dc1e55f6-3c13-4996-bc5e-8d80d3855030"
         );
 
         SliderAdapter adapter = new SliderAdapter(getContext(), imageUrls);
@@ -103,6 +128,15 @@ public class HomeFragment extends Fragment {
                         image = itemView.findViewById(R.id.image);
                         listItem = itemView.findViewById(R.id.listItem);
                         image.setImageResource(Integer.parseInt(model.getImage()));
+                        listItem.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(getContext(), SubcategoriesViewActivity.class);
+                                intent.putExtra("categoryId",model.getId());
+                                intent.putExtra("categoryName",model.getName());
+                                startActivity(intent);
+                            }
+                        });
                         if(i==0){
                             itemView.setPadding(50, 0,itemView.getPaddingRight(), 0);
                         }
@@ -119,7 +153,7 @@ public class HomeFragment extends Fragment {
 
             }
         });
-
+        fetchDesigners();
         return view;
     }
 
@@ -149,5 +183,78 @@ public class HomeFragment extends Fragment {
                 }
             }
         }
+    }
+
+    public void fetchDesigners(){
+
+        MainActivity.db.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    datalist.clear();
+                    final int[] pendingCalls = {0};  // Track pending asynchronous calls
+
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        if (ds.child("role").getValue().toString().equals("designer")) {
+                            pendingCalls[0]++;  // Increment for each designer found
+
+                            MainActivity.db.child("Portfolio").child(ds.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dsnapshot) {
+                                    if (dsnapshot.exists() && dsnapshot.child("portfolioStatus").getValue().toString().equals("1")) {
+                                        UsersModel model = new UsersModel(
+                                                ds.getKey(),
+                                                ds.child("name").getValue().toString(),
+                                                ds.child("email").getValue().toString(),
+                                                ds.child("pwd").getValue().toString(),
+                                                ds.child("image").getValue().toString(),
+                                                ds.child("role").getValue().toString(),
+                                                ds.child("address").getValue().toString(),
+                                                ds.child("shipping").getValue().toString(),
+                                                ds.child("created_on").getValue().toString(),
+                                                ds.child("status").getValue().toString()
+                                        );
+                                        datalist.add(model);
+                                    }
+
+                                    // Decrement the pending calls counter
+                                    pendingCalls[0]--;
+                                    // If all calls are done, update the adapter
+                                    if (pendingCalls[0] == 0) {
+                                        updateAdapter();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    pendingCalls[0]--;
+                                    if (pendingCalls[0] == 0) {
+                                        updateAdapter();
+                                    }
+                                }
+                            });
+                        }
+                    }
+
+                    // In case no designer was found (so no pending calls), update the adapter
+                    if (pendingCalls[0] == 0) {
+                        updateAdapter();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+            // Helper function to update adapter
+            private void updateAdapter() {
+                if (datalist.size() > 0) {
+                    DesignerAdapter adapter = new DesignerAdapter(getContext(), datalist);
+                    designerView.setAdapter(adapter);
+                }
+            }
+        });
     }
 }
