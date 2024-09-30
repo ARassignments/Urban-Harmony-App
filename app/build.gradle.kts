@@ -48,4 +48,5 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.29")
     implementation("com.github.bumptech.glide:glide:5.0.0-rc01")
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
 }

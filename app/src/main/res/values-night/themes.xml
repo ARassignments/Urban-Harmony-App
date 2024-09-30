@@ -183,6 +183,24 @@
         <item name="android:textColor">@color/primary_10</item>
     </style>
 
+    <!--    Time Picker-->
+
+    <style name="TimePicker" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/primary_10</item>
+        <item name="colorControlActivated">@color/primary_50</item>
+        <item name="colorControlHighlight">@color/primary_30</item>
+        <item name="android:numbersTextColor">@color/primary_10</item>
+        <item name="android:numbersBackgroundColor">@color/primary_80</item>
+        <item name="android:textColorPrimary">@color/neutral_10</item>
+    </style>
+
+    <!--    Rating Bar -->
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/neutral_70</item>
+        <item name="colorControlActivated">@color/accent_50</item>
+    </style>
+
     <!--    Input Field-->
 
     <style name="inputText">

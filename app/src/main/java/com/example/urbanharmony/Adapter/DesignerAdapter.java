@@ -60,6 +60,8 @@ public class DesignerAdapter extends RecyclerView.Adapter<DesignerAdapter.ViewHo
                 v.getContext().startActivity(intent);
             }
         });
+        holder.itemView.setAlpha(0f);
+        holder.itemView.animate().alpha(1f).setDuration(400).setStartDelay(position * 20).start();
     }
 
     @Override

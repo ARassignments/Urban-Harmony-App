@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    style="@style/ScreenBg"
+    android:id="@+id/item">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="5dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            style="@style/customButton">
+
+            <ImageView
+                android:id="@+id/dImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/logo"
+                android:scaleType="centerCrop"
+                android:backgroundTint="@color/transparent"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/wishlistBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/heart_outlined"
+            android:layout_gravity="top|right"
+            app:tint="@color/accent_50"
+            android:layout_margin="15dp" />
+
+        <LinearLayout
+            android:id="@+id/options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="bottom|right"
+            android:alpha="0.8"
+            android:layout_margin="15dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/editBtn"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/edit"
+                app:tint="#416AE4"
+                android:layout_marginBottom="5dp"
+                android:padding="4dp"
+                android:background="@drawable/onboarding_indicator_active"
+                android:backgroundTint="@color/white"/>
+
+            <ImageView
+                android:id="@+id/deleteBtn"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/delete"
+                app:tint="#E64747"
+                android:padding="4dp"
+                android:background="@drawable/onboarding_indicator_active"
+                android:backgroundTint="@color/white"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/dName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:text="Design Na..."
+        android:textSize="18dp"
+        android:textAlignment="center"
+        android:maxLines="1"
+        android:ellipsize="end"
+        style="@style/authTitle"/>
+
+</LinearLayout>

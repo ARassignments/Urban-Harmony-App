@@ -16,11 +16,13 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -40,9 +42,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -210,6 +216,20 @@ public class SlotsActivity extends AppCompatActivity {
             }
         });
 
+        fromInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectTime(fromInput);
+            }
+        });
+
+        toInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectTime(toInput);
+            }
+        });
+
         addDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -241,20 +261,66 @@ public class SlotsActivity extends AppCompatActivity {
                 }
             });
         }
-
         slotDialog.show();
+    }
+
+    public void selectTime(TextInputEditText inputField){
+        Dialog alertdialog = new Dialog(SlotsActivity.this);
+        alertdialog.setContentView(R.layout.dialog_timer);
+        alertdialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        alertdialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertdialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        alertdialog.getWindow().setGravity(Gravity.CENTER);
+        alertdialog.setCancelable(false);
+        alertdialog.setCanceledOnTouchOutside(false);
+
+        TimePicker timePicker = alertdialog.findViewById(R.id.timePicker);
+        Button selectBtn, cancelBtn;
+        selectBtn = alertdialog.findViewById(R.id.selectBtn);
+        cancelBtn = alertdialog.findViewById(R.id.cancelBtn);
+
+        timePicker.setIs24HourView(false); // Set to 12-hour format
+
+        selectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get hour and minute from TimePicker
+                int hour = timePicker.getCurrentHour();
+                int minute = timePicker.getCurrentMinute();
+
+                // Create a Calendar instance to format the time
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, minute);
+
+                // Format the time into 12-hour format with AM/PM
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+                String formattedTime = sdf.format(calendar.getTime());
+                inputField.setText(formattedTime);
+                alertdialog.dismiss();
+            }
+        });
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertdialog.dismiss();
+            }
+        });
+
+        alertdialog.show();
     }
 
     public boolean fromValidation(){
         String input = fromInput.getText().toString().trim();
-        String regex = "^[0-9:mpa\\s]*$";
+        String regex = "^[0-9:MPA\\s]*$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
         if(input.equals("")){
             fromLayout.setError("From Slot is Required!!!");
             return false;
-        } else if(input.length() < 5){
-            fromLayout.setError("From Slot at least 5 Characters!!!");
+        } else if(input.length() < 8){
+            fromLayout.setError("From Slot at least 8 Characters!!!");
             return false;
         } else if(!matcher.matches()){
             fromLayout.setError("Only digit allowed!!!");
@@ -267,14 +333,14 @@ public class SlotsActivity extends AppCompatActivity {
 
     public boolean toValidation(){
         String input = toInput.getText().toString().trim();
-        String regex = "^[0-9:\\s]*$";
+        String regex = "^[0-9:MPA\\s]*$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
         if(input.equals("")){
             toLayout.setError("To Slot is Required!!!");
             return false;
-        } else if(input.length() < 5){
-            toLayout.setError("To Slot at least 5 Characters!!!");
+        } else if(input.length() < 8){
+            toLayout.setError("To Slot at least 8 Characters!!!");
             return false;
         } else if(!matcher.matches()){
             toLayout.setError("Only digit allowed!!!");
@@ -367,8 +433,8 @@ public class SlotsActivity extends AppCompatActivity {
             menu = customListItem.findViewById(R.id.menu);
 
             sno.setText(""+(i+1));
-            from.setText(data.get(i).getFrom());
-            to.setText(data.get(i).getTo());
+            from.setText("From: "+data.get(i).getFrom());
+            to.setText("To: "+data.get(i).getTo());
 
             menu.setOnClickListener(new View.OnClickListener() {
                 @Override

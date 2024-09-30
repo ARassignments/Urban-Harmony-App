@@ -29,55 +29,59 @@
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Add Slots"
+                    android:text="Add Review"
                     android:textAlignment="center"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="5dp"
                     style="@style/authTitle"/>
 
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:isIndicator="false"
+                    android:numStars="5"
+                    android:stateListAnimator="@anim/fadein"
+                    android:stepSize="1.0"
+                    android:theme="@style/RatingBar" />
+
+                <TextView
+                    android:id="@+id/rateCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.0/5.0"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="16dp"
+                    style="@style/authLabel"/>
+
+                <TextView
+                    android:id="@+id/imageErrorText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Category Image is required!!!"
+                    android:textColor="#D34343"
+                    android:layout_marginBottom="16dp"
+                    android:textAlignment="center"
+                    android:visibility="gone"
+                    style="@style/searchLabelText"/>
+
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fromLayout"
+                    android:id="@+id/reviewLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     app:endIconMode="clear_text"
-                    app:counterMaxLength="8"
-                    app:helperText="Only Digit Allowed"
-                    android:hint="From: 12:00"
+                    app:counterMaxLength="300"
+                    app:helperText="Only Text Allowed"
+                    android:hint="Review Here..."
                     style="@style/inputTextMaterial">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/fromInput"
+                        android:id="@+id/reviewInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName"
-                        android:maxLength="8"
-                        android:cursorVisible="false"
-                        android:focusableInTouchMode="false"
-                        android:focusable="false"
-                        style="@style/inputTextEditMaterial"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/toLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    app:endIconMode="clear_text"
-                    app:counterMaxLength="8"
-                    app:helperText="Only Digit Allowed"
-                    android:hint="To: 12:00"
-                    style="@style/inputTextMaterial">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/toInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
-                        android:maxLength="8"
-                        android:cursorVisible="false"
-                        android:focusableInTouchMode="false"
-                        android:focusable="false"
+                        android:maxLength="300"
                         style="@style/inputTextEditMaterial"/>
 
                 </com.google.android.material.textfield.TextInputLayout>

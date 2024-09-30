@@ -26,6 +26,7 @@ import com.example.urbanharmony.Screens.AddressActivity;
 import com.example.urbanharmony.Screens.BrandsActivity;
 import com.example.urbanharmony.Screens.CategoryActivity;
 import com.example.urbanharmony.Screens.LoginActivity;
+import com.example.urbanharmony.Screens.MyDesignsActivity;
 import com.example.urbanharmony.Screens.OrderActivity;
 import com.example.urbanharmony.Screens.PortfolioActivity;
 import com.example.urbanharmony.Screens.ProductsActivity;
@@ -46,7 +47,7 @@ public class AccountFragment extends Fragment {
 
     View view;
     Button logoutBtn;
-    TextView profileName, userId, categoriesBtn, brandsBtn, stylesBtn, productsBtn, usersBtn, addressBtn, projectsBtn, portfolioBtn, scheduleBtn, subscriptionBtn;
+    TextView profileName, userId, categoriesBtn, brandsBtn, stylesBtn, productsBtn, usersBtn, addressBtn, projectsBtn, portfolioBtn, scheduleBtn, myDesignsBtn, subscriptionBtn;
     LinearLayout adminOptions, designerOptions;
     static String UID = "";
     SharedPreferences sharedPreferences;
@@ -73,6 +74,7 @@ public class AccountFragment extends Fragment {
         projectsBtn = view.findViewById(R.id.projectsBtn);
         portfolioBtn = view.findViewById(R.id.portfolioBtn);
         scheduleBtn = view.findViewById(R.id.scheduleBtn);
+        myDesignsBtn = view.findViewById(R.id.myDesignsBtn);
         subscriptionBtn = view.findViewById(R.id.subscriptionBtn);
 
         sharedPreferences = getContext().getSharedPreferences("myData",MODE_PRIVATE);
@@ -84,14 +86,14 @@ public class AccountFragment extends Fragment {
             MainActivity.db.child("Users").child(UID).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
+                    if (snapshot.exists()) {
                         profileName.setText(snapshot.child("name").getValue().toString());
-                        if(!snapshot.child("image").getValue().toString().equals("")){
+                        if (!snapshot.child("image").getValue().toString().equals("")) {
                             profileImage.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
                         }
-                        if(snapshot.child("role").getValue().toString().equals("admin")){
+                        if (snapshot.child("role").getValue().toString().equals("admin")) {
                             adminOptions.setVisibility(View.VISIBLE);
-                        } else if(snapshot.child("role").getValue().toString().equals("designer")) {
+                        } else if (snapshot.child("role").getValue().toString().equals("designer")) {
                             designerOptions.setVisibility(View.VISIBLE);
                         }
                     }
@@ -178,6 +180,13 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), SchedulesActivity.class));
+            }
+        });
+
+        myDesignsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), MyDesignsActivity.class));
             }
         });
 

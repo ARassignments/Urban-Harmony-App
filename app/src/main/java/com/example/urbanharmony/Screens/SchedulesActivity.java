@@ -414,7 +414,7 @@ public class SchedulesActivity extends AppCompatActivity {
                         slots.clear();
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             SlotModel data = dataSnapshot.getValue(SlotModel.class);
-                            slots.add(data.getFrom()+"-"+data.getTo());
+                            slots.add(data.getFrom()+" - "+data.getTo());
                         }
                         for (String name:slots) {
                             Chip chip = new Chip(new ContextThemeWrapper(context, R.style.CustomChipStyle));

@@ -12,6 +12,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Handler;
 import android.text.Editable;
@@ -30,13 +32,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.urbanharmony.Adapter.OrderViewPagerAdapter;
+import com.example.urbanharmony.Adapter.WishlistViewPagerAdapter;
 import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.Models.ProductModel;
 import com.example.urbanharmony.Models.UsersModel;
 import com.example.urbanharmony.Models.WishlistModel;
 import com.example.urbanharmony.R;
+import com.example.urbanharmony.Screens.OrderActivity;
 import com.example.urbanharmony.Screens.ProductDetailActivity;
 import com.example.urbanharmony.Screens.UsersActivity;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -48,9 +54,10 @@ public class WishlistFragment extends Fragment {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     static String UID = "";
-    GridView gridView;
-    LinearLayout notfoundContainer;
-    ArrayList<WishlistModel> datalist = new ArrayList<>();
+
+    TabLayout tabLayout;
+    ViewPager2 viewPager;
+    WishlistViewPagerAdapter wishlistViewPagerAdapter;
     View view;
 
     @Override
@@ -65,170 +72,38 @@ public class WishlistFragment extends Fragment {
             UID = sharedPreferences.getString("UID","").toString();
         }
 
-        gridView = view.findViewById(R.id.gridView);
-        notfoundContainer = view.findViewById(R.id.notfoundContainer);
-        fetchData("");
-        return view;
-    }
+        tabLayout = view.findViewById(R.id.tabLayout);
+        viewPager = view.findViewById(R.id.viewPager);
 
-    public void fetchData(String data){
-        MainActivity.db.child("Wishlist").addValueEventListener(new ValueEventListener() {
+        wishlistViewPagerAdapter = new WishlistViewPagerAdapter(this);
+        viewPager.setAdapter(wishlistViewPagerAdapter);
+
+        viewPager.setOffscreenPageLimit(2);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    datalist.clear();
-                    for (DataSnapshot ds: snapshot.getChildren()){
-                        if(ds.child("UID").getValue().toString().equals(UID)){
-                            WishlistModel model = new WishlistModel(ds.getKey(),
-                                    ds.child("UID").getValue().toString(),
-                                    ds.child("PID").getValue().toString()
-                            );
-                            datalist.add(model);
-                        }
-                    }
-                    if(datalist.size() > 0){
-                        gridView.setVisibility(View.VISIBLE);
-                        notfoundContainer.setVisibility(View.GONE);
-                        MyAdapter adapter = new MyAdapter(getContext(),datalist);
-                        gridView.setAdapter(adapter);
-                    } else {
-                        gridView.setVisibility(View.GONE);
-                        notfoundContainer.setVisibility(View.VISIBLE);
-                        if(!data.equals("")){
-                            notfoundContainer.setVisibility(View.VISIBLE);
-                        }
-                    }
-                } else {
-                    gridView.setVisibility(View.GONE);
-                    notfoundContainer.setVisibility(View.VISIBLE);
-                }
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
 
             }
         });
+
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                tabLayout.getTabAt(position).select();
+            }
+        });
+        return view;
     }
 
-    class MyAdapter extends BaseAdapter {
-
-        Context context;
-        ArrayList<WishlistModel> data;
-
-        public MyAdapter(Context context, ArrayList<WishlistModel> data) {
-            this.context = context;
-            this.data = data;
-        }
-        @Override
-        public int getCount() {
-            return data.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int i, View convertView, ViewGroup parent) {
-            View customListItem = LayoutInflater.from(context).inflate(R.layout.products_custom_listview,null);
-            ImageView pImage, wishlistBtn, editBtn, deleteBtn;
-            TextView pDiscount, pName, pRating, pStock, pPrice, pPriceOff;
-            LinearLayout options, item;
-
-            pImage = customListItem.findViewById(R.id.pImage);
-            wishlistBtn = customListItem.findViewById(R.id.wishlistBtn);
-            editBtn = customListItem.findViewById(R.id.editBtn);
-            deleteBtn = customListItem.findViewById(R.id.deleteBtn);
-            pDiscount = customListItem.findViewById(R.id.pDiscount);
-            pName = customListItem.findViewById(R.id.pName);
-            pRating = customListItem.findViewById(R.id.pRating);
-            pStock = customListItem.findViewById(R.id.pStock);
-            pPrice = customListItem.findViewById(R.id.pPrice);
-            pPriceOff = customListItem.findViewById(R.id.pPriceOff);
-            options = customListItem.findViewById(R.id.options);
-            item = customListItem.findViewById(R.id.item);
-
-            MainActivity.db.child("Products").child(data.get(i).getPID()).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
-                        if(!snapshot.child("pDiscount").getValue().toString().equals("0")){
-                            pDiscount.setVisibility(View.VISIBLE);
-                            pDiscount.setText(snapshot.child("pDiscount").getValue().toString()+"% OFF");
-                        } else {
-                            pPriceOff.setVisibility(View.GONE);
-                        }
-                        pName.setText(snapshot.child("pName").getValue().toString());
-                        pStock.setText(snapshot.child("pStock").getValue().toString()+" Stock");
-                        pPriceOff.setText("$"+snapshot.child("pPrice").getValue().toString());
-                        Glide.with(context).load(snapshot.child("pImage").getValue().toString()).into(pImage);
-
-                        double discount = Double.parseDouble(snapshot.child("pDiscount").getValue().toString())/100;
-                        double calcDiscount = Double.parseDouble(snapshot.child("pPrice").getValue().toString()) * discount;
-                        double totalPrice = Double.parseDouble(snapshot.child("pPrice").getValue().toString()) - calcDiscount;
-                        pPrice.setText("$"+Math.round(totalPrice));
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-            item.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, ProductDetailActivity.class);
-                    intent.putExtra("pid",data.get(i).getPID());
-                    startActivity(intent);
-                }
-            });
-
-            wishlistBtn.setImageResource(R.drawable.heart_gradient);
-
-            wishlistBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    MainActivity.db.child("Wishlist").child(data.get(i).getId()).removeValue();
-                    Dialog alertdialog = new Dialog(context);
-                    alertdialog.setContentView(R.layout.dialog_success);
-                    alertdialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                    alertdialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    alertdialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-                    alertdialog.getWindow().setGravity(Gravity.CENTER);
-                    alertdialog.setCancelable(false);
-                    alertdialog.setCanceledOnTouchOutside(false);
-                    TextView message = alertdialog.findViewById(R.id.msgDialog);
-                    message.setText("Product Removed From Wishlist Successfully");
-                    alertdialog.show();
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            alertdialog.dismiss();
-                            fetchData("");
-                        }
-                    },2000);
-                }
-            });
-
-            if(i==data.size()-1){
-                customListItem.setPadding(customListItem.getPaddingLeft(), customListItem.getPaddingTop(),customListItem.getPaddingRight(), 30);
-            }
-            if(i==0){
-                customListItem.setPadding(customListItem.getPaddingLeft(), 0,customListItem.getPaddingRight(), 0);
-            }
-            customListItem.setAlpha(0f);
-            customListItem.animate().alpha(1f).setDuration(200).setStartDelay(i * 2).start();
-            return customListItem;
-        }
-    }
 }

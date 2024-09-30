@@ -193,13 +193,6 @@
             android:lineBreakWordStyle="phrase"
             style="@style/detailBookContent"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginHorizontal="30dp"
-            style="@style/horizontalRow"/>
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -208,6 +201,34 @@
             android:fontFamily="@font/urbanist_bold"
             android:textSize="18sp"
             style="@style/detailBookSubTitle"/>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/projectNotFound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone"
+            app:shimmer_auto_start="true"
+            app:shimmer_duration="2000">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:padding="12dp"
+                android:gravity="center"
+                style="@style/customButton">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Projects Are Not Available"
+                    style="@style/dashboardBestsellerTitle"/>
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/projectsView"
@@ -223,9 +244,150 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/designer_projects_custom_listview" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="Designs"
+            android:fontFamily="@font/urbanist_bold"
+            android:textSize="18sp"
+            style="@style/detailBookSubTitle"/>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/designNotFound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone"
+            app:shimmer_auto_start="true"
+            app:shimmer_duration="2000">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:padding="12dp"
+                android:gravity="center"
+                style="@style/customButton">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Designs Are Not Available"
+                    style="@style/dashboardBestsellerTitle"/>
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/designsView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:scrollbars="none"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:paddingEnd="14dp"
+            android:paddingStart="30dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/designer_designs_custom_listview" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="Review"
+                android:fontFamily="@font/urbanist_bold"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                style="@style/detailBookSubTitle"/>
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/addReviewBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Review"
+                android:drawableEnd="@drawable/add"
+                app:elevation="0dp"
+                android:scaleX="0.6"
+                android:scaleY="0.6"
+                android:textSize="17sp"
+                style="@style/floatingActionButtonExtend"/>
+
+        </LinearLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/reviewFound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone"
+            app:shimmer_auto_start="true"
+            app:shimmer_duration="2000">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:padding="12dp"
+                android:gravity="center"
+                style="@style/customButton">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reviews Are Not Available"
+                    style="@style/dashboardBestsellerTitle"/>
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/reviewViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/paginationContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginTop="5dp"
+                app:tabIndicatorHeight="0dp"
+                app:tabPadding="0dp"
+                app:tabPaddingStart="3dp"
+                app:tabPaddingEnd="3dp"/>
+
+            <TextView
+                android:id="@+id/viewMoreBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View More"
+                android:layout_weight="1"
+                android:textAlignment="textEnd"
+                style="@style/detailBookReviewRatingViewMoreText"/>
+
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="2dp"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:layout_marginHorizontal="30dp"
             style="@style/horizontalRow"/>

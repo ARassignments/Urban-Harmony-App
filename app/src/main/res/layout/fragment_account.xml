@@ -307,6 +307,21 @@
                 android:layout_height="1dp"
                 style="@style/horizontalRow"/>
 
+            <TextView
+                android:id="@+id/myDesignsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="My Designs"
+                android:layout_marginTop="2dp"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="32dp"
+                style="@style/settingsItems"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                style="@style/horizontalRow"/>
+
         </LinearLayout>
 
         <LinearLayout
