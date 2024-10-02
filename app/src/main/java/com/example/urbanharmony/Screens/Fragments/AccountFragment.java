@@ -25,6 +25,7 @@ import com.example.urbanharmony.R;
 import com.example.urbanharmony.Screens.AddressActivity;
 import com.example.urbanharmony.Screens.BrandsActivity;
 import com.example.urbanharmony.Screens.CategoryActivity;
+import com.example.urbanharmony.Screens.DashboardActivity;
 import com.example.urbanharmony.Screens.LoginActivity;
 import com.example.urbanharmony.Screens.MyDesignsActivity;
 import com.example.urbanharmony.Screens.OrderActivity;
@@ -117,6 +118,13 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), OrderActivity.class));
+            }
+        });
+
+        view.findViewById(R.id.wishlistBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((DashboardActivity) getContext()).openWishlistPage();
             }
         });
 

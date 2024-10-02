@@ -118,18 +118,110 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Best Designers"
+                android:text="Top Products"
                 android:layout_weight="1"
                 android:layout_marginRight="10dp"
                 style="@style/dashboardTitle"/>
 
             <TextView
+                android:id="@+id/seemoreProductsBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="See more"
                 style="@style/dashboardBtn"/>
 
         </LinearLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/productsNotFound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:shimmer_auto_start="true"
+            app:shimmer_duration="2000">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:padding="12dp"
+                android:gravity="center"
+                style="@style/customButton">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Products Are Not Available"
+                    style="@style/dashboardBestsellerTitle"/>
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/productsView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:scrollbars="none"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:paddingEnd="14dp"
+            android:paddingStart="30dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/products_home_custom_listview" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="30dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Best Designers"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                style="@style/dashboardTitle"/>
+
+            <TextView
+                android:id="@+id/seemoreDesignersBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="See more"
+                style="@style/dashboardBtn"/>
+
+        </LinearLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/designersNotFound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:shimmer_auto_start="true"
+            app:shimmer_duration="2000">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:padding="12dp"
+                android:gravity="center"
+                style="@style/customButton">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Designers Are Not Available"
+                    style="@style/dashboardBestsellerTitle"/>
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/designerView"

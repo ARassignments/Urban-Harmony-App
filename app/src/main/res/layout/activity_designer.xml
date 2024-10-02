@@ -6,7 +6,7 @@
     style="@style/ScreenBg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Screens.DesignerReviewsActivity">
+    tools:context=".Screens.DesignerActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reviews"
+                android:text="Designers"
                 android:layout_marginTop="2dp"
                 android:layout_weight="1"
                 android:textAlignment="center"
@@ -48,54 +48,31 @@
             android:layout_height="1dp"
             style="@style/horizontalRow"/>
 
-        <HorizontalScrollView
-            android:id="@+id/categoriesContainer"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="30dp"
-            android:scrollbars="none">
+            android:layout_marginTop="20dp">
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/categoryChipgroup"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/searchInput"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:chipSpacingHorizontal="10dp"
-                app:singleSelection="true"
-                app:selectionRequired="true">
+                android:inputType="textPersonName"
+                android:maxLength="25"
+                android:hint="Search Name Here..."
+                style="@style/inputText" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/allChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="All"
-                    app:chipIconSize="15dp"
-                    app:chipEndPadding="10dp"
-                    app:chipStartPadding="10dp"
-                    android:checked="true"
-                    android:checkable="true"
-                    app:checkedIconVisible="true"
-                    app:checkedIconEnabled="true"
-                    app:checkedIconTint="@color/accent_50"
-                    style="@style/CustomCategoryChipStyle"/>
+            <ImageView
+                android:id="@+id/sortBtn"
+                android:layout_width="22dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/deasscending_order"
+                android:layout_gravity="center|end"
+                android:layout_marginEnd="22dp"
+                style="@style/appBarIcon" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/myChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="My Reviews"
-                    app:chipIconSize="15dp"
-                    app:chipEndPadding="10dp"
-                    app:chipStartPadding="10dp"
-                    android:checkable="true"
-                    app:checkedIconVisible="true"
-                    app:checkedIconEnabled="true"
-                    app:checkedIconTint="@color/accent_50"
-                    style="@style/CustomCategoryChipStyle"/>
-
-            </com.google.android.material.chip.ChipGroup>
-
-        </HorizontalScrollView>
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/loader"
@@ -112,6 +89,47 @@
                 app:lottie_loop="true"
                 android:rotation="180"
                 style="@style/SplashLogo"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/notifyBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='Result for “'
+                style="@style/searchLabelText"/>
+
+            <TextView
+                android:id="@+id/searchedWord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='search here...'
+                android:maxLength="20"
+                style="@style/searchText"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='”'
+                style="@style/searchLabelText"/>
+
+            <TextView
+                android:id="@+id/totalCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="textEnd"
+                android:text='0 found'
+                style="@style/searchText"/>
 
         </LinearLayout>
 
@@ -147,7 +165,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sorry, the reviews you are looking for cannot be found, please try again later."
+                    android:text="Sorry, the keyword you entered cannot be found, please check again or search with another keyword."
                     android:textAlignment="center"
                     android:layout_marginTop="5dp"
                     style="@style/notFoundMessageText"/>
@@ -156,16 +174,18 @@
 
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/listView"
+        <GridView
+            android:id="@+id/gridView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:visibility="gone"
-            tools:listitem="@layout/designer_reviews_custom_listview"/>
+            android:numColumns="2"
+            android:layout_marginTop="20dp"
+            android:verticalSpacing="16dp"
+            android:horizontalSpacing="16dp"
+            android:paddingHorizontal="30dp"
+            android:visibility="visible"
+            tools:listitem="@layout/designers_custom_listview"/>
 
     </LinearLayout>
 

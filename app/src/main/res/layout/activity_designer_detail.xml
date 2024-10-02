@@ -401,6 +401,16 @@
             android:text="Booking Appointment"
             style="@style/flatButton"/>
 
+        <Button
+            android:id="@+id/onlyBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginBottom="30dp"
+            android:visibility="gone"
+            android:text="Only For Users"
+            style="@style/flatButtonDisabled"/>
+
     </LinearLayout>
 
 </ScrollView>

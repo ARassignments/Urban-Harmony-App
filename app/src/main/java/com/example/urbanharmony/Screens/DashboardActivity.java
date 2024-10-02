@@ -173,6 +173,16 @@ public class DashboardActivity extends AppCompatActivity {
         }
     }
 
+    public void openCatalogPage(){
+        replaceFragment(new CartFragment());
+        bottomAppBar.setSelectedItemId(R.id.catalog);
+    }
+
+    public void openWishlistPage(){
+        replaceFragment(new WishlistFragment());
+        bottomAppBar.setSelectedItemId(R.id.wishlist);
+    }
+
     public void replaceFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.frame,fragment).commit();
     }

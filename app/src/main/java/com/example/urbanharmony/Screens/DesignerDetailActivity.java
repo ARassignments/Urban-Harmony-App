@@ -42,6 +42,7 @@ import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.Models.DesignModel;
 import com.example.urbanharmony.Models.FeedbackModel;
 import com.example.urbanharmony.Models.ProjectModel;
+import com.example.urbanharmony.Models.ScheduleModel;
 import com.example.urbanharmony.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -74,7 +75,7 @@ public class DesignerDetailActivity extends AppCompatActivity {
     static String UID = "";
     static String CurrentUID = "";
     CircleImageView profileImage;
-    TextView profileName, shortBio, longBio, viewMoreBtn;
+    TextView profileName, shortBio, longBio, viewMoreBtn, designsCount;
     RecyclerView projectsView, designsView;
     ArrayList<ProjectModel> datalist = new ArrayList<>();
     ArrayList<DesignModel> datalistTwo = new ArrayList<>();
@@ -84,6 +85,7 @@ public class DesignerDetailActivity extends AppCompatActivity {
     ViewPager2 reviewViewPager;
     TabLayout tabLayout;
     LinearLayout paginationContainer;
+    Button onlyBtn, bookBtn;
     private Handler sliderHandler = new Handler(Looper.getMainLooper());
 
     //    Dialog Elements
@@ -127,6 +129,9 @@ public class DesignerDetailActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabLayout);
         paginationContainer = findViewById(R.id.paginationContainer);
         viewMoreBtn = findViewById(R.id.viewMoreBtn);
+        bookBtn = findViewById(R.id.bookBtn);
+        onlyBtn = findViewById(R.id.onlyBtn);
+        designsCount = findViewById(R.id.designsCount);
 
         findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,11 +140,17 @@ public class DesignerDetailActivity extends AppCompatActivity {
             }
         });
 
+        if(DashboardActivity.getRole().equals("designer")||DashboardActivity.getRole().equals("admin")){
+            onlyBtn.setVisibility(View.VISIBLE);
+            bookBtn.setVisibility(View.GONE);
+        }
+
         fetchDetails();
         fetchProjects();
         fetchDesigns();
         fetchReviews();
         checkPortfolio();
+        checkSchedule();
 
         addReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,6 +163,15 @@ public class DesignerDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DesignerDetailActivity.this, DesignerReviewsActivity.class);
+                intent.putExtra("userId",UID);
+                startActivity(intent);
+            }
+        });
+
+        bookBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DesignerDetailActivity.this, BookingAppointmentActivity.class);
                 intent.putExtra("userId",UID);
                 startActivity(intent);
             }
@@ -232,6 +252,7 @@ public class DesignerDetailActivity extends AppCompatActivity {
                             datalistTwo.add(model);
                         }
                     }
+                    designsCount.setText(datalistTwo.size()+" Designs");
                     if(datalistTwo.size() > 0){
                         designsView.setVisibility(View.VISIBLE);
                         designNotFound.setVisibility(View.GONE);
@@ -287,14 +308,6 @@ public class DesignerDetailActivity extends AppCompatActivity {
                             @Override
                             public void onPageSelected(int position) {
                                 super.onPageSelected(position);
-
-                                Runnable sliderRunnable = new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        int nextSlide = (reviewViewPager.getCurrentItem() + 1) % datalistThree.size();
-                                        reviewViewPager.setCurrentItem(nextSlide, true);
-                                    }
-                                };
                                 sliderHandler.removeCallbacks(sliderRunnable);
                                 sliderHandler.postDelayed(sliderRunnable, 4000);
                                 updateTabIndicator(position);
@@ -330,13 +343,6 @@ public class DesignerDetailActivity extends AppCompatActivity {
                             @Override
                             public void onPageSelected(int position) {
                                 super.onPageSelected(position);
-                                Runnable sliderRunnable = new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        int nextSlide = (reviewViewPager.getCurrentItem() + 1) % 3;
-                                        reviewViewPager.setCurrentItem(nextSlide, true);
-                                    }
-                                };
                                 sliderHandler.removeCallbacks(sliderRunnable);
                                 sliderHandler.postDelayed(sliderRunnable, 4000);
                                 updateTabIndicator(position);
@@ -374,6 +380,25 @@ public class DesignerDetailActivity extends AppCompatActivity {
         });
     }
 
+    private final Runnable sliderRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if(datalistThree.size() > 0 && datalistThree.size() <= 3){
+                int nextSlide = (reviewViewPager.getCurrentItem() + 1) % datalistThree.size();
+                reviewViewPager.setCurrentItem(nextSlide, true);
+            } else if(datalistThree.size() > 3){
+                int nextSlide = (reviewViewPager.getCurrentItem() + 1) % 3;
+                reviewViewPager.setCurrentItem(nextSlide, true);
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sliderHandler.removeCallbacks(sliderRunnable);
+    }
+
     public void checkPortfolio(){
         MainActivity.db.child("Portfolio").child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -383,6 +408,41 @@ public class DesignerDetailActivity extends AppCompatActivity {
                         shortBio.setText(snapshot.child("shortBio").getValue().toString());
                         longBio.setText(snapshot.child("longBio").getValue().toString());
                         Glide.with(DesignerDetailActivity.this).load(snapshot.child("image").getValue().toString().trim()).into(profileImage);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void checkSchedule(){
+        MainActivity.db.child("Schedule").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    boolean status = false;
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        if(ds.child("userId").getValue().toString().equals(UID)&&(!ds.child("Slots").getValue().toString().equals(""))){
+                            status = true;
+                        }
+                    }
+
+                    if(DashboardActivity.getRole().equals("designer")||DashboardActivity.getRole().equals("admin")){
+                        onlyBtn.setVisibility(View.VISIBLE);
+                        bookBtn.setVisibility(View.GONE);
+                    } else {
+                        if(status == false){
+                            onlyBtn.setVisibility(View.VISIBLE);
+                            onlyBtn.setText("Appointment Is Not Available");
+                            bookBtn.setVisibility(View.GONE);
+                        } else {
+                            onlyBtn.setVisibility(View.GONE);
+                            bookBtn.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
             }

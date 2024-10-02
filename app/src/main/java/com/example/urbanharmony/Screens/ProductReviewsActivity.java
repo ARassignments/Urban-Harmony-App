@@ -2,14 +2,11 @@ package com.example.urbanharmony.Screens;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +14,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -32,7 +28,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.Models.FeedbackModel;
-import com.example.urbanharmony.Models.UsersModel;
+import com.example.urbanharmony.Models.ProductFeedbackModel;
 import com.example.urbanharmony.R;
 import com.google.android.material.chip.Chip;
 import com.google.firebase.database.DataSnapshot;
@@ -41,41 +37,37 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
-public class DesignerReviewsActivity extends AppCompatActivity {
+public class ProductReviewsActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     static String UID = "";
-    static String CurrentUID = "";
+    static String PID = "";
     static String sortingStatus = "dsc";
     static String filterStatus = "all";
     ListView listView;
     LinearLayout loader, notfoundContainer;
     Chip allChip, myChip;
-    ArrayList<FeedbackModel> datalist = new ArrayList<>();
+    ArrayList<ProductFeedbackModel> datalist = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_designer_reviews);
+        setContentView(R.layout.activity_product_reviews);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         sharedPreferences = getSharedPreferences("myData",MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         if(!sharedPreferences.getString("UID","").equals("")){
-            CurrentUID = sharedPreferences.getString("UID","").toString();
+            UID = sharedPreferences.getString("UID","").toString();
         }
 
         Bundle extra = getIntent().getExtras();
         if (extra != null) {
-            UID = extra.getString("userId");
+            PID = extra.getString("PID");
         }
 
         listView = findViewById(R.id.listView);
@@ -103,7 +95,7 @@ public class DesignerReviewsActivity extends AppCompatActivity {
         findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DesignerReviewsActivity.super.onBackPressed();
+                ProductReviewsActivity.super.onBackPressed();
             }
         });
     }
@@ -114,7 +106,7 @@ public class DesignerReviewsActivity extends AppCompatActivity {
     }
 
     public void fetchData(String data){
-        MainActivity.db.child("Feedback").addListenerForSingleValueEvent(new ValueEventListener() {
+        MainActivity.db.child("ProductFeedback").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
@@ -123,23 +115,23 @@ public class DesignerReviewsActivity extends AppCompatActivity {
                         if(data.equals("")){
                             if(!ds.getKey().equals(UID)){
                                 if(filterStatus.equals("all")){
-                                    if(ds.child("designerId").getValue().toString().equals(UID)){
-                                        FeedbackModel model = new FeedbackModel(ds.getKey(),
+                                    if(ds.child("PID").getValue().toString().equals(PID)){
+                                        ProductFeedbackModel model = new ProductFeedbackModel(ds.getKey(),
                                                 ds.child("rating").getValue().toString(),
                                                 ds.child("review").getValue().toString(),
-                                                ds.child("userId").getValue().toString(),
-                                                ds.child("designerId").getValue().toString(),
+                                                ds.child("PID").getValue().toString(),
+                                                ds.child("UID").getValue().toString(),
                                                 ds.child("reviewDate").getValue().toString()
                                         );
                                         datalist.add(model);
                                     }
                                 } else if(filterStatus.equals("myChip")){
-                                    if(ds.child("designerId").getValue().toString().equals(UID)&&ds.child("userId").getValue().toString().equals(CurrentUID)){
-                                        FeedbackModel model = new FeedbackModel(ds.getKey(),
+                                    if(ds.child("PID").getValue().toString().equals(PID)&&ds.child("UID").getValue().toString().equals(UID)){
+                                        ProductFeedbackModel model = new ProductFeedbackModel(ds.getKey(),
                                                 ds.child("rating").getValue().toString(),
                                                 ds.child("review").getValue().toString(),
-                                                ds.child("userId").getValue().toString(),
-                                                ds.child("designerId").getValue().toString(),
+                                                ds.child("PID").getValue().toString(),
+                                                ds.child("UID").getValue().toString(),
                                                 ds.child("reviewDate").getValue().toString()
                                         );
                                         datalist.add(model);
@@ -155,7 +147,7 @@ public class DesignerReviewsActivity extends AppCompatActivity {
                         if(sortingStatus.equals("dsc")){
                             Collections.reverse(datalist);
                         }
-                        MyAdapter adapter = new MyAdapter(DesignerReviewsActivity.this,datalist);
+                        MyAdapter adapter = new MyAdapter(ProductReviewsActivity.this,datalist);
                         listView.setAdapter(adapter);
                     } else {
                         loader.setVisibility(View.GONE);
@@ -182,9 +174,9 @@ public class DesignerReviewsActivity extends AppCompatActivity {
     class MyAdapter extends BaseAdapter {
 
         Context context;
-        ArrayList<FeedbackModel> data;
+        ArrayList<ProductFeedbackModel> data;
 
-        public MyAdapter(Context context, ArrayList<FeedbackModel> data) {
+        public MyAdapter(Context context, ArrayList<ProductFeedbackModel> data) {
             this.context = context;
             this.data = data;
         }
@@ -224,7 +216,7 @@ public class DesignerReviewsActivity extends AppCompatActivity {
             starFive = customListItem.findViewById(R.id.starFive);
 
             sno.setVisibility(View.VISIBLE);
-            if(data.get(i).getUserId().equals(CurrentUID)){
+            if(data.get(i).getUID().equals(UID)){
                 deleteBtn.setVisibility(View.VISIBLE);
             }
             sno.setText(""+(i+1));
@@ -293,7 +285,7 @@ public class DesignerReviewsActivity extends AppCompatActivity {
                     yesBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            MainActivity.db.child("Feedback").child(data.get(i).getId()).removeValue();
+                            MainActivity.db.child("ProductFeedback").child(data.get(i).getId()).removeValue();
                             Dialog dialog = new Dialog(context);
                             dialog.setContentView(R.layout.dialog_success);
                             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -321,7 +313,7 @@ public class DesignerReviewsActivity extends AppCompatActivity {
                 }
             });
 
-            MainActivity.db.child("Users").child(data.get(i).getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            MainActivity.db.child("Users").child(data.get(i).getUID()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){

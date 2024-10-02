@@ -453,140 +453,85 @@
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="30dp"
-                android:text="Review"
-                android:layout_marginTop="20dp"
-                style="@style/detailBookSubTitle"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="30dp"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        app:cardCornerRadius="8dp"
-                        android:backgroundTint="@color/primary_50">
-
-                        <ImageView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:src="@drawable/boy_14"/>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginLeft="16dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Ronald Richards"
-                            style="@style/detailBookReviewTitle"/>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:layout_marginRight="8dp"
-                                android:src="@drawable/star"
-                                app:tint="@color/accent_50" />
-
-                            <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:layout_marginRight="8dp"
-                                android:src="@drawable/star"
-                                app:tint="@color/accent_50" />
-
-                            <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:layout_marginRight="8dp"
-                                android:src="@drawable/star"
-                                app:tint="@color/accent_50" />
-
-                            <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:layout_marginRight="8dp"
-                                android:src="@drawable/star"
-                                app:tint="@color/accent_50" />
-
-                            <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:layout_marginRight="12dp"
-                                android:src="@drawable/star_outline"
-                                app:tint="@color/accent_50" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="2 days ago"
-                                style="@style/detailBookReviewRatingText"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
+                android:layout_marginTop="20dp">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis enim velit mollit. "
-                    android:layout_marginTop="12dp"
-                    android:lineBreakWordStyle="phrase"
-                    style="@style/detailBookContent"/>
+                    android:layout_marginStart="30dp"
+                    android:text="Review"
+                    android:layout_weight="1"
+                    style="@style/detailBookSubTitle"/>
+
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    android:id="@+id/addReviewBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Review"
+                    android:drawableEnd="@drawable/add"
+                    app:elevation="0dp"
+                    android:scaleX="0.6"
+                    android:scaleY="0.6"
+                    android:textSize="17sp"
+                    style="@style/floatingActionButtonExtend"/>
 
             </LinearLayout>
 
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/reviewFound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                app:shimmer_auto_start="true"
+                app:shimmer_duration="2000">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:padding="12dp"
+                    android:gravity="center"
+                    style="@style/customButton">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reviews Are Not Available"
+                        style="@style/dashboardBestsellerTitle"/>
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/reviewViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
             <LinearLayout
+                android:id="@+id/paginationContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
                 android:layout_marginTop="16dp"
                 android:gravity="center">
 
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:layout_marginRight="12dp"
-                    android:src="@drawable/onboarding_indicator_inactive"/>
-
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:layout_marginRight="12dp"
-                    android:src="@drawable/onboarding_indicator_inactive"
-                    style="@style/detailBookReviewRatingIndicator"/>
-
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:src="@drawable/onboarding_indicator_inactive"
-                    style="@style/detailBookReviewRatingIndicator"/>
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="5dp"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabPadding="0dp"
+                    app:tabPaddingStart="3dp"
+                    app:tabPaddingEnd="3dp"/>
 
                 <TextView
+                    android:id="@+id/viewMoreBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="View More"

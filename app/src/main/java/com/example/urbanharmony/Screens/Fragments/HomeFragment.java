@@ -25,15 +25,21 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.urbanharmony.Adapter.DesignerAdapter;
+import com.example.urbanharmony.Adapter.ProductAdapter;
 import com.example.urbanharmony.Adapter.SliderAdapter;
 import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.Models.CategoryModel;
+import com.example.urbanharmony.Models.FeedbackModel;
+import com.example.urbanharmony.Models.ProductModel;
 import com.example.urbanharmony.Models.UsersModel;
 import com.example.urbanharmony.R;
+import com.example.urbanharmony.Screens.DashboardActivity;
+import com.example.urbanharmony.Screens.DesignerActivity;
 import com.example.urbanharmony.Screens.DesignerDetailActivity;
 import com.example.urbanharmony.Screens.SubCategoryActivity;
 import com.example.urbanharmony.Screens.SubcategoriesViewActivity;
 import com.example.urbanharmony.Screens.UsersActivity;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.database.DataSnapshot;
@@ -49,13 +55,16 @@ public class HomeFragment extends Fragment {
 
     View view;
     static String UID = "";
+    static String sortingStatus = "dsc";
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ViewPager2 sliderViewPager;
     TabLayout tabLayout;
     LinearLayout categoryContainer;
-    RecyclerView designerView;
+    RecyclerView designerView, productsView;
+    ShimmerFrameLayout productsNotFound, designersNotFound;
     ArrayList<UsersModel> datalist = new ArrayList<>();
+    ArrayList<ProductModel> datalistTwo = new ArrayList<>();
     private Handler sliderHandler = new Handler(Looper.getMainLooper());
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,6 +82,9 @@ public class HomeFragment extends Fragment {
         tabLayout = view.findViewById(R.id.tabLayout);
         categoryContainer = view.findViewById(R.id.categoryContainer);
         designerView = view.findViewById(R.id.designerView);
+        productsView = view.findViewById(R.id.productsView);
+        productsNotFound = view.findViewById(R.id.productsNotFound);
+        designersNotFound = view.findViewById(R.id.designersNotFound);
 
         List<String> imageUrls = Arrays.asList(
                 "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/home-banner1.jpg?alt=media&token=6fcc7087-b0f3-4f28-89b3-fa7372da2986",
@@ -108,6 +120,20 @@ public class HomeFragment extends Fragment {
 
             tab.setCustomView(customTab);
         }).attach();
+
+        view.findViewById(R.id.seemoreProductsBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((DashboardActivity) getContext()).openCatalogPage();
+            }
+        });
+
+        view.findViewById(R.id.seemoreDesignersBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getContext().startActivity(new Intent(getContext(), DesignerActivity.class));
+            }
+        });
 
         MainActivity.db.child("Category").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -154,6 +180,7 @@ public class HomeFragment extends Fragment {
             }
         });
         fetchDesigners();
+        fetchProducts();
         return view;
     }
 
@@ -251,9 +278,71 @@ public class HomeFragment extends Fragment {
             // Helper function to update adapter
             private void updateAdapter() {
                 if (datalist.size() > 0) {
+                    designerView.setVisibility(View.VISIBLE);
+                    designersNotFound.setVisibility(View.GONE);
                     DesignerAdapter adapter = new DesignerAdapter(getContext(), datalist);
                     designerView.setAdapter(adapter);
+                } else {
+                    designerView.setVisibility(View.GONE);
+                    designersNotFound.setVisibility(View.VISIBLE);
                 }
+            }
+        });
+    }
+
+    public void fetchProducts(){
+        MainActivity.db.child("Products").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    datalistTwo.clear();
+                    for (DataSnapshot ds: snapshot.getChildren()){
+                        ProductModel model = new ProductModel(ds.getKey(),
+                                ds.child("pName").getValue().toString(),
+                                ds.child("pPrice").getValue().toString(),
+                                ds.child("pStock").getValue().toString(),
+                                ds.child("pDiscount").getValue().toString(),
+                                ds.child("pImage").getValue().toString(),
+                                ds.child("pDesc").getValue().toString(),
+                                ds.child("pCategory").getValue().toString(),
+                                ds.child("pSubcategory").getValue().toString(),
+                                ds.child("pBrand").getValue().toString(),
+                                ds.child("pStyle").getValue().toString(),
+                                ds.child("status").getValue().toString()
+                        );
+                        datalistTwo.add(model);
+                    }
+                    int productCount = 10;
+                    if(datalistTwo.size() > 0 && datalistTwo.size() <= productCount){
+                        productsView.setVisibility(View.VISIBLE);
+                        productsNotFound.setVisibility(View.GONE);
+                        if(sortingStatus.equals("dsc")){
+                            Collections.reverse(datalistTwo);
+                        }
+                        ProductAdapter adapter = new ProductAdapter(getContext(),datalistTwo,UID);
+                        productsView.setAdapter(adapter);
+                    } else if(datalistTwo.size() > productCount){
+                        productsView.setVisibility(View.VISIBLE);
+                        productsNotFound.setVisibility(View.GONE);
+                        if(sortingStatus.equals("dsc")){
+                            Collections.reverse(datalistTwo);
+                        }
+                        List<ProductModel> sublist = new ArrayList<>(datalistTwo.subList(0, productCount));
+                        ProductAdapter adapter = new ProductAdapter(getContext(),sublist,UID);
+                        productsView.setAdapter(adapter);
+                    } else {
+                        productsView.setVisibility(View.GONE);
+                        productsNotFound.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    productsView.setVisibility(View.GONE);
+                    productsNotFound.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
