@@ -96,6 +96,7 @@
                     android:layout_gravity="center">
 
                     <ImageView
+                        android:id="@+id/starOne"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/star"
@@ -103,6 +104,7 @@
                         app:tint="@color/accent_50"/>
 
                     <ImageView
+                        android:id="@+id/starTwo"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/star"
@@ -110,6 +112,7 @@
                         app:tint="@color/accent_50"/>
 
                     <ImageView
+                        android:id="@+id/starThree"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/star"
@@ -117,6 +120,7 @@
                         app:tint="@color/accent_50"/>
 
                     <ImageView
+                        android:id="@+id/starFour"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/star"
@@ -124,6 +128,7 @@
                         app:tint="@color/accent_50"/>
 
                     <ImageView
+                        android:id="@+id/starFive"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/star_outline"

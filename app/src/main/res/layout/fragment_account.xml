@@ -444,9 +444,25 @@
             style="@style/horizontalRow"/>
 
         <TextView
+            android:id="@+id/privacyPolicyBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Linked Account"
+            android:text="Privacy Policy"
+            android:layout_marginTop="2dp"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="32dp"
+            style="@style/settingsItems"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            style="@style/horizontalRow"/>
+
+        <TextView
+            android:id="@+id/helpCenterBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Help Center"
             android:layout_marginTop="2dp"
             android:paddingVertical="16dp"
             android:paddingHorizontal="32dp"

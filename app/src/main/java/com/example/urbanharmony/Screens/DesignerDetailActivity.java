@@ -64,6 +64,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -86,6 +87,7 @@ public class DesignerDetailActivity extends AppCompatActivity {
     TabLayout tabLayout;
     LinearLayout paginationContainer;
     Button onlyBtn, bookBtn;
+    ImageView starOne, starTwo, starThree, starFour, starFive;
     private Handler sliderHandler = new Handler(Looper.getMainLooper());
 
     //    Dialog Elements
@@ -132,6 +134,11 @@ public class DesignerDetailActivity extends AppCompatActivity {
         bookBtn = findViewById(R.id.bookBtn);
         onlyBtn = findViewById(R.id.onlyBtn);
         designsCount = findViewById(R.id.designsCount);
+        starOne = findViewById(R.id.starOne);
+        starTwo = findViewById(R.id.starTwo);
+        starThree = findViewById(R.id.starThree);
+        starFour = findViewById(R.id.starFour);
+        starFive = findViewById(R.id.starFive);
 
         findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -281,8 +288,13 @@ public class DesignerDetailActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     datalistThree.clear();
+                    double totalRating = 0;
+                    int reviewCount = 0;
                     for (DataSnapshot ds: snapshot.getChildren()){
                         if(ds.child("designerId").getValue().toString().trim().equals(UID)){
+                            double rating = Double.parseDouble(ds.child("rating").getValue().toString());
+                            totalRating += rating; // Add to total rating
+                            reviewCount++; // Increment the review count
                             FeedbackModel model = new FeedbackModel(ds.getKey(),
                                     ds.child("rating").getValue().toString(),
                                     ds.child("review").getValue().toString(),
@@ -293,6 +305,45 @@ public class DesignerDetailActivity extends AppCompatActivity {
                             datalistThree.add(model);
                         }
                     }
+                    double averageRating = (reviewCount > 0) ? totalRating / reviewCount : 0;
+                    if(averageRating >= 0.0 && averageRating < 1.0){
+                        starOne.setImageResource(R.drawable.star_outline);
+                        starTwo.setImageResource(R.drawable.star_outline);
+                        starThree.setImageResource(R.drawable.star_outline);
+                        starFour.setImageResource(R.drawable.star_outline);
+                        starFive.setImageResource(R.drawable.star_outline);
+                    } else if(averageRating >= 1.0 && averageRating < 2.0){
+                        starOne.setImageResource(R.drawable.star);
+                        starTwo.setImageResource(R.drawable.star_outline);
+                        starThree.setImageResource(R.drawable.star_outline);
+                        starFour.setImageResource(R.drawable.star_outline);
+                        starFive.setImageResource(R.drawable.star_outline);
+                    } else if(averageRating >= 2.0 && averageRating < 3.0){
+                        starOne.setImageResource(R.drawable.star);
+                        starTwo.setImageResource(R.drawable.star);
+                        starThree.setImageResource(R.drawable.star_outline);
+                        starFour.setImageResource(R.drawable.star_outline);
+                        starFive.setImageResource(R.drawable.star_outline);
+                    } else if(averageRating >= 3.0 && averageRating < 4.0){
+                        starOne.setImageResource(R.drawable.star);
+                        starTwo.setImageResource(R.drawable.star);
+                        starThree.setImageResource(R.drawable.star);
+                        starFour.setImageResource(R.drawable.star_outline);
+                        starFive.setImageResource(R.drawable.star_outline);
+                    } else if(averageRating >= 4.0 && averageRating < 5.0){
+                        starOne.setImageResource(R.drawable.star);
+                        starTwo.setImageResource(R.drawable.star);
+                        starThree.setImageResource(R.drawable.star);
+                        starFour.setImageResource(R.drawable.star);
+                        starFive.setImageResource(R.drawable.star_outline);
+                    } else if(averageRating >= 5.0){
+                        starOne.setImageResource(R.drawable.star);
+                        starTwo.setImageResource(R.drawable.star);
+                        starThree.setImageResource(R.drawable.star);
+                        starFour.setImageResource(R.drawable.star);
+                        starFive.setImageResource(R.drawable.star);
+                    }
+
                     if (datalistThree.size() > 0 && datalistThree.size() <= 3) {
                         // Display 1 to 3 items
                         reviewViewPager.setVisibility(View.VISIBLE);
@@ -437,7 +488,7 @@ public class DesignerDetailActivity extends AppCompatActivity {
                     } else {
                         if(status == false){
                             onlyBtn.setVisibility(View.VISIBLE);
-                            onlyBtn.setText("Appointment Is Not Available");
+                            onlyBtn.setText("Appointments Is Not Available");
                             bookBtn.setVisibility(View.GONE);
                         } else {
                             onlyBtn.setVisibility(View.GONE);

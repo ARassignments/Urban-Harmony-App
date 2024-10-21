@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ScreenBg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Screens.PrivacyPolicyActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="30dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/backBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back"
+                style="@style/appBarIcon"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Privacy Policy"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                style="@style/appBarTitle"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            style="@style/horizontalRow"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="1. Types of Data We Collect"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/urbanist_bold"
+            android:textSize="18sp"
+            style="@style/detailBookSubTitle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="We collect different types of information to provide and improve our service to you. This may include:"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:lineBreakWordStyle="phrase"
+            style="@style/detailBookContent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="● Personal Data:"
+            android:fontFamily="@font/urbanist_bold"
+            style="@style/detailBookSubTitle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="While using our service, we may ask you to provide us with certain personally identifiable information, such as your name, email address, phone number, and postal address."
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="13sp"
+            android:lineBreakWordStyle="phrase"
+            style="@style/detailBookContent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="● Usage Data:"
+            android:fontFamily="@font/urbanist_bold"
+            style="@style/detailBookSubTitle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="We may also collect information about how the service is accessed and used. This may include details such as your IP address, browser type, device type, the pages you visit, and the time and date of your visit."
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="13sp"
+            android:lineBreakWordStyle="phrase"
+            style="@style/detailBookContent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="● Cookies and Tracking Technologies:"
+            android:fontFamily="@font/urbanist_bold"
+            style="@style/detailBookSubTitle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="We use cookies and similar tracking technologies to track activity on our service and hold certain information. These may include session cookies, preference cookies, and security cookies to ensure better functionality and user experience"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="13sp"
+            android:lineBreakWordStyle="phrase"
+            style="@style/detailBookContent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="2. Use of Your Personal Data"
+            android:fontFamily="@font/urbanist_bold"
+            android:textSize="18sp"
+            style="@style/detailBookSubTitle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="We use the collected data for various purposes, including:"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:lineBreakWordStyle="phrase"
+            style="@style/detailBookContent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="● To provide and maintain our service:"
+            android:fontFamily="@font/urbanist_bold"
+            style="@style/detailBookSubTitle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="To ensure the smooth operation of the platform."
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="13sp"
+            android:lineBreakWordStyle="phrase"
+            style="@style/detailBookContent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="● To manage your account:"
+            android:fontFamily="@font/urbanist_bold"
+            style="@style/detailBookSubTitle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="To give you access to your account and enable personalized services."
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="13sp"
+            android:lineBreakWordStyle="phrase"
+            style="@style/detailBookContent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="● To improve customer service:"
+            android:fontFamily="@font/urbanist_bold"
+            style="@style/detailBookSubTitle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="We may use your feedback to enhance our services and support."
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="13sp"
+            android:lineBreakWordStyle="phrase"
+            style="@style/detailBookContent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="● To send notifications and updates:"
+            android:fontFamily="@font/urbanist_bold"
+            style="@style/detailBookSubTitle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="We may use your contact information to send important updates about the service, changes to the terms, and other promotional materials."
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="13sp"
+            android:lineBreakWordStyle="phrase"
+            style="@style/detailBookContent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="● To monitor usage and trends:"
+            android:fontFamily="@font/urbanist_bold"
+            style="@style/detailBookSubTitle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="To understand user preferences, improve the functionality of the platform, and develop new features."
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="13sp"
+            android:lineBreakWordStyle="phrase"
+            style="@style/detailBookContent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="● To ensure security:"
+            android:fontFamily="@font/urbanist_bold"
+            style="@style/detailBookSubTitle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="We may use your data to detect and prevent fraud or other illegal activities."
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="13sp"
+            android:lineBreakWordStyle="phrase"
+            style="@style/detailBookContent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="3. Disclosure of Your Personal Data"
+            android:fontFamily="@font/urbanist_bold"
+            android:textSize="18sp"
+            style="@style/detailBookSubTitle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="We may share your personal data under certain circumstances:"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:lineBreakWordStyle="phrase"
+            style="@style/detailBookContent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="● With Service Providers:"
+            android:fontFamily="@font/urbanist_bold"
+            style="@style/detailBookSubTitle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="We may share your data with third-party service providers to perform tasks such as hosting, analytics, payment processing, or customer service on our behalf."
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="13sp"
+            android:lineBreakWordStyle="phrase"
+            style="@style/detailBookContent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="● For Legal Reasons:"
+            android:fontFamily="@font/urbanist_bold"
+            style="@style/detailBookSubTitle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="If required by law or in response to valid requests by public authorities (e.g., court or government agencies), we may disclose your personal information."
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="13sp"
+            android:lineBreakWordStyle="phrase"
+            style="@style/detailBookContent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="● To Protect Rights:"
+            android:fontFamily="@font/urbanist_bold"
+            style="@style/detailBookSubTitle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="We may share your data to protect the rights, property, or safety of our company, our users, or others when it is necessary and appropriate."
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="13sp"
+            android:lineBreakWordStyle="phrase"
+            style="@style/detailBookContent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="● In Business Transfers:"
+            android:fontFamily="@font/urbanist_bold"
+            style="@style/detailBookSubTitle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="If we are involved in a merger, acquisition, or sale of assets, your personal data may be transferred as part of that transaction. We will notify you if such a transfer occurs."
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="30dp"
+            android:textSize="13sp"
+            android:lineBreakWordStyle="phrase"
+            style="@style/detailBookContent"/>
+
+    </LinearLayout>
+
+</ScrollView>

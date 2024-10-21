@@ -730,6 +730,11 @@
         <item name="android:tint">@color/neutral_80</item>
     </style>
 
+    <style name="incomingChatBg">
+        <item name="android:background">@drawable/incoming_chat_bg</item>
+        <item name="android:backgroundTint">@color/neutral_5</item>
+    </style>
+
     <style name="sliderImageBg">
         <item name="android:background">@color/neutral_5</item>
     </style>

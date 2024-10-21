@@ -244,6 +244,7 @@ public class BookingAppointmentActivity extends AppCompatActivity {
             return true;
         }
     }
+
     public boolean slotValidation(){
         String input = slotInput.getText().toString().trim();
         if(input.equals("")){

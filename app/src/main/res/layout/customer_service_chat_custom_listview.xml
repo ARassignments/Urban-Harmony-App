@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingHorizontal="30dp"
+    android:paddingTop="20dp"
+    style="@style/ScreenBg">
+
+    <LinearLayout
+        android:id="@+id/incomingItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:layout_marginEnd="80dp"
+        style="@style/incomingChatBg">
+
+        <TextView
+            android:id="@+id/incomingChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:text="I am a Customer Service, is there anything I can help you with? 😄"
+            style="@style/authLabel"/>
+
+        <TextView
+            android:id="@+id/incomingChatDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="09:01"
+            android:layout_gravity="bottom|end"
+            android:fontFamily="@font/poppins_regular"
+            style="@style/searchText"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/outgoingItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:layout_marginStart="80dp"
+        android:background="@drawable/outgoing_chat_bg">
+
+        <TextView
+            android:id="@+id/outgoingChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/white"
+            android:text="Hi, I'm having problems with my order and payment."
+            style="@style/authLabel"/>
+
+        <TextView
+            android:id="@+id/outgoingChatDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="09:01"
+            android:layout_gravity="bottom|end"
+            android:fontFamily="@font/poppins_regular"
+            style="@style/searchText"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -26,10 +26,12 @@ import com.example.urbanharmony.Screens.AddressActivity;
 import com.example.urbanharmony.Screens.BrandsActivity;
 import com.example.urbanharmony.Screens.CategoryActivity;
 import com.example.urbanharmony.Screens.DashboardActivity;
+import com.example.urbanharmony.Screens.HelpCenterActivity;
 import com.example.urbanharmony.Screens.LoginActivity;
 import com.example.urbanharmony.Screens.MyDesignsActivity;
 import com.example.urbanharmony.Screens.OrderActivity;
 import com.example.urbanharmony.Screens.PortfolioActivity;
+import com.example.urbanharmony.Screens.PrivacyPolicyActivity;
 import com.example.urbanharmony.Screens.ProductsActivity;
 import com.example.urbanharmony.Screens.ProfileActivity;
 import com.example.urbanharmony.Screens.ProjectsActivity;
@@ -48,7 +50,7 @@ public class AccountFragment extends Fragment {
 
     View view;
     Button logoutBtn;
-    TextView profileName, userId, categoriesBtn, brandsBtn, stylesBtn, productsBtn, usersBtn, addressBtn, projectsBtn, portfolioBtn, scheduleBtn, myDesignsBtn, subscriptionBtn;
+    TextView profileName, userId, categoriesBtn, brandsBtn, stylesBtn, productsBtn, usersBtn, addressBtn, projectsBtn, portfolioBtn, scheduleBtn, myDesignsBtn, subscriptionBtn, privacyPolicyBtn, helpCenterBtn;
     LinearLayout adminOptions, designerOptions;
     static String UID = "";
     SharedPreferences sharedPreferences;
@@ -77,6 +79,8 @@ public class AccountFragment extends Fragment {
         scheduleBtn = view.findViewById(R.id.scheduleBtn);
         myDesignsBtn = view.findViewById(R.id.myDesignsBtn);
         subscriptionBtn = view.findViewById(R.id.subscriptionBtn);
+        privacyPolicyBtn = view.findViewById(R.id.privacyPolicyBtn);
+        helpCenterBtn = view.findViewById(R.id.helpCenterBtn);
 
         sharedPreferences = getContext().getSharedPreferences("myData",MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -202,6 +206,20 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), SubscriptionActivity.class));
+            }
+        });
+
+        privacyPolicyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), PrivacyPolicyActivity.class));
+            }
+        });
+
+        helpCenterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), HelpCenterActivity.class));
             }
         });
 
