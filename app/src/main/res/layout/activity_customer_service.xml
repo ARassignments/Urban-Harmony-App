@@ -45,6 +45,39 @@
         android:layout_height="1dp"
         style="@style/horizontalRow"/>
 
+    <LinearLayout
+        android:id="@+id/notfoundContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:layout_marginHorizontal="30dp"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            style="@style/notFoundImage"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Not Found"
+                android:textSize="18sp"
+                style="@style/authTitle"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
@@ -52,7 +85,7 @@
         android:layout_weight="1"
         android:divider="@null"
         android:dividerHeight="0dp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:stackFromBottom="true"
         tools:listitem="@layout/customer_service_chat_custom_listview"/>
 

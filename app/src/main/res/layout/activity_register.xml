@@ -86,19 +86,22 @@
             android:maxLength="20"
             style="@style/inputText"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Role"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="16dp"
+            style="@style/authLabel"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="start|center">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Role"
-                android:fontFamily="@font/poppins_medium"
-                android:layout_marginHorizontal="15dp"
-                style="@style/authLabel"/>
+
 
             <LinearLayout
                 android:id="@+id/roleUserContainer"
