@@ -1,4 +1,6 @@
-package com.example.urbanharmony.Screens;
+package com.example.urbanharmony.Screens.Fragments;
+
+import static android.content.Context.MODE_PRIVATE;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -6,6 +8,10 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,7 +19,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,17 +27,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import com.example.urbanharmony.MainActivity;
-import com.example.urbanharmony.Models.BrandModel;
+import com.example.urbanharmony.Models.FaqModel;
 import com.example.urbanharmony.Models.StyleModel;
 import com.example.urbanharmony.R;
+import com.example.urbanharmony.Screens.DashboardActivity;
+import com.example.urbanharmony.Screens.StylesActivity;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -46,48 +46,50 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StylesActivity extends AppCompatActivity {
+public class FaqFragment extends Fragment {
+
+    View view;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     static String UID = "";
-    static String sortingStatus = "dsc";
+    static String sortingStatus = "asc";
     ListView listView;
     LinearLayout loader, notifyBar, notfoundContainer;
     ImageView sortBtn;
     EditText searchInput;
     TextView searchedWord, totalCount;
     ExtendedFloatingActionButton addBtn;
-    ArrayList<StyleModel> datalist = new ArrayList<>();
+    ArrayList<FaqModel> datalist = new ArrayList<>();
 
     //    Dialog Elements
-    Dialog styleDialog;
+    Dialog faqDialog;
     Button cancelBtn, addDataBtn;
-    TextInputEditText nameInput;
-    TextInputLayout nameLayout;
+    TextInputEditText questionInput, answerInput;
+    TextInputLayout questionLayout, answerLayout;
     TextView title;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_styles);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        sharedPreferences = getSharedPreferences("myData",MODE_PRIVATE);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_faq, container, false);
+
+        sharedPreferences = getContext().getSharedPreferences("myData",MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         if(!sharedPreferences.getString("UID","").equals("")){
             UID = sharedPreferences.getString("UID","").toString();
         }
 
-        listView = findViewById(R.id.listView);
-        notifyBar = findViewById(R.id.notifyBar);
-        notfoundContainer = findViewById(R.id.notfoundContainer);
-        loader = findViewById(R.id.loader);
-        searchedWord = findViewById(R.id.searchedWord);
-        totalCount = findViewById(R.id.totalCount);
-        searchInput = findViewById(R.id.searchInput);
-        addBtn = findViewById(R.id.addBtn);
-        sortBtn = findViewById(R.id.sortBtn);
+        listView = view.findViewById(R.id.listView);
+        notifyBar = view.findViewById(R.id.notifyBar);
+        notfoundContainer = view.findViewById(R.id.notfoundContainer);
+        loader = view.findViewById(R.id.loader);
+        searchedWord = view.findViewById(R.id.searchedWord);
+        totalCount = view.findViewById(R.id.totalCount);
+        searchInput = view.findViewById(R.id.searchInput);
+        addBtn = view.findViewById(R.id.addBtn);
+        sortBtn = view.findViewById(R.id.sortBtn);
 
         searchInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -107,10 +109,14 @@ public class StylesActivity extends AppCompatActivity {
             }
         });
 
+        if(!DashboardActivity.getRole().equals("admin")){
+            addBtn.setVisibility(View.GONE);
+        }
+
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                styleForm("add","");
+                faqsForm("add","");
             }
         });
 
@@ -123,12 +129,7 @@ public class StylesActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                StylesActivity.super.onBackPressed();
-            }
-        });
+        return view;
     }
 
     public void sorting(){
@@ -143,21 +144,23 @@ public class StylesActivity extends AppCompatActivity {
     }
 
     public void fetchData(String data){
-        MainActivity.db.child("Styles").addListenerForSingleValueEvent(new ValueEventListener() {
+        MainActivity.db.child("FAQs").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     datalist.clear();
                     for (DataSnapshot ds: snapshot.getChildren()){
                         if(data.equals("")){
-                            StyleModel model = new StyleModel(ds.getKey(),
-                                    ds.child("name").getValue().toString()
+                            FaqModel model = new FaqModel(ds.getKey(),
+                                    ds.child("question").getValue().toString(),
+                                    ds.child("answer").getValue().toString()
                             );
                             datalist.add(model);
                         } else {
-                            if(ds.child("name").getValue().toString().trim().toLowerCase().contains(data.toLowerCase().trim())){
-                                StyleModel model = new StyleModel(ds.getKey(),
-                                        ds.child("name").getValue().toString()
+                            if(ds.child("question").getValue().toString().trim().toLowerCase().contains(data.toLowerCase().trim())){
+                                FaqModel model = new FaqModel(ds.getKey(),
+                                        ds.child("question").getValue().toString(),
+                                        ds.child("answer").getValue().toString()
                                 );
                                 datalist.add(model);
                             }
@@ -170,7 +173,7 @@ public class StylesActivity extends AppCompatActivity {
                         if(sortingStatus.equals("dsc")){
                             Collections.reverse(datalist);
                         }
-                        MyAdapter adapter = new MyAdapter(StylesActivity.this,datalist);
+                        MyAdapter adapter = new MyAdapter(getContext(),datalist);
                         listView.setAdapter(adapter);
                     } else {
                         loader.setVisibility(View.GONE);
@@ -195,22 +198,24 @@ public class StylesActivity extends AppCompatActivity {
         });
     }
 
-    public void styleForm(String purpose, String productId){
-        styleDialog = new Dialog(StylesActivity.this);
-        styleDialog.setContentView(R.layout.dialog_add_styles);
-        styleDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        styleDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        styleDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        styleDialog.getWindow().setGravity(Gravity.CENTER);
-        styleDialog.setCancelable(false);
-        styleDialog.setCanceledOnTouchOutside(false);
-        cancelBtn = styleDialog.findViewById(R.id.cancelBtn);
-        addDataBtn = styleDialog.findViewById(R.id.addDataBtn);
-        title = styleDialog.findViewById(R.id.title);
-        nameInput = styleDialog.findViewById(R.id.nameInput);
-        nameLayout = styleDialog.findViewById(R.id.nameLayout);
+    public void faqsForm(String purpose, String productId){
+        faqDialog = new Dialog(getContext());
+        faqDialog.setContentView(R.layout.dialog_add_faqs);
+        faqDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        faqDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        faqDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        faqDialog.getWindow().setGravity(Gravity.CENTER);
+        faqDialog.setCancelable(false);
+        faqDialog.setCanceledOnTouchOutside(false);
+        cancelBtn = faqDialog.findViewById(R.id.cancelBtn);
+        addDataBtn = faqDialog.findViewById(R.id.addDataBtn);
+        title = faqDialog.findViewById(R.id.title);
+        questionInput = faqDialog.findViewById(R.id.questionInput);
+        answerInput = faqDialog.findViewById(R.id.answerInput);
+        questionLayout = faqDialog.findViewById(R.id.questionLayout);
+        answerLayout = faqDialog.findViewById(R.id.answerLayout);
 
-        nameInput.addTextChangedListener(new TextWatcher() {
+        questionInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -218,11 +223,28 @@ public class StylesActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                nameValidation();
+                questionValidation();
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        answerInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                answerValidation();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
 
             }
         });
@@ -237,17 +259,18 @@ public class StylesActivity extends AppCompatActivity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                styleDialog.dismiss();
+                faqDialog.dismiss();
             }
         });
 
         if(purpose.equals("edit")){
-            title.setText("Edit Style");
-            MainActivity.db.child("Styles").child(productId).addListenerForSingleValueEvent(new ValueEventListener() {
+            title.setText("Edit FAQ");
+            MainActivity.db.child("FAQs").child(productId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
-                        nameInput.setText(snapshot.child("name").getValue().toString().trim());
+                        questionInput.setText(snapshot.child("question").getValue().toString().trim());
+                        answerInput.setText(snapshot.child("answer").getValue().toString().trim());
                     }
                 }
 
@@ -258,41 +281,62 @@ public class StylesActivity extends AppCompatActivity {
             });
         }
 
-        styleDialog.show();
+        faqDialog.show();
     }
 
-    public boolean nameValidation(){
-        String input = nameInput.getText().toString().trim();
-        String regex = "^[a-zA-Z\\s]*$";
+    public boolean questionValidation(){
+        String input = questionInput.getText().toString().trim();
+        String regex = "^[a-zA-Z?,.;'\\s]*$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
         if(input.equals("")){
-            nameLayout.setError("Style Name is Required!!!");
+            questionLayout.setError("FAQ Question is Required!!!");
             return false;
-        } else if(input.length() < 3){
-            nameLayout.setError("Style Name at least 3 Characters!!!");
+        } else if(input.length() < 10){
+            questionLayout.setError("FAQ Question at least 10 Characters!!!");
             return false;
         } else if(!matcher.matches()){
-            nameLayout.setError("Only text allowed!!!");
+            questionLayout.setError("Only text allowed!!!");
             return false;
         } else {
-            nameLayout.setError(null);
+            questionLayout.setError(null);
+            return true;
+        }
+    }
+
+    public boolean answerValidation(){
+        String input = answerInput.getText().toString().trim();
+        String regex = "^[a-zA-Z?,!_'.\\s]*$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        if(input.equals("")){
+            answerLayout.setError("FAQ Answer is Required!!!");
+            return false;
+        } else if(input.length() < 10){
+            answerLayout.setError("FAQ Answer at least 10 Characters!!!");
+            return false;
+        } else if(!matcher.matches()){
+            answerLayout.setError("Only text allowed!!!");
+            return false;
+        } else {
+            answerLayout.setError(null);
             return true;
         }
     }
 
     private void validation(String purpose, String productId) {
-        boolean nameErr = false;
-        nameErr = nameValidation();
+        boolean questionErr = false, answerErr = false;
+        questionErr = questionValidation();
+        answerErr = answerValidation();
 
-        if((nameErr) == true){
+        if((questionErr && answerErr) == true){
             persons(purpose, productId);
         }
     }
 
     private void persons(String purpose, String productId){
-        if(MainActivity.connectionCheck(StylesActivity.this)){
-            Dialog alertdialog = new Dialog(StylesActivity.this);
+        if(MainActivity.connectionCheck(getContext())){
+            Dialog alertdialog = new Dialog(getContext());
             alertdialog.setContentView(R.layout.dialog_success);
             alertdialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
             alertdialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -305,19 +349,21 @@ public class StylesActivity extends AppCompatActivity {
 
             if(purpose.equals("add")){
                 HashMap<String, String> mydata = new HashMap<String, String>();
-                mydata.put("name", nameInput.getText().toString().trim());
-                MainActivity.db.child("Styles").push().setValue(mydata);
-                message.setText("Style Added Successfully!!!");
+                mydata.put("question", questionInput.getText().toString().trim());
+                mydata.put("answer", answerInput.getText().toString().trim());
+                MainActivity.db.child("FAQs").push().setValue(mydata);
+                message.setText("FAQ Added Successfully!!!");
             } else if(purpose.equals("edit")){
-                MainActivity.db.child("Styles").child(productId).child("name").setValue(nameInput.getText().toString().trim());
-                message.setText("Style Edited Successfully!!!");
+                MainActivity.db.child("FAQs").child(productId).child("question").setValue(questionInput.getText().toString().trim());
+                MainActivity.db.child("FAQs").child(productId).child("answer").setValue(answerInput.getText().toString().trim());
+                message.setText("FAQ Edited Successfully!!!");
             }
 
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     alertdialog.dismiss();
-                    styleDialog.dismiss();
+                    faqDialog.dismiss();
                     fetchData("");
                 }
             },2000);
@@ -346,9 +392,9 @@ public class StylesActivity extends AppCompatActivity {
     class MyAdapter extends BaseAdapter {
 
         Context context;
-        ArrayList<StyleModel> data;
+        ArrayList<FaqModel> data;
 
-        public MyAdapter(Context context, ArrayList<StyleModel> data) {
+        public MyAdapter(Context context, ArrayList<FaqModel> data) {
             this.context = context;
             this.data = data;
         }
@@ -369,16 +415,46 @@ public class StylesActivity extends AppCompatActivity {
 
         @Override
         public View getView(int i, View convertView, ViewGroup parent) {
-            View customListItem = LayoutInflater.from(context).inflate(R.layout.styles_custom_listview,null);
-            TextView sno, name;
-            ImageView menu;
+            View customListItem = LayoutInflater.from(context).inflate(R.layout.faqs_custom_listview,null);
+            TextView question, answer;
+            ImageView menu, moreBtn;
+            LinearLayout answerContainer;
 
-            sno = customListItem.findViewById(R.id.sno);
-            name = customListItem.findViewById(R.id.name);
+            question = customListItem.findViewById(R.id.question);
+            answer = customListItem.findViewById(R.id.answer);
             menu = customListItem.findViewById(R.id.menu);
+            moreBtn = customListItem.findViewById(R.id.moreBtn);
+            answerContainer = customListItem.findViewById(R.id.answerContainer);
 
-            sno.setText(""+(i+1));
-            name.setText(data.get(i).getName());
+            question.setText(data.get(i).getQuestion());
+            answer.setText(data.get(i).getAnswer());
+            if(DashboardActivity.getRole().equals("admin")){
+                menu.setVisibility(View.VISIBLE);
+            }
+
+            if(data.get(i).isExpanded()){
+                answerContainer.setVisibility(View.VISIBLE);
+                answerContainer.setScaleY(0f);
+                answerContainer.setAlpha(0f);
+                answerContainer.animate().scaleY(1f).alpha(1f).setDuration(300).start();
+                moreBtn.setRotation(0f);
+                moreBtn.animate().rotation(-90f).setDuration(200).start();
+            } else {
+                answerContainer.setScaleY(1f);
+                answerContainer.setAlpha(1f);
+                answerContainer.animate().scaleY(0f).alpha(0f).setDuration(300).start();
+                moreBtn.setRotation(-90f);
+                moreBtn.animate().rotation(0f).setDuration(200).start();
+                answerContainer.setVisibility(View.GONE);
+            }
+
+            moreBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    data.get(i).setExpanded(!data.get(i).isExpanded());
+                    notifyDataSetChanged();
+                }
+            });
 
             menu.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -395,7 +471,7 @@ public class StylesActivity extends AppCompatActivity {
                     editBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            styleForm("edit",""+data.get(i).getId());
+                            faqsForm("edit",""+data.get(i).getId());
                             loaddialog.dismiss();
                         }
                     });
@@ -423,7 +499,7 @@ public class StylesActivity extends AppCompatActivity {
                             yesBtn.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    MainActivity.db.child("Styles").child(data.get(i).getId()).removeValue();
+                                    MainActivity.db.child("FAQs").child(data.get(i).getId()).removeValue();
                                     Dialog dialog = new Dialog(context);
                                     dialog.setContentView(R.layout.dialog_success);
                                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

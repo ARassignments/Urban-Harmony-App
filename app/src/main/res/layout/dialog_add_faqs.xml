@@ -29,84 +29,49 @@
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Add Design"
+                    android:text="Add FAQ"
                     android:textAlignment="center"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="20dp"
                     style="@style/authTitle"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="0dp"
-                        android:layout_marginVertical="10dp"
-                        android:backgroundTint="@color/white">
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:id="@+id/designImage"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/logo"
-                                style="@style/sliderImageBg"/>
-
-                            <ImageView
-                                android:id="@+id/editImageBtn"
-                                android:layout_width="23dp"
-                                android:layout_height="23dp"
-                                android:src="@drawable/edit"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_gravity="top|end"
-                                android:elevation="5dp"
-                                app:tint="@color/neutral_80"
-                                android:padding="4dp"
-                                android:background="@drawable/onboarding_indicator_active"
-                                android:backgroundTint="@color/white"/>
-
-                        </FrameLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/imageErrorText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Category Image is required!!!"
-                    android:textColor="#D34343"
-                    android:layout_marginBottom="16dp"
-                    android:textAlignment="center"
-                    android:visibility="gone"
-                    style="@style/searchLabelText"/>
-
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/dNameLayout"
+                    android:id="@+id/questionLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     app:endIconMode="clear_text"
-                    app:counterMaxLength="30"
+                    app:counterMaxLength="200"
                     app:helperText="Only Text Allowed"
-                    android:hint="Design Name"
+                    android:hint="FAQ Question"
                     style="@style/inputTextMaterial">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/dNameInput"
+                        android:id="@+id/questionInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName"
-                        android:maxLength="30"
+                        android:maxLength="200"
+                        style="@style/inputTextEditMaterial"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/answerLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:endIconMode="clear_text"
+                    app:counterMaxLength="500"
+                    app:helperText="Only Text Allowed"
+                    android:hint="FAQ Answer"
+                    style="@style/inputTextMaterial">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/answerInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:maxLength="500"
                         style="@style/inputTextEditMaterial"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -114,8 +79,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:orientation="vertical"
+                    android:gravity="center"
                     android:layout_marginTop="16dp">
 
                     <Button

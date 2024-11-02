@@ -188,26 +188,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_marginTop="16dp">
-
-        <Button
-            android:id="@+id/cancelBtn"
-            android:text="Cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginRight="16dp"
-            style="@style/logoutButton"/>
 
         <Button
             android:id="@+id/yesBtn"
             android:text="Yes, Remove"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingHorizontal="10dp"
+            android:layout_marginBottom="16dp"
             style="@style/flatButton"/>
+
+        <Button
+            android:id="@+id/cancelBtn"
+            android:text="Cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/logoutButton"/>
 
     </LinearLayout>
 

@@ -1,163 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingHorizontal="30dp"
     style="@style/ScreenBg"
     tools:context=".Screens.Fragments.ContactUsFragment">
 
     <LinearLayout
-        android:id="@+id/customerServiceBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="15dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        style="@style/customButton">
+        android:orientation="vertical"
+        android:paddingHorizontal="30dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/customerServiceBtn"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/customer"
-            style="@style/appBarIcon" />
+            android:gravity="center"
+            android:padding="15dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            style="@style/customButton">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/customer"
+                style="@style/appBarIcon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Customer Service"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="16dp"
+                style="@style/authTitle"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/whatsappBtn"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Customer Service"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="16dp"
-            style="@style/authTitle"/>
+            android:gravity="center"
+            android:padding="15dp"
+            android:layout_marginBottom="16dp"
+            style="@style/customButton">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/whatsapp"
+                style="@style/appBarIcon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="WhatsApp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="16dp"
+                style="@style/authTitle"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/websiteBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="15dp"
+            android:layout_marginBottom="16dp"
+            style="@style/customButton">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/website"
+                style="@style/appBarIcon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Website"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="16dp"
+                style="@style/authTitle"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/facebookBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="15dp"
+            android:layout_marginBottom="16dp"
+            style="@style/customButton">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/facebook"
+                style="@style/appBarIcon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Facebook"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="16dp"
+                style="@style/authTitle"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/youtubeBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="15dp"
+            android:layout_marginBottom="16dp"
+            style="@style/customButton">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/youtube"
+                style="@style/appBarIcon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Youtube"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="16dp"
+                style="@style/authTitle"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/instagramBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="15dp"
+            android:layout_marginBottom="16dp"
+            style="@style/customButton">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/instagram"
+                style="@style/appBarIcon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Instagram"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="16dp"
+                style="@style/authTitle"/>
+
+        </LinearLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/mapLoaderContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:visibility="visible"
+            app:shimmer_auto_start="true"
+            app:shimmer_duration="2000">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="12dp"
+                android:gravity="center"
+                style="@style/customButton"/>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/mapViewContainer"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="30dp"
+            android:visibility="gone"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="12dp">
+
+            <WebView
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="WebViewLayout" />
+
+        </androidx.cardview.widget.CardView>
+
+
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/whatsappBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="15dp"
-        android:layout_marginBottom="16dp"
-        style="@style/customButton">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/whatsapp"
-            style="@style/appBarIcon" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="WhatsApp"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="16dp"
-            style="@style/authTitle"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/websiteBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="15dp"
-        android:layout_marginBottom="16dp"
-        style="@style/customButton">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/website"
-            style="@style/appBarIcon" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Website"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="16dp"
-            style="@style/authTitle"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/facebookBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="15dp"
-        android:layout_marginBottom="16dp"
-        style="@style/customButton">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/facebook"
-            style="@style/appBarIcon" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Facebook"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="16dp"
-            style="@style/authTitle"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/youtubeBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="15dp"
-        android:layout_marginBottom="16dp"
-        style="@style/customButton">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/youtube"
-            style="@style/appBarIcon" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Youtube"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="16dp"
-            style="@style/authTitle"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/instagramBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="15dp"
-        android:layout_marginBottom="16dp"
-        style="@style/customButton">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/instagram"
-            style="@style/appBarIcon" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Instagram"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="16dp"
-            style="@style/authTitle"/>
-
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

@@ -43,22 +43,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:orientation="vertical"
                     android:layout_marginTop="16dp">
 
                     <Button
                         android:id="@+id/selectBtn"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="Select"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="16dp"
                         style="@style/flatButton"/>
 
                     <Button
                         android:id="@+id/cancelBtn"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="Cancel"
                         style="@style/logoutButton"/>
 

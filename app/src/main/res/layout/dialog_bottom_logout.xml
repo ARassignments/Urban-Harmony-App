@@ -38,24 +38,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_marginTop="10dp">
 
         <Button
-            android:id="@+id/cancelBtn"
-            android:layout_width="wrap_content"
+            android:id="@+id/yesBtn"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cancel"
-            android:layout_weight="2"
-            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Yes, Logout"
             style="@style/flatButton"/>
 
         <Button
-            android:id="@+id/yesBtn"
-            android:layout_width="wrap_content"
+            android:id="@+id/cancelBtn"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Yes, Logout"
-            android:layout_weight="1"
+            android:text="Cancel"
             style="@style/logoutButton"/>
 
     </LinearLayout>

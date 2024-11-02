@@ -28,7 +28,9 @@ import com.example.urbanharmony.Screens.CategoryActivity;
 import com.example.urbanharmony.Screens.DashboardActivity;
 import com.example.urbanharmony.Screens.HelpCenterActivity;
 import com.example.urbanharmony.Screens.LoginActivity;
+import com.example.urbanharmony.Screens.MessagesActivity;
 import com.example.urbanharmony.Screens.MyDesignsActivity;
+import com.example.urbanharmony.Screens.MyReviewsActivity;
 import com.example.urbanharmony.Screens.OrderActivity;
 import com.example.urbanharmony.Screens.PortfolioActivity;
 import com.example.urbanharmony.Screens.PrivacyPolicyActivity;
@@ -50,7 +52,7 @@ public class AccountFragment extends Fragment {
 
     View view;
     Button logoutBtn;
-    TextView profileName, userId, categoriesBtn, brandsBtn, stylesBtn, productsBtn, usersBtn, addressBtn, projectsBtn, portfolioBtn, scheduleBtn, myDesignsBtn, subscriptionBtn, privacyPolicyBtn, helpCenterBtn;
+    TextView profileName, userId, categoriesBtn, brandsBtn, stylesBtn, productsBtn, usersBtn, addressBtn, projectsBtn, portfolioBtn, scheduleBtn, myDesignsBtn, subscriptionBtn, privacyPolicyBtn, helpCenterBtn, messagesBtn, myReviewsBtn;
     LinearLayout adminOptions, designerOptions;
     static String UID = "";
     SharedPreferences sharedPreferences;
@@ -81,6 +83,8 @@ public class AccountFragment extends Fragment {
         subscriptionBtn = view.findViewById(R.id.subscriptionBtn);
         privacyPolicyBtn = view.findViewById(R.id.privacyPolicyBtn);
         helpCenterBtn = view.findViewById(R.id.helpCenterBtn);
+        messagesBtn = view.findViewById(R.id.messagesBtn);
+        myReviewsBtn = view.findViewById(R.id.myReviewsBtn);
 
         sharedPreferences = getContext().getSharedPreferences("myData",MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -220,6 +224,20 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), HelpCenterActivity.class));
+            }
+        });
+
+        messagesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), MessagesActivity.class));
+            }
+        });
+
+        myReviewsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), MyReviewsActivity.class));
             }
         });
 

@@ -100,6 +100,67 @@ public class DesignerReviewAdapter extends RecyclerView.Adapter<DesignerReviewAd
 
             }
         });
+
+        if(!data.get(position).getReplyReview().equals("")){
+            holder.replyContainer.setVisibility(View.VISIBLE);
+        }
+
+        holder.replyReview.setText(data.get(position).getReplyReview());
+        holder.replyDate.setText(data.get(position).getRepltReviewDate());
+        String replyStar = data.get(position).getReplyRating();
+        if(replyStar.equals("0.0")){
+            holder.replyStarOne.setImageResource(R.drawable.star_outline);
+            holder.replyStarTwo.setImageResource(R.drawable.star_outline);
+            holder.replyStarThree.setImageResource(R.drawable.star_outline);
+            holder.replyStarFour.setImageResource(R.drawable.star_outline);
+            holder.replyStarFive.setImageResource(R.drawable.star_outline);
+        } else if(replyStar.equals("1.0")){
+            holder.replyStarOne.setImageResource(R.drawable.star);
+            holder.replyStarTwo.setImageResource(R.drawable.star_outline);
+            holder.replyStarThree.setImageResource(R.drawable.star_outline);
+            holder.replyStarFour.setImageResource(R.drawable.star_outline);
+            holder.replyStarFive.setImageResource(R.drawable.star_outline);
+        } else if(replyStar.equals("2.0")){
+            holder.replyStarOne.setImageResource(R.drawable.star);
+            holder.replyStarTwo.setImageResource(R.drawable.star);
+            holder.replyStarThree.setImageResource(R.drawable.star_outline);
+            holder.replyStarFour.setImageResource(R.drawable.star_outline);
+            holder.replyStarFive.setImageResource(R.drawable.star_outline);
+        } else if(replyStar.equals("3.0")){
+            holder.replyStarOne.setImageResource(R.drawable.star);
+            holder.replyStarTwo.setImageResource(R.drawable.star);
+            holder.replyStarThree.setImageResource(R.drawable.star);
+            holder.replyStarFour.setImageResource(R.drawable.star_outline);
+            holder.replyStarFive.setImageResource(R.drawable.star_outline);
+        } else if(replyStar.equals("4.0")){
+            holder.replyStarOne.setImageResource(R.drawable.star);
+            holder.replyStarTwo.setImageResource(R.drawable.star);
+            holder.replyStarThree.setImageResource(R.drawable.star);
+            holder.replyStarFour.setImageResource(R.drawable.star);
+            holder.replyStarFive.setImageResource(R.drawable.star_outline);
+        } else if(replyStar.equals("5.0")){
+            holder.replyStarOne.setImageResource(R.drawable.star);
+            holder.replyStarTwo.setImageResource(R.drawable.star);
+            holder.replyStarThree.setImageResource(R.drawable.star);
+            holder.replyStarFour.setImageResource(R.drawable.star);
+            holder.replyStarFive.setImageResource(R.drawable.star);
+        }
+        MainActivity.db.child("Users").child(data.get(position).getDesignerId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    holder.replyUsername.setText(snapshot.child("name").getValue().toString());
+                    if(!snapshot.child("image").getValue().toString().equals("")){
+                        holder.replyImage.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 //        Glide.with(holder.itemView.getContext()).load(data.get(position).getdImage()).into(holder.dImage);
 //        holder.item.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -117,9 +178,10 @@ public class DesignerReviewAdapter extends RecyclerView.Adapter<DesignerReviewAd
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView username, date, review;
+        TextView username, date, review, replyUsername, replyDate, replyReview;
         ImageView image, starOne, starTwo, starThree, starFour, starFive;
-        LinearLayout item;
+        LinearLayout item, replyContainer;
+        ImageView replyImage, replyStarOne, replyStarTwo, replyStarThree, replyStarFour, replyStarFive;
 
         public ViewHolder(View view) {
             super(view);
@@ -133,6 +195,16 @@ public class DesignerReviewAdapter extends RecyclerView.Adapter<DesignerReviewAd
             starThree = view.findViewById(R.id.starThree);
             starFour = view.findViewById(R.id.starFour);
             starFive = view.findViewById(R.id.starFive);
+            replyContainer = view.findViewById(R.id.replyContainer);
+            replyUsername = view.findViewById(R.id.replyUsername);
+            replyDate = view.findViewById(R.id.replyDate);
+            replyReview = view.findViewById(R.id.replyReview);
+            replyImage = view.findViewById(R.id.replyImage);
+            replyStarOne = view.findViewById(R.id.replyStarOne);
+            replyStarTwo = view.findViewById(R.id.replyStarTwo);
+            replyStarThree = view.findViewById(R.id.replyStarThree);
+            replyStarFour = view.findViewById(R.id.replyStarFour);
+            replyStarFive = view.findViewById(R.id.replyStarFive);
         }
     }
 }

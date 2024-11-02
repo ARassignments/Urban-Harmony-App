@@ -81,7 +81,7 @@ public class DesignerDetailActivity extends AppCompatActivity {
     ArrayList<ProjectModel> datalist = new ArrayList<>();
     ArrayList<DesignModel> datalistTwo = new ArrayList<>();
     ArrayList<FeedbackModel> datalistThree = new ArrayList<>();
-    ShimmerFrameLayout projectNotFound, designNotFound, reviewFound;
+    ShimmerFrameLayout projectNotFound, designNotFound, reviewFound, onlyBtnContainer;
     ExtendedFloatingActionButton addReviewBtn;
     ViewPager2 reviewViewPager;
     TabLayout tabLayout;
@@ -139,6 +139,7 @@ public class DesignerDetailActivity extends AppCompatActivity {
         starThree = findViewById(R.id.starThree);
         starFour = findViewById(R.id.starFour);
         starFive = findViewById(R.id.starFive);
+        onlyBtnContainer = findViewById(R.id.onlyBtnContainer);
 
         findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,7 +149,7 @@ public class DesignerDetailActivity extends AppCompatActivity {
         });
 
         if(DashboardActivity.getRole().equals("designer")||DashboardActivity.getRole().equals("admin")){
-            onlyBtn.setVisibility(View.VISIBLE);
+            onlyBtnContainer.setVisibility(View.VISIBLE);
             bookBtn.setVisibility(View.GONE);
         }
 
@@ -158,6 +159,9 @@ public class DesignerDetailActivity extends AppCompatActivity {
         fetchReviews();
         checkPortfolio();
         checkSchedule();
+        if(CurrentUID.equals(UID)){
+            addReviewBtn.setVisibility(View.INVISIBLE);
+        }
 
         addReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -300,7 +304,10 @@ public class DesignerDetailActivity extends AppCompatActivity {
                                     ds.child("review").getValue().toString(),
                                     ds.child("userId").getValue().toString(),
                                     ds.child("designerId").getValue().toString(),
-                                    ds.child("reviewDate").getValue().toString()
+                                    ds.child("reviewDate").getValue().toString(),
+                                    ds.child("replyRating").getValue().toString(),
+                                    ds.child("replyReview").getValue().toString(),
+                                    ds.child("replyReviewDate").getValue().toString()
                             );
                             datalistThree.add(model);
                         }
@@ -483,15 +490,15 @@ public class DesignerDetailActivity extends AppCompatActivity {
                     }
 
                     if(DashboardActivity.getRole().equals("designer")||DashboardActivity.getRole().equals("admin")){
-                        onlyBtn.setVisibility(View.VISIBLE);
+                        onlyBtnContainer.setVisibility(View.VISIBLE);
                         bookBtn.setVisibility(View.GONE);
                     } else {
                         if(status == false){
-                            onlyBtn.setVisibility(View.VISIBLE);
+                            onlyBtnContainer.setVisibility(View.VISIBLE);
                             onlyBtn.setText("Appointments Is Not Available");
                             bookBtn.setVisibility(View.GONE);
                         } else {
-                            onlyBtn.setVisibility(View.GONE);
+                            onlyBtnContainer.setVisibility(View.GONE);
                             bookBtn.setVisibility(View.VISIBLE);
                         }
                     }
@@ -631,6 +638,9 @@ public class DesignerDetailActivity extends AppCompatActivity {
             mydata.put("userId", CurrentUID);
             mydata.put("designerId", UID);
             mydata.put("reviewDate", dateTime);
+            mydata.put("replyRating", "");
+            mydata.put("replyReview", "");
+            mydata.put("replyReviewDate", "");
             MainActivity.db.child("Feedback").push().setValue(mydata);
 
             new Handler().postDelayed(new Runnable() {

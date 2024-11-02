@@ -17,6 +17,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -33,9 +34,11 @@ import com.example.urbanharmony.Models.FeedbackModel;
 import com.example.urbanharmony.Models.ProductModel;
 import com.example.urbanharmony.Models.UsersModel;
 import com.example.urbanharmony.R;
+import com.example.urbanharmony.Screens.CustomerServiceActivity;
 import com.example.urbanharmony.Screens.DashboardActivity;
 import com.example.urbanharmony.Screens.DesignerActivity;
 import com.example.urbanharmony.Screens.DesignerDetailActivity;
+import com.example.urbanharmony.Screens.HelpCenterActivity;
 import com.example.urbanharmony.Screens.SubCategoryActivity;
 import com.example.urbanharmony.Screens.SubcategoriesViewActivity;
 import com.example.urbanharmony.Screens.UsersActivity;
@@ -60,6 +63,7 @@ public class HomeFragment extends Fragment {
     SharedPreferences.Editor editor;
     ViewPager2 sliderViewPager;
     TabLayout tabLayout;
+    FrameLayout chatBtn, faqBtn;
     LinearLayout categoryContainer;
     RecyclerView designerView, productsView;
     ShimmerFrameLayout productsNotFound, designersNotFound;
@@ -85,6 +89,8 @@ public class HomeFragment extends Fragment {
         productsView = view.findViewById(R.id.productsView);
         productsNotFound = view.findViewById(R.id.productsNotFound);
         designersNotFound = view.findViewById(R.id.designersNotFound);
+        chatBtn = view.findViewById(R.id.chatBtn);
+        faqBtn = view.findViewById(R.id.faqBtn);
 
         List<String> imageUrls = Arrays.asList(
                 "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/home-banner1.jpg?alt=media&token=6fcc7087-b0f3-4f28-89b3-fa7372da2986",
@@ -181,6 +187,40 @@ public class HomeFragment extends Fragment {
         });
         fetchDesigners();
         fetchProducts();
+
+        MainActivity.db.child("Users").child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    String role = snapshot.child("role").getValue().toString();
+                    if(role.equals("admin")){
+                        chatBtn.setAlpha(0.5f);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        chatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!DashboardActivity.getRole().equals("admin")){
+                    startActivity(new Intent(getContext(), CustomerServiceActivity.class));
+                }
+            }
+        });
+
+        faqBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), HelpCenterActivity.class));
+            }
+        });
+
         return view;
     }
 
@@ -279,6 +319,8 @@ public class HomeFragment extends Fragment {
             private void updateAdapter() {
                 if (datalist.size() > 0) {
                     designerView.setVisibility(View.VISIBLE);
+                    designerView.setAlpha(0f);
+                    designerView.animate().alpha(1f).setDuration(500).start();
                     designersNotFound.setVisibility(View.GONE);
                     DesignerAdapter adapter = new DesignerAdapter(getContext(), datalist);
                     designerView.setAdapter(adapter);
@@ -315,6 +357,8 @@ public class HomeFragment extends Fragment {
                     int productCount = 10;
                     if(datalistTwo.size() > 0 && datalistTwo.size() <= productCount){
                         productsView.setVisibility(View.VISIBLE);
+                        productsView.setAlpha(0f);
+                        productsView.animate().alpha(1f).setDuration(500).start();
                         productsNotFound.setVisibility(View.GONE);
                         if(sortingStatus.equals("dsc")){
                             Collections.reverse(datalistTwo);
@@ -323,6 +367,8 @@ public class HomeFragment extends Fragment {
                         productsView.setAdapter(adapter);
                     } else if(datalistTwo.size() > productCount){
                         productsView.setVisibility(View.VISIBLE);
+                        productsView.setAlpha(0f);
+                        productsView.animate().alpha(1f).setDuration(500).start();
                         productsNotFound.setVisibility(View.GONE);
                         if(sortingStatus.equals("dsc")){
                             Collections.reverse(datalistTwo);

@@ -2,8 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/transparent">
+    style="@style/ScreenBg"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:id="@+id/item"
@@ -29,113 +29,136 @@
             android:orientation="vertical"
             android:layout_weight="1">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    app:cardCornerRadius="8dp"
-                    android:backgroundTint="@color/primary_50">
-
-                    <ImageView
-                        android:id="@+id/image"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/boy_14"/>
-
-                </androidx.cardview.widget.CardView>
+                android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="16dp">
+                    android:gravity="center">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        app:cardCornerRadius="8dp"
+                        android:backgroundTint="@color/primary_50">
+
+                        <ImageView
+                            android:id="@+id/image"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/boy_14"/>
+
+                    </androidx.cardview.widget.CardView>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="16dp">
 
-                        <TextView
-                            android:id="@+id/username"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Ronald Richards"
-                            style="@style/detailBookReviewTitle"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/deleteBtn"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/delete"
-                            app:tint="#E64747"
-                            android:visibility="gone"
-                            android:padding="4dp"
-                            android:background="@drawable/onboarding_indicator_active"
-                            android:backgroundTint="@color/white"/>
+                            <TextView
+                                android:id="@+id/username"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Ronald Richards"
+                                style="@style/detailBookReviewTitle"/>
 
-                    </LinearLayout>
+                            <ImageView
+                                android:id="@+id/deleteBtn"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/delete"
+                                app:tint="#E64747"
+                                android:visibility="gone"
+                                android:padding="4dp"
+                                android:background="@drawable/onboarding_indicator_active"
+                                android:backgroundTint="@color/white"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/starOne"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginRight="8dp"
-                            android:src="@drawable/star"
-                            app:tint="@color/accent_50" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/starTwo"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginRight="8dp"
-                            android:src="@drawable/star"
-                            app:tint="@color/accent_50" />
+                            <ImageView
+                                android:id="@+id/starOne"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/star"
+                                app:tint="@color/accent_50" />
 
-                        <ImageView
-                            android:id="@+id/starThree"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginRight="8dp"
-                            android:src="@drawable/star"
-                            app:tint="@color/accent_50" />
+                            <ImageView
+                                android:id="@+id/starTwo"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/star"
+                                app:tint="@color/accent_50" />
 
-                        <ImageView
-                            android:id="@+id/starFour"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginRight="8dp"
-                            android:src="@drawable/star"
-                            app:tint="@color/accent_50" />
+                            <ImageView
+                                android:id="@+id/starThree"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/star"
+                                app:tint="@color/accent_50" />
 
-                        <ImageView
-                            android:id="@+id/starFive"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginRight="12dp"
-                            android:src="@drawable/star_outline"
-                            app:tint="@color/accent_50" />
+                            <ImageView
+                                android:id="@+id/starFour"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/star"
+                                app:tint="@color/accent_50" />
 
-                        <TextView
-                            android:id="@+id/date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="2 days ago"
-                            style="@style/detailBookReviewRatingText"/>
+                            <ImageView
+                                android:id="@+id/starFive"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_marginRight="12dp"
+                                android:src="@drawable/star_outline"
+                                app:tint="@color/accent_50" />
+
+                            <TextView
+                                android:id="@+id/date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2 days ago"
+                                style="@style/detailBookReviewRatingText"/>
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/replyBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reply"
+                    android:visibility="gone"
+                    android:layout_gravity="end|top"
+                    app:chipEndPadding="10dp"
+                    app:chipStartPadding="10dp"
+                    app:chipIconEnabled="true"
+                    app:chipIconVisible="true"
+                    app:chipIconSize="18dp"
+                    app:chipIcon="@drawable/reply"
+                    app:chipIconTint="@color/accent_50"
+                    app:checkedIconTint="@color/accent_50"
+                    style="@style/CustomCategoryChipStyle"/>
+
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/review"
@@ -145,6 +168,150 @@
                 android:layout_marginTop="12dp"
                 android:lineBreakWordStyle="phrase"
                 style="@style/detailBookContent"/>
+
+            <LinearLayout
+                android:id="@+id/replyContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginTop="8dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/reply"
+                    android:rotationX="180"
+                    android:layout_marginEnd="8dp"
+                    style="@style/appBarIcon"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="15dp"
+                    style="@style/customButton">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            app:cardCornerRadius="8dp"
+                            android:backgroundTint="@color/primary_50">
+
+                            <ImageView
+                                android:id="@+id/replyImage"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:src="@drawable/boy_14"/>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="16dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/replyUsername"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Ronald Richards"
+                                    style="@style/detailBookReviewTitle"/>
+
+                                <ImageView
+                                    android:id="@+id/replyDeleteBtn"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/delete"
+                                    app:tint="#E64747"
+                                    android:visibility="gone"
+                                    android:padding="4dp"
+                                    android:background="@drawable/onboarding_indicator_active"
+                                    android:backgroundTint="@color/white"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/replyStarOne"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_marginRight="8dp"
+                                    android:src="@drawable/star"
+                                    app:tint="@color/accent_50" />
+
+                                <ImageView
+                                    android:id="@+id/replyStarTwo"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_marginRight="8dp"
+                                    android:src="@drawable/star"
+                                    app:tint="@color/accent_50" />
+
+                                <ImageView
+                                    android:id="@+id/replyStarThree"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_marginRight="8dp"
+                                    android:src="@drawable/star"
+                                    app:tint="@color/accent_50" />
+
+                                <ImageView
+                                    android:id="@+id/replyStarFour"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_marginRight="8dp"
+                                    android:src="@drawable/star"
+                                    app:tint="@color/accent_50" />
+
+                                <ImageView
+                                    android:id="@+id/replyStarFive"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_marginRight="12dp"
+                                    android:src="@drawable/star_outline"
+                                    app:tint="@color/accent_50" />
+
+                                <TextView
+                                    android:id="@+id/replyDate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="2 days ago"
+                                    style="@style/detailBookReviewRatingText"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/replyReview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis enim velit mollit. "
+                        android:layout_marginTop="12dp"
+                        android:lineBreakWordStyle="phrase"
+                        style="@style/detailBookContent"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 

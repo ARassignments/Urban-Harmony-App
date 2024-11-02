@@ -322,6 +322,21 @@
                 android:layout_height="1dp"
                 style="@style/horizontalRow"/>
 
+            <TextView
+                android:id="@+id/myReviewsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="My Reviews"
+                android:layout_marginTop="2dp"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="32dp"
+                style="@style/settingsItems"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                style="@style/horizontalRow"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -401,6 +416,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Users"
+                android:layout_marginTop="2dp"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="32dp"
+                style="@style/settingsItems"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                style="@style/horizontalRow"/>
+
+            <TextView
+                android:id="@+id/messagesBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Messages"
                 android:layout_marginTop="2dp"
                 android:paddingVertical="16dp"
                 android:paddingHorizontal="32dp"
@@ -492,7 +522,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Log Out"
-            android:layout_marginVertical="28dp"
+            android:layout_marginTop="30dp"
             android:layout_marginHorizontal="30dp"
             style="@style/logoutButton"/>
 

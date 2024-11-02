@@ -406,15 +406,24 @@
             android:text="Booking Appointment"
             style="@style/flatButton"/>
 
-        <Button
-            android:id="@+id/onlyBtn"
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/onlyBtnContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginBottom="30dp"
             android:visibility="gone"
-            android:text="Only For Users"
-            style="@style/flatButtonDisabled"/>
+            app:shimmer_auto_start="true"
+            app:shimmer_duration="2000">
+
+            <Button
+                android:id="@+id/onlyBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Only For Users"
+                style="@style/flatButton"/>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
     </LinearLayout>
 
