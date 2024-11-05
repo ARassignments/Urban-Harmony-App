@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ScreenBg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    style="@style/ScreenBg"
     tools:context=".Screens.Fragments.OrderCompletedFragment">
+
+    <LinearLayout
+        android:id="@+id/loader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:visibility="visible">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:rotation="180"
+            style="@style/SplashLogo"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/notfoundContainer"
@@ -13,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginHorizontal="30dp"
         android:gravity="center">
 
@@ -47,5 +66,17 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:scrollbars="none"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/order_custom_listview" />
 
 </LinearLayout>

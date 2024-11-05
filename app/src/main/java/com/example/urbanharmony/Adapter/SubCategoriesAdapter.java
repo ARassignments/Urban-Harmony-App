@@ -51,6 +51,7 @@ public class SubCategoriesAdapter extends RecyclerView.Adapter<SubCategoriesAdap
                 Intent intent = new Intent(v.getContext(), FilteredProductsActivity.class);
                 intent.putExtra("categoryId",categoryId);
                 intent.putExtra("categoryName",categoryName);
+                intent.putExtra("subcategoryName",data.get(position).getName());
                 v.getContext().startActivity(intent);
             }
         });

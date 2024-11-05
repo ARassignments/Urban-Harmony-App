@@ -280,7 +280,7 @@ public class BookingAppointmentActivity extends AppCompatActivity {
 
             // current date picker
             Calendar calendar = Calendar.getInstance();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MMM/yyyy");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
             String dateTime = simpleDateFormat.format(calendar.getTime());
 
             HashMap<String, String> mydata = new HashMap<String, String>();
@@ -289,7 +289,7 @@ public class BookingAppointmentActivity extends AppCompatActivity {
             mydata.put("day", dayInput.getText().toString().trim());
             mydata.put("slot", slotInput.getText().toString().trim());
             mydata.put("onBooking", dateTime);
-            mydata.put("status", "pending");
+            mydata.put("status", "Pending");
             MainActivity.db.child("Booking").push().setValue(mydata);
             messageAlert.setText("Appointment Booked Successfully!!!");
 

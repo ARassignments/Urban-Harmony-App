@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingHorizontal="30dp"
+    android:paddingTop="20dp"
+    android:background="@color/transparent">
+
+    <LinearLayout
+        android:id="@+id/itemContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="15dp"
+        style="@style/customButton">
+
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/circle_shape"
+            android:backgroundTint="#1401B763"
+            android:padding="6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circle_shape"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/shipping_box"
+                    app:tint="@color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/shippingName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:text="Economy"
+                    android:textAlignment="textStart"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    style="@style/authTitle"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/shippingDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/urbanist_medium"
+                android:text="Estimated Delivery in 2-3 Days"
+                android:textAlignment="textStart"
+                android:textSize="12sp"
+                style="@style/authLabel"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/shippingPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:fontFamily="@font/urbanist_bold"
+            android:text="$15"
+            android:textAlignment="textStart"
+            android:textColor="@color/accent_50"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/radioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            style="@style/radioButton"/>
+
+    </LinearLayout>
+
+</LinearLayout>

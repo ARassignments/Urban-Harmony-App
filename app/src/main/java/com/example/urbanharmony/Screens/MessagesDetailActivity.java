@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.Models.ChatModel;
 import com.example.urbanharmony.R;
@@ -48,12 +50,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MessagesDetailActivity extends AppCompatActivity {
     static String userId = "";
     static String userName = "";
+    static String userContact = "";
     TextView titleText;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     static String UID = "";
     ListView listView;
     EditText chatInput;
+    ImageView callBtn;
     LinearLayout sendBtn, notfoundContainer;
     ArrayList<ChatModel> datalist = new ArrayList<>();
     @Override
@@ -71,6 +75,7 @@ public class MessagesDetailActivity extends AppCompatActivity {
         sendBtn = findViewById(R.id.sendBtn);
         notfoundContainer = findViewById(R.id.notfoundContainer);
         titleText = findViewById(R.id.titleText);
+        callBtn = findViewById(R.id.callBtn);
 
         if(!sharedPreferences.getString("UID","").equals("")){
             UID = sharedPreferences.getString("UID","").toString();
@@ -80,6 +85,7 @@ public class MessagesDetailActivity extends AppCompatActivity {
         if (extra != null) {
             userId = extra.getString("userId");
             userName = extra.getString("userName");
+            userContact = extra.getString("userContact");
         }
 
         titleText.setText(userName+"'s Chat");
@@ -105,6 +111,15 @@ public class MessagesDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 validation();
+            }
+        });
+
+        callBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:"+userContact));
+                startActivity(intent);
             }
         });
 
@@ -233,7 +248,6 @@ public class MessagesDetailActivity extends AppCompatActivity {
             LinearLayout incomingItem, outgoingItem;
             CircleImageView image;
 
-
             incomingChat = customListItem.findViewById(R.id.incomingChat);
             incomingChatDate = customListItem.findViewById(R.id.incomingChatDate);
             outgoingChat = customListItem.findViewById(R.id.outgoingChat);
@@ -261,7 +275,8 @@ public class MessagesDetailActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
                         if(!snapshot.child("image").getValue().toString().equals("")){
-                            image.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
+                            Glide.with(context).load(snapshot.child("image").getValue().toString()).into(image);
+//                            image.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
                         }
                     }
                 }

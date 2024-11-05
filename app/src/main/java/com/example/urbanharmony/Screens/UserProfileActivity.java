@@ -20,6 +20,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.R;
 import com.google.firebase.database.DataSnapshot;
@@ -130,7 +131,8 @@ public class UserProfileActivity extends AppCompatActivity {
                     usernameText.setText(snapshot.child("username").getValue().toString().trim());
                     contactText.setText(snapshot.child("contact").getValue().toString().trim());
                     if(!snapshot.child("image").getValue().toString().equals("")){
-                        profileImage.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
+                        Glide.with(UserProfileActivity.this).load(snapshot.child("image").getValue().toString()).into(profileImage);
+//                        profileImage.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
                     }
                     String status = snapshot.child("status").getValue().toString().trim();
                     if (status.equals("1")) {

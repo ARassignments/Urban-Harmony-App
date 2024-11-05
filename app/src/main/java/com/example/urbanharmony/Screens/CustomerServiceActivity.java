@@ -31,6 +31,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.Models.ChatModel;
 import com.example.urbanharmony.Models.SlotModel;
@@ -267,7 +268,8 @@ public class CustomerServiceActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
                         if(!snapshot.child("image").getValue().toString().equals("")){
-                            image.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
+//                            image.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
+                            Glide.with(context).load(snapshot.child("image").getValue().toString()).into(image);
                         }
                     }
                 }

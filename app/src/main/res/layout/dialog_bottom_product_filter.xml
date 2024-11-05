@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="0dp"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    style="@style/bottomDialogBg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="35dp"
+            android:layout_height="4dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/small_handle"
+            style="@style/strokeBgColor"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sort &amp; Filter"
+            android:textAlignment="center"
+            style="@style/authTitle"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginVertical="15dp"
+            style="@style/horizontalRow"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Categories"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/urbanist_bold"
+            android:textSize="18sp"
+            style="@style/detailBookSubTitle"/>
+
+        <HorizontalScrollView
+            android:id="@+id/categoriesContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/categoryChipgroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipSpacingHorizontal="10dp"
+                app:singleSelection="true"
+                app:selectionRequired="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/allChipCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All"
+                    app:chipEndPadding="10dp"
+                    app:chipStartPadding="10dp"
+                    app:chipIconSize="18dp"
+                    android:checked="true"
+                    android:checkable="true"
+                    app:checkedIconVisible="true"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconTint="@color/accent_50"
+                    style="@style/CustomCategoryChipStyle"/>
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Brands"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/urbanist_bold"
+            android:textSize="18sp"
+            style="@style/detailBookSubTitle"/>
+
+        <HorizontalScrollView
+            android:id="@+id/brandsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/brandsChipgroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipSpacingHorizontal="10dp"
+                app:singleSelection="true"
+                app:selectionRequired="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/allChipBrand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All"
+                    app:chipEndPadding="10dp"
+                    app:chipStartPadding="10dp"
+                    app:chipIconSize="18dp"
+                    android:checked="true"
+                    android:checkable="true"
+                    app:checkedIconVisible="true"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconTint="@color/accent_50"
+                    style="@style/CustomCategoryChipStyle"/>
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Styles"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/urbanist_bold"
+            android:textSize="18sp"
+            style="@style/detailBookSubTitle"/>
+
+        <HorizontalScrollView
+            android:id="@+id/stylesContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/stylesChipgroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipSpacingHorizontal="10dp"
+                app:singleSelection="true"
+                app:selectionRequired="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/allChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All"
+                    app:chipEndPadding="10dp"
+                    app:chipStartPadding="10dp"
+                    app:chipIconSize="18dp"
+                    android:checked="true"
+                    android:checkable="true"
+                    app:checkedIconVisible="true"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconTint="@color/accent_50"
+                    style="@style/CustomCategoryChipStyle"/>
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Price Range"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/urbanist_bold"
+            android:textSize="18sp"
+            style="@style/detailBookSubTitle"/>
+
+        <com.google.android.material.slider.RangeSlider
+            android:id="@+id/priceRangeSlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20px"
+            android:valueFrom="0"
+            android:valueTo="1000"
+            android:stepSize="4"
+            app:labelBehavior="visible"
+            app:thumbHeight="20dp"
+            app:thumbWidth="20dp"
+            app:trackHeight="4dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sort By"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/urbanist_bold"
+            android:textSize="18sp"
+            style="@style/detailBookSubTitle"/>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/sortsChipgroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipSpacingHorizontal="10dp"
+                app:singleSelection="true"
+                app:selectionRequired="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/descChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Descending"
+                    app:chipEndPadding="10dp"
+                    app:chipStartPadding="10dp"
+                    app:chipIconSize="18dp"
+                    android:checked="true"
+                    android:checkable="true"
+                    app:checkedIconVisible="true"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconTint="@color/accent_50"
+                    style="@style/CustomCategoryChipStyle"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/ascChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ascending"
+                    app:chipEndPadding="10dp"
+                    app:chipStartPadding="10dp"
+                    app:chipIconSize="18dp"
+                    android:checkable="true"
+                    app:checkedIconVisible="true"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconTint="@color/accent_50"
+                    style="@style/CustomCategoryChipStyle"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/atozChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="A to Z"
+                    app:chipEndPadding="10dp"
+                    app:chipStartPadding="10dp"
+                    app:chipIconSize="18dp"
+                    android:checkable="true"
+                    app:checkedIconVisible="true"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconTint="@color/accent_50"
+                    style="@style/CustomCategoryChipStyle"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/ztoacChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Z to A"
+                    app:chipEndPadding="10dp"
+                    app:chipStartPadding="10dp"
+                    app:chipIconSize="18dp"
+                    android:checkable="true"
+                    app:checkedIconVisible="true"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconTint="@color/accent_50"
+                    style="@style/CustomCategoryChipStyle"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/priceHighChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price High"
+                    app:chipEndPadding="10dp"
+                    app:chipStartPadding="10dp"
+                    app:chipIconSize="18dp"
+                    android:checkable="true"
+                    app:checkedIconVisible="true"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconTint="@color/accent_50"
+                    style="@style/CustomCategoryChipStyle"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/priceLowChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price Low"
+                    app:chipEndPadding="10dp"
+                    app:chipStartPadding="10dp"
+                    app:chipIconSize="18dp"
+                    android:checkable="true"
+                    app:checkedIconVisible="true"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconTint="@color/accent_50"
+                    style="@style/CustomCategoryChipStyle"/>
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginVertical="16dp"
+            style="@style/horizontalRow"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/applyBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Apply"
+                android:layout_marginBottom="16dp"
+                style="@style/flatButton"/>
+
+            <Button
+                android:id="@+id/cancelBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reset All"
+                style="@style/logoutButton"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

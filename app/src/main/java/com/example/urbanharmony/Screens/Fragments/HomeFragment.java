@@ -159,7 +159,10 @@ public class HomeFragment extends Fragment {
                         CardView listItem;
                         image = itemView.findViewById(R.id.image);
                         listItem = itemView.findViewById(R.id.listItem);
-                        image.setImageResource(Integer.parseInt(model.getImage()));
+                        if(!model.getImage().equals("")){
+//                            image.setImageResource(Integer.parseInt(model.getImage()));
+                            Glide.with(getContext()).load(model.getImage()).into(image);
+                        }
                         listItem.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -279,7 +282,8 @@ public class HomeFragment extends Fragment {
                                                 ds.child("address").getValue().toString(),
                                                 ds.child("shipping").getValue().toString(),
                                                 ds.child("created_on").getValue().toString(),
-                                                ds.child("status").getValue().toString()
+                                                ds.child("status").getValue().toString(),
+                                                ds.child("contact").getValue().toString()
                                         );
                                         datalist.add(model);
                                     }

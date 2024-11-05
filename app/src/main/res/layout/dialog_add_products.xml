@@ -141,8 +141,7 @@
                     app:counterMaxLength="8"
                     app:helperText="Only Digit  Allowed"
                     android:hint="Product Price"
-                    app:prefixText="Rs "
-                    app:suffixText="/-"
+                    app:prefixText="$ "
                     style="@style/inputTextMaterial">
 
                     <com.google.android.material.textfield.TextInputEditText

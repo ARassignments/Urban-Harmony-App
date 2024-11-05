@@ -26,6 +26,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.R;
 import com.google.firebase.database.DataSnapshot;
@@ -64,6 +65,27 @@ public class ProfileActivity extends AppCompatActivity {
             R.drawable.boy_18
     };
 
+    String[] imagesUrl = {
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fboy_1.png?alt=media&token=8dc050c6-1d88-4278-931c-bae544168313",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fboy_2.png?alt=media&token=d1615811-5684-4be0-a839-b8d5f058bb34",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fboy_3.png?alt=media&token=f86fda64-6805-40f7-a38f-8fdd86f30e87",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fboy_4.png?alt=media&token=b0b99d2f-f8b1-4fc7-a386-860585e34069",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fboy_5.png?alt=media&token=f3d2a9bc-0be6-4b55-88be-53c5c3518e70",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fboy_6.png?alt=media&token=12500321-50ec-4c20-a47b-5071d723d5e6",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fboy_7.png?alt=media&token=71d15913-11ff-4da7-8d13-43b84b029aaf",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fboy_8.png?alt=media&token=8547be7d-986c-45ab-bc0e-987befda45f9",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fboy_9.png?alt=media&token=1069918b-c28f-4db4-8511-5e341f34236f",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fboy_10.png?alt=media&token=c867d999-b2b3-4012-995d-6c074b66a331",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fboy_11.png?alt=media&token=9bad66e2-f9ba-44b2-9c00-31d84cfa6634",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fboy_12.png?alt=media&token=d75cddb8-d95d-428f-90d4-30cf1d44f2d6",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fboy_13.png?alt=media&token=63f15d75-b663-4d61-94e3-183b9d57a83b",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fboy_14.png?alt=media&token=7e4a25da-ffca-4374-b9aa-727b28b7bf0c",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fboy_15.png?alt=media&token=f44b7cb5-2b77-4f86-a4d9-7e364afadcdb",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fboy_16.png?alt=media&token=0fc8dd43-e614-4bcc-b777-440defb43129",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fboy_17.png?alt=media&token=7532b257-b633-4642-962d-476b0f718ace",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fboy_18.png?alt=media&token=14f99dbe-e1ba-41cc-906d-f405fe34bc73"
+    };
+
     int[] imagesGirls = {
             R.drawable.girl_1,
             R.drawable.girl_2,
@@ -85,6 +107,29 @@ public class ProfileActivity extends AppCompatActivity {
             R.drawable.girl_18,
             R.drawable.girl_19,
             R.drawable.girl_20
+    };
+
+    String[] imagesUrlGirls = {
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_1.png?alt=media&token=24bb6793-80a3-45fb-a09d-a2de3319552b",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_2.png?alt=media&token=76755b16-81cf-4ae8-a546-64f2e1eaa7fa",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_3.png?alt=media&token=da498f87-45a9-4245-91a9-a89283ccc9ec",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_4.png?alt=media&token=d0a7b717-d5ec-4763-a7bb-2ce6f4d95b36",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_5.png?alt=media&token=b2c1f705-8f3a-4a74-8519-a192b09063f5",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_6.png?alt=media&token=8ab0235c-e63b-40f5-8b13-0d1ffd756ed6",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_7.png?alt=media&token=42bc9e4a-e3e1-448a-8ae8-eef674fae582",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_8.png?alt=media&token=6e360dbd-e11c-4ae5-9c2c-9c542b6a0b89",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_9.png?alt=media&token=25e195cf-fa38-4099-b19c-b44fb18bd49f",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_10.png?alt=media&token=a9e124c2-d4a2-4959-94cd-c541966b9d99",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_11.png?alt=media&token=be17d946-2582-4005-9bbe-7e735de64484",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_12.png?alt=media&token=46f28428-8c88-49fd-ae2f-e1b9b6884df4",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_13.png?alt=media&token=0f87b61c-1a41-4b68-8b35-f5a198079355",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_14.png?alt=media&token=e9581f2f-f1d7-4e70-b5f2-1b51868839f0",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_15.png?alt=media&token=979a0426-821f-4351-a9a6-b625692f0286",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_16.png?alt=media&token=bc7ee8dd-5722-499d-b423-2b9c9714572c",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_17.png?alt=media&token=34625092-f297-43a5-a987-39bb44d10c6f",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_18.png?alt=media&token=8406ce2b-19e3-4a70-a33f-b0bc8366725c",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_19.png?alt=media&token=0171a836-7c5f-4fba-8970-0f156d2d44e1",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/ProfileImages%2Fgirl_20.png?alt=media&token=7b2cd035-3717-495f-aade-00c0e8a65848"
     };
 
     Dialog dialogImage;
@@ -124,7 +169,8 @@ public class ProfileActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
                         if(!snapshot.child("image").getValue().toString().equals("")){
-                            profileImage.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
+                            Glide.with(ProfileActivity.this).load(snapshot.child("image").getValue().toString()).into(profileImage);
+//                            profileImage.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
                         }
                         nameInput.setText(snapshot.child("name").getValue().toString());
                         usernameInput.setText(snapshot.child("username").getValue().toString());
@@ -662,7 +708,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void setProfileImage(int value){
         profileImage.setImageResource(images[value]);
-        MainActivity.db.child("Users").child(UID).child("image").setValue(""+images[value]);
+        MainActivity.db.child("Users").child(UID).child("image").setValue(""+imagesUrl[value]);
         Dialog dialogSuccess = new Dialog(ProfileActivity.this);
         dialogSuccess.setContentView(R.layout.dialog_success);
         dialogSuccess.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -685,7 +731,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void setProfileImageGirls(int value){
         profileImage.setImageResource(imagesGirls[value]);
-        MainActivity.db.child("Users").child(UID).child("image").setValue(""+imagesGirls[value]);
+        MainActivity.db.child("Users").child(UID).child("image").setValue(""+imagesUrlGirls[value]);
         Dialog dialogSuccess = new Dialog(ProfileActivity.this);
         dialogSuccess.setContentView(R.layout.dialog_success);
         dialogSuccess.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

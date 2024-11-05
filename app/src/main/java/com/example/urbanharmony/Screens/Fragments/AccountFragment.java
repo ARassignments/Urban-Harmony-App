@@ -12,6 +12,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.R;
 import com.example.urbanharmony.Screens.AddressActivity;
@@ -29,15 +32,19 @@ import com.example.urbanharmony.Screens.DashboardActivity;
 import com.example.urbanharmony.Screens.HelpCenterActivity;
 import com.example.urbanharmony.Screens.LoginActivity;
 import com.example.urbanharmony.Screens.MessagesActivity;
+import com.example.urbanharmony.Screens.MyConsultaionsActivity;
 import com.example.urbanharmony.Screens.MyDesignsActivity;
 import com.example.urbanharmony.Screens.MyReviewsActivity;
 import com.example.urbanharmony.Screens.OrderActivity;
+import com.example.urbanharmony.Screens.PaymentMethodActivity;
 import com.example.urbanharmony.Screens.PortfolioActivity;
 import com.example.urbanharmony.Screens.PrivacyPolicyActivity;
 import com.example.urbanharmony.Screens.ProductsActivity;
 import com.example.urbanharmony.Screens.ProfileActivity;
 import com.example.urbanharmony.Screens.ProjectsActivity;
+import com.example.urbanharmony.Screens.PromosActivity;
 import com.example.urbanharmony.Screens.SchedulesActivity;
+import com.example.urbanharmony.Screens.ShippingsActivity;
 import com.example.urbanharmony.Screens.StylesActivity;
 import com.example.urbanharmony.Screens.SubscriptionActivity;
 import com.example.urbanharmony.Screens.UsersActivity;
@@ -52,12 +59,13 @@ public class AccountFragment extends Fragment {
 
     View view;
     Button logoutBtn;
-    TextView profileName, userId, categoriesBtn, brandsBtn, stylesBtn, productsBtn, usersBtn, addressBtn, projectsBtn, portfolioBtn, scheduleBtn, myDesignsBtn, subscriptionBtn, privacyPolicyBtn, helpCenterBtn, messagesBtn, myReviewsBtn;
+    TextView profileName, userId, categoriesBtn, brandsBtn, stylesBtn, productsBtn, usersBtn, addressBtn, projectsBtn, portfolioBtn, scheduleBtn, myDesignsBtn, subscriptionBtn, privacyPolicyBtn, helpCenterBtn, messagesBtn, myReviewsBtn, shippingBtn, promoBtn, paymentMethodBtn, myConsultationsBtn;
     LinearLayout adminOptions, designerOptions;
     static String UID = "";
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     CircleImageView profileImage;
+    private Handler sliderHandler = new Handler(Looper.getMainLooper());
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,6 +93,10 @@ public class AccountFragment extends Fragment {
         helpCenterBtn = view.findViewById(R.id.helpCenterBtn);
         messagesBtn = view.findViewById(R.id.messagesBtn);
         myReviewsBtn = view.findViewById(R.id.myReviewsBtn);
+        shippingBtn = view.findViewById(R.id.shippingBtn);
+        promoBtn = view.findViewById(R.id.promoBtn);
+        paymentMethodBtn = view.findViewById(R.id.paymentMethodBtn);
+        myConsultationsBtn = view.findViewById(R.id.myConsultationsBtn);
 
         sharedPreferences = getContext().getSharedPreferences("myData",MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -92,13 +104,14 @@ public class AccountFragment extends Fragment {
         if(!sharedPreferences.getString("UID","").equals("")){
             UID = sharedPreferences.getString("UID","").toString();
             userId.setText(UID);
-            MainActivity.db.child("Users").child(UID).addValueEventListener(new ValueEventListener() {
+            MainActivity.db.child("Users").child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
                         profileName.setText(snapshot.child("name").getValue().toString());
                         if (!snapshot.child("image").getValue().toString().equals("")) {
-                            profileImage.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
+                            Glide.with(getContext()).load(snapshot.child("image").getValue().toString()).into(profileImage);
+//                            profileImage.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
                         }
                         if (snapshot.child("role").getValue().toString().equals("admin")) {
                             adminOptions.setVisibility(View.VISIBLE);
@@ -114,6 +127,9 @@ public class AccountFragment extends Fragment {
                 }
             });
         }
+
+        sliderHandler.removeCallbacks(sliderRunnable);
+        sliderHandler.postDelayed(sliderRunnable, 3000);
 
         view.findViewById(R.id.profileBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,6 +257,34 @@ public class AccountFragment extends Fragment {
             }
         });
 
+        shippingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ShippingsActivity.class));
+            }
+        });
+
+        promoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), PromosActivity.class));
+            }
+        });
+
+        paymentMethodBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), PaymentMethodActivity.class));
+            }
+        });
+
+        myConsultationsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), MyConsultaionsActivity.class));
+            }
+        });
+
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -280,5 +324,39 @@ public class AccountFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private final Runnable sliderRunnable = new Runnable() {
+        @Override
+        public void run() {
+            MainActivity.db.child("Users").child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        profileName.setText(snapshot.child("name").getValue().toString());
+                        if (!snapshot.child("image").getValue().toString().equals("")) {
+                            Glide.with(getContext()).load(snapshot.child("image").getValue().toString()).into(profileImage);
+//                            profileImage.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
+                        }
+                        if (snapshot.child("role").getValue().toString().equals("admin")) {
+                            adminOptions.setVisibility(View.VISIBLE);
+                        } else if (snapshot.child("role").getValue().toString().equals("designer")) {
+                            designerOptions.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        sliderHandler.removeCallbacks(sliderRunnable);
     }
 }

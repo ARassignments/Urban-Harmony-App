@@ -1,12 +1,12 @@
 package com.example.urbanharmony.Models;
 
 public class UsersModel {
-    String id, name, email, pwd, image, role, address, shipping, created_on, status;
+    String id, name, email, pwd, image, role, address, shipping, created_on, status, contact;
 
     public UsersModel() {
     }
 
-    public UsersModel(String id, String name, String email, String pwd, String image, String role, String address, String shipping, String created_on, String status) {
+    public UsersModel(String id, String name, String email, String pwd, String image, String role, String address, String shipping, String created_on, String status, String contact) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -17,6 +17,7 @@ public class UsersModel {
         this.shipping = shipping;
         this.created_on = created_on;
         this.status = status;
+        this.contact = contact;
     }
 
     public String getId() {
@@ -97,5 +98,13 @@ public class UsersModel {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.urbanharmony.Models.SubCategoryModel;
 import com.example.urbanharmony.Models.UsersModel;
 import com.example.urbanharmony.R;
@@ -44,13 +45,14 @@ public class DesignerAdapter extends RecyclerView.Adapter<DesignerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull DesignerAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.name.setText(data.get(position).getName());
-        if(!data.get(position).getName().toString().equals("")){
+        if(!data.get(position).getImage().toString().equals("")){
             int imageResId = holder.itemView.getContext().getResources().getIdentifier(
                     data.get(position).getImage(),   // Get image string (e.g., "image_name")
                     "drawable",        // Resource type (drawable)
                     holder.itemView.getContext().getPackageName()  // Package name
             );
-            holder.image.setImageResource(imageResId);
+//            holder.image.setImageResource(imageResId);
+            Glide.with(context).load(data.get(position).getImage()).into(holder.image);
         }
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override

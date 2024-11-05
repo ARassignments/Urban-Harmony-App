@@ -25,6 +25,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.Models.UsersModel;
 import com.example.urbanharmony.R;
@@ -149,7 +150,8 @@ public class MessagesActivity extends AppCompatActivity {
                                                         usnapshot.child("address").getValue(String.class),
                                                         usnapshot.child("shipping").getValue(String.class),
                                                         usnapshot.child("created_on").getValue(String.class),
-                                                        usnapshot.child("status").getValue(String.class)
+                                                        usnapshot.child("status").getValue(String.class),
+                                                        usnapshot.child("contact").getValue(String.class)
                                                 );
                                                 datalist.add(model);
                                             } else if(usnapshot.child("name").getValue().toString().toLowerCase().contains(data.toLowerCase())){
@@ -163,7 +165,8 @@ public class MessagesActivity extends AppCompatActivity {
                                                         usnapshot.child("address").getValue(String.class),
                                                         usnapshot.child("shipping").getValue(String.class),
                                                         usnapshot.child("created_on").getValue(String.class),
-                                                        usnapshot.child("status").getValue(String.class)
+                                                        usnapshot.child("status").getValue(String.class),
+                                                        usnapshot.child("contact").getValue(String.class)
                                                 );
                                                 datalist.add(model);
                                             }
@@ -291,12 +294,14 @@ public class MessagesActivity extends AppCompatActivity {
                     Intent intent = new Intent(context,MessagesDetailActivity.class);
                     intent.putExtra("userId",data.get(i).getId());
                     intent.putExtra("userName",data.get(i).getName());
+                    intent.putExtra("userContact",data.get(i).getContact());
                     startActivity(intent);
                 }
             });
 
             if(!data.get(i).getImage().equals("")){
-                image.setImageResource(Integer.parseInt(data.get(i).getImage()));
+//                image.setImageResource(Integer.parseInt(data.get(i).getImage()));
+                Glide.with(context).load(data.get(i).getImage()).into(image);
             }
 
             if(i==data.size()-1){

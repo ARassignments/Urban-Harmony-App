@@ -173,7 +173,8 @@ public class DesignerActivity extends AppCompatActivity {
                                                     ds.child("address").getValue().toString(),
                                                     ds.child("shipping").getValue().toString(),
                                                     ds.child("created_on").getValue().toString(),
-                                                    ds.child("status").getValue().toString()
+                                                    ds.child("status").getValue().toString(),
+                                                    ds.child("contact").getValue().toString()
                                             );
                                             datalist.add(model);
                                         }
@@ -211,7 +212,8 @@ public class DesignerActivity extends AppCompatActivity {
                                                         ds.child("address").getValue().toString(),
                                                         ds.child("shipping").getValue().toString(),
                                                         ds.child("created_on").getValue().toString(),
-                                                        ds.child("status").getValue().toString()
+                                                        ds.child("status").getValue().toString(),
+                                                        ds.child("contact").getValue().toString()
                                                 );
                                                 datalist.add(model);
                                             }
@@ -330,7 +332,10 @@ public class DesignerActivity extends AppCompatActivity {
             item = customListItem.findViewById(R.id.item);
 
             name.setText(data.get(i).getName());
-            image.setImageResource(Integer.parseInt(data.get(i).getImage()));
+            if(!data.get(i).getImage().equals("")){
+                Glide.with(context).load(data.get(i).getImage()).into(image);
+//                image.setImageResource(Integer.parseInt(data.get(i).getImage()));
+            }
 
             item.setOnClickListener(new View.OnClickListener() {
                 @Override

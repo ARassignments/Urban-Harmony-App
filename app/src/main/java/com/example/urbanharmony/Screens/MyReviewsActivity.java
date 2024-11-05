@@ -29,6 +29,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.Models.FeedbackModel;
 import com.example.urbanharmony.R;
@@ -372,7 +373,8 @@ public class MyReviewsActivity extends AppCompatActivity {
                     if(snapshot.exists()){
                         username.setText(snapshot.child("name").getValue().toString());
                         if(!snapshot.child("image").getValue().toString().equals("")){
-                            image.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
+                            Glide.with(context).load(snapshot.child("image").getValue().toString()).into(image);
+//                            image.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
                         }
                     }
                 }
@@ -491,7 +493,8 @@ public class MyReviewsActivity extends AppCompatActivity {
                     if(snapshot.exists()){
                         replyUsername.setText(snapshot.child("name").getValue().toString());
                         if(!snapshot.child("image").getValue().toString().equals("")){
-                            replyImage.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
+                            Glide.with(context).load(snapshot.child("image").getValue().toString()).into(replyImage);
+//                            replyImage.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
                         }
                     }
                 }

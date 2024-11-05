@@ -84,7 +84,7 @@ public class ContactUsFragment extends Fragment {
         view.findViewById(R.id.whatsappBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phoneNumber = "923410292698";
+                String phoneNumber = "923308606211";
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://api.whatsapp.com/send?phone=" + phoneNumber));
 
@@ -118,7 +118,7 @@ public class ContactUsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("https://myfolio-web.netlify.app/"));
+                intent.setData(Uri.parse("https://aptech-education.com.pk/"));
 
                 try {
                     getContext().startActivity(intent);
@@ -169,7 +169,7 @@ public class ContactUsFragment extends Fragment {
         view.findViewById(R.id.youtubeBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String youtubeChannelUrl = "https://www.youtube.com/channel/UChNkU_ivf4i5ePSx_ES0IqQ";
+                String youtubeChannelUrl = "https://www.youtube.com/channel/UCdIofAhPbOu-INpfn88Qb1Q";
 
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(youtubeChannelUrl));
@@ -187,7 +187,7 @@ public class ContactUsFragment extends Fragment {
         view.findViewById(R.id.instagramBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String instagramUrl = "http://instagram.com/_u/arassignments";
+                String instagramUrl = "http://instagram.com/_u/aptechmetro";
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(instagramUrl));
                 intent.setPackage("com.instagram.android");
 
@@ -195,7 +195,7 @@ public class ContactUsFragment extends Fragment {
                 if (intent.resolveActivity(packageManager) != null) {
                     startActivity(intent);
                 } else {
-                    String webUrl = "https://www.instagram.com/arassignments";
+                    String webUrl = "https://www.instagram.com/aptechmetro";
                     intent.setData(Uri.parse(webUrl));
                     startActivity(intent);
                 }

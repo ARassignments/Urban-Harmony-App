@@ -90,7 +90,8 @@ public class DesignerReviewAdapter extends RecyclerView.Adapter<DesignerReviewAd
                 if(snapshot.exists()){
                     holder.username.setText(snapshot.child("name").getValue().toString());
                     if(!snapshot.child("image").getValue().toString().equals("")){
-                        holder.image.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
+                        Glide.with(context).load(snapshot.child("image").getValue().toString()).into(holder.image);
+//                        holder.image.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
                     }
                 }
             }
@@ -151,7 +152,8 @@ public class DesignerReviewAdapter extends RecyclerView.Adapter<DesignerReviewAd
                 if(snapshot.exists()){
                     holder.replyUsername.setText(snapshot.child("name").getValue().toString());
                     if(!snapshot.child("image").getValue().toString().equals("")){
-                        holder.replyImage.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
+                        Glide.with(context).load(snapshot.child("image").getValue().toString()).into(holder.replyImage);
+//                        holder.replyImage.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
                     }
                 }
             }

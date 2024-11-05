@@ -17,20 +17,60 @@
         android:theme="@style/Theme.UrbanHarmony"
         tools:targetApi="31">
         <activity
-            android:name=".Screens.MyReviewsActivity"
+            android:name=".Screens.MyConsultaionsActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
+        <activity
+            android:name=".Screens.OrderTrackActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
+        <activity
+            android:name=".Screens.OrderDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
+        <activity
+            android:name=".Screens.SelectPaymentMethodActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
+        <activity
+            android:name=".Screens.PaymentMethodActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
+        <activity
+            android:name=".Screens.SelectShippingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
+        <activity
+            android:name=".Screens.PromosActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
+        <activity
+            android:name=".Screens.ShippingsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
+        <activity
+            android:name=".Screens.MyReviewsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
         <activity
             android:name=".Screens.MessagesDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
         <activity
             android:name=".Screens.MessagesActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
         <activity
             android:name=".Screens.CustomerServiceActivity"
             android:exported="false"

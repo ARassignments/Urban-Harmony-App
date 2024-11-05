@@ -228,20 +228,7 @@
             style="@style/horizontalRow"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="My Designs"
-            android:layout_marginTop="2dp"
-            android:paddingVertical="16dp"
-            android:paddingHorizontal="32dp"
-            style="@style/settingsItems"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            style="@style/horizontalRow"/>
-
-        <TextView
+            android:id="@+id/myConsultationsBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="My Consultations"
@@ -401,6 +388,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Products"
+                android:layout_marginTop="2dp"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="32dp"
+                style="@style/settingsItems"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                style="@style/horizontalRow"/>
+
+            <TextView
+                android:id="@+id/shippingBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Shippings"
+                android:layout_marginTop="2dp"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="32dp"
+                style="@style/settingsItems"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                style="@style/horizontalRow"/>
+
+            <TextView
+                android:id="@+id/promoBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Promotions"
+                android:layout_marginTop="2dp"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="32dp"
+                style="@style/settingsItems"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                style="@style/horizontalRow"/>
+
+            <TextView
+                android:id="@+id/paymentMethodBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Payment Method"
                 android:layout_marginTop="2dp"
                 android:paddingVertical="16dp"
                 android:paddingHorizontal="32dp"

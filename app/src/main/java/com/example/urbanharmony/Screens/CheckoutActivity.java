@@ -49,10 +49,14 @@ public class CheckoutActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     static String UID = "";
-    ImageView locationEditBtn;
-    TextView totalAmount, locationName, locationAddress;
-    LinearLayout orderList, btnOrder;
-    int grandTotal = 0;
+    ImageView locationEditBtn, shippingEditBtn;
+    TextView totalAmount, shippingAmount, grandTotalAmount, locationName, locationAddress, shippingName, shippingDetail, shippingPrice;
+    LinearLayout orderList, btnOrder, chooseAddressBtn, locationContainer, chooseShippingBtn, shippingContainer;
+    static int grandTotal = 0;
+    static int grandTotalShipping = 0;
+    static int grandOverallTotal = 0;
+    static boolean shippingAddress = false;
+    static boolean shippingType = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,12 +72,22 @@ public class CheckoutActivity extends AppCompatActivity {
             UID = sharedPreferences.getString("UID","").toString();
         }
 
-        locationEditBtn = findViewById(R.id.locationEditBtn);
-        totalAmount = findViewById(R.id.totalAmount);
+        locationContainer = findViewById(R.id.locationContainer);
+        chooseAddressBtn = findViewById(R.id.chooseAddressBtn);
         locationName = findViewById(R.id.locationName);
         locationAddress = findViewById(R.id.locationAddress);
+        locationEditBtn = findViewById(R.id.locationEditBtn);
+        totalAmount = findViewById(R.id.totalAmount);
+        shippingAmount = findViewById(R.id.shippingAmount);
+        grandTotalAmount = findViewById(R.id.grandTotalAmount);
         orderList = findViewById(R.id.orderList);
         btnOrder = findViewById(R.id.btnOrder);
+        chooseShippingBtn = findViewById(R.id.chooseShippingBtn);
+        shippingContainer = findViewById(R.id.shippingContainer);
+        shippingName = findViewById(R.id.shippingName);
+        shippingDetail = findViewById(R.id.shippingDetail);
+        shippingPrice = findViewById(R.id.shippingPrice);
+        shippingEditBtn = findViewById(R.id.shippingEditBtn);
 
         locationEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,44 +95,101 @@ public class CheckoutActivity extends AppCompatActivity {
                 startActivity(new Intent(CheckoutActivity.this, SelectAddressActivity.class));
             }
         });
+
+        chooseAddressBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CheckoutActivity.this, SelectAddressActivity.class));
+            }
+        });
+
+        chooseShippingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CheckoutActivity.this, SelectShippingActivity.class));
+            }
+        });
+
+        shippingEditBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CheckoutActivity.this, SelectShippingActivity.class));
+            }
+        });
+
         MainActivity.db.child("Users").child(UID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String AddressIdFromUser = snapshot.child("address").getValue().toString().trim();
-                if(AddressIdFromUser.equals("")){
-                    MainActivity.db.child("Address").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            int addressCount = 0;
-                            for(DataSnapshot ds: snapshot.getChildren()){
-                                if(ds.child("UID").getValue().toString().trim().equals(UID)){
-                                    if(addressCount == 0){
-                                        locationName.setText(ds.child("name").getValue().toString().trim());
-                                        locationAddress.setText(ds.child("address").getValue().toString().trim());
+                if(snapshot.exists()){
+                    String AddressIdFromUser = snapshot.child("address").getValue().toString().trim();
+                    if(AddressIdFromUser.equals("")){
+                        MainActivity.db.child("Address").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(snapshot.exists()){
+                                    int addressCount = 0;
+                                    for(DataSnapshot ds: snapshot.getChildren()){
+                                        if(ds.child("UID").getValue().toString().trim().equals(UID)){
+                                            if(addressCount == 0){
+                                                locationContainer.setVisibility(View.VISIBLE);
+                                                chooseAddressBtn.setVisibility(View.GONE);
+                                                shippingAddress = true;
+                                                locationName.setText(ds.child("name").getValue().toString().trim());
+                                                locationAddress.setText(ds.child("address").getValue().toString().trim());
+                                            }
+                                            addressCount++;
+                                        }
                                     }
-                                    addressCount++;
                                 }
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
-                } else {
-                    MainActivity.db.child("Address").child(AddressIdFromUser).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot datasnapshot) {
-                            locationName.setText(datasnapshot.child("name").getValue().toString().trim());
-                            locationAddress.setText(datasnapshot.child("address").getValue().toString().trim());
-                        }
+                            }
+                        });
+                    } else {
+                        MainActivity.db.child("Address").child(AddressIdFromUser).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                                if(datasnapshot.exists()){
+                                    locationContainer.setVisibility(View.VISIBLE);
+                                    chooseAddressBtn.setVisibility(View.GONE);
+                                    shippingAddress = true;
+                                    locationName.setText(datasnapshot.child("name").getValue().toString().trim());
+                                    locationAddress.setText(datasnapshot.child("address").getValue().toString().trim());
+                                }
+                            }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
+                            }
+                        });
+                    }
+
+                    if(!snapshot.child("shipping").getValue().toString().trim().equals("")){
+                        MainActivity.db.child("Shippings").child(snapshot.child("shipping").getValue().toString().trim()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                                if(datasnapshot.exists()){
+                                    shippingContainer.setVisibility(View.VISIBLE);
+                                    chooseShippingBtn.setVisibility(View.GONE);
+                                    shippingType = true;
+                                    shippingName.setText(datasnapshot.child("name").getValue().toString().trim());
+                                    shippingDetail.setText(datasnapshot.child("detail").getValue().toString().trim());
+                                    shippingPrice.setText("$"+datasnapshot.child("price").getValue().toString().trim());
+                                    grandTotalShipping += Integer.parseInt(datasnapshot.child("price").getValue().toString().trim());
+                                    shippingAmount.setText("$"+grandTotalShipping);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
                 }
 
             }
@@ -128,6 +199,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
             }
         });
+
         MainActivity.db.child("AddToCart").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -190,28 +262,7 @@ public class CheckoutActivity extends AppCompatActivity {
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                isOrderConfirmed = true;
-                placeOrder();
-
-                Dialog dialog = new Dialog(CheckoutActivity.this);
-                dialog.setContentView(R.layout.dialog_success);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-                dialog.getWindow().setGravity(Gravity.CENTER);
-                dialog.setCanceledOnTouchOutside(false);
-                dialog.setCancelable(false);
-                TextView msg = dialog.findViewById(R.id.msgDialog);
-                msg.setText("Order has been Placed Successfully!!!");
-                dialog.show();
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialog.dismiss();
-                    }
-                },2000);
-
+                forwardToPayment();
             }
         });
 
@@ -230,6 +281,12 @@ public class CheckoutActivity extends AppCompatActivity {
         } else {
             grandTotal = 0;
         }
+        setOverallGrandTotal();
+    }
+
+    public void setOverallGrandTotal(){
+        grandOverallTotal = grandTotal+grandTotalShipping;
+        grandTotalAmount.setText("$"+grandOverallTotal);
     }
 
     public static String generateOrderID() {
@@ -237,54 +294,76 @@ public class CheckoutActivity extends AppCompatActivity {
         return uuid.replace("-", "").substring(0, 10);
     }
 
-    private void placeOrder() {
-        MainActivity.db.child("AddToCart").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                String OID = generateOrderID();
-                setGrandTotal(0,false);
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    if(UID.equals(ds.child("UID").getValue().toString().trim())){
-                        AddToCartModel model = new AddToCartModel(ds.getKey(),
-                                ds.child("PID").getValue().toString().trim(),
-                                ds.child("UID").getValue().toString().trim(),
-                                ds.child("qty").getValue().toString().trim()
-                        );
-                        HashMap<String, String> mydata = new HashMap<String, String>();
-                        mydata.put("orderId", OID);
-                        mydata.put("UID", UID);
-                        mydata.put("PID", model.getPID());
-                        mydata.put("pQty", model.getQty());
-                        mydata.put("totalAmount", ""+grandTotal);
-                        mydata.put("status", "1");
-                        mydata.put("createdOn", ServerValue.TIMESTAMP.toString());
-                        MainActivity.db.child("Orders").push().setValue(mydata);
-                    }
-//                    AddToCartModel data = dataSnapshot.getValue(AddToCartModel.class);
-//                    if (id.equals(data.getUserId())) {
-//                        if (isOrderConfirmed) {
-//                            String uploadId = MainActivity.myRef.child("order").push().getKey();
-//                            HashMap<String, Object> mydata = new HashMap<String, Object>();
-//                            mydata.put("userID", data.getUserId());
-//                            mydata.put("orderid", ide);
-//                            mydata.put("pImage",  data.getpImageKey());
-//                            mydata.put("pName", data.getpNameKey());
-//                            mydata.put("pNode", data.getpNode());
-//                            mydata.put("pQty", data.getpQty());
-//                            mydata.put("pPrice", data.getpPriceKey());
-//                            mydata.put("timestamp", ServerValue.TIMESTAMP);
-//                            MainActivity.myRef.child("order").child(uploadId).setValue(mydata);
-//                            dataSnapshot.getRef().removeValue();
-//                        }
-//                    }
+    public void forwardToPayment(){
+        if(shippingAddress == false && shippingType == false){
+            Dialog dialog = new Dialog(CheckoutActivity.this);
+            dialog.setContentView(R.layout.dialog_error);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+            dialog.getWindow().setGravity(Gravity.CENTER);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setCancelable(false);
+            TextView msg = dialog.findViewById(R.id.msgDialog);
+            msg.setText("Please Select Your Shipping Address & Shipping Type!!!");
+            dialog.show();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dialog.dismiss();
                 }
+            },3000);
+        } else {
+            if(shippingAddress == false){
+                Dialog dialog = new Dialog(CheckoutActivity.this);
+                dialog.setContentView(R.layout.dialog_error);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+                dialog.getWindow().setGravity(Gravity.CENTER);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.setCancelable(false);
+                TextView msg = dialog.findViewById(R.id.msgDialog);
+                msg.setText("Please Select Your Shipping Address!!!");
+                dialog.show();
 
-            }
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.dismiss();
+                    }
+                },3000);
+            } else if(shippingType == false){
+                Dialog dialog = new Dialog(CheckoutActivity.this);
+                dialog.setContentView(R.layout.dialog_error);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+                dialog.getWindow().setGravity(Gravity.CENTER);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.setCancelable(false);
+                TextView msg = dialog.findViewById(R.id.msgDialog);
+                msg.setText("Please Select Your Shipping Type!!!");
+                dialog.show();
 
-            @Override
-            public void onCancelled(DatabaseError e) {
-                Log.d("TAG", "onCancelled: "+e.getMessage());
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.dismiss();
+                    }
+                },3000);
+            } else if(shippingAddress == true && shippingType == true) {
+                Intent intent = new Intent(CheckoutActivity.this,SelectPaymentMethodActivity.class);
+                intent.putExtra("totalItemAmount",""+grandTotal);
+                intent.putExtra("totalShippingAmount",""+grandTotalShipping);
+                intent.putExtra("totalOverallAmount",""+grandOverallTotal);
+                intent.putExtra("shippingName",""+shippingName.getText().toString().trim());
+                intent.putExtra("shippingDetail",""+shippingDetail.getText().toString().trim());
+                intent.putExtra("locationName",""+locationName.getText().toString().trim());
+                intent.putExtra("locationAddress",""+locationAddress.getText().toString().trim());
+                startActivity(intent);
             }
-        });
+        }
     }
 }

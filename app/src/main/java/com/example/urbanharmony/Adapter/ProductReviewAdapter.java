@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.Models.FeedbackModel;
 import com.example.urbanharmony.Models.ProductFeedbackModel;
@@ -88,7 +89,8 @@ public class ProductReviewAdapter extends RecyclerView.Adapter<ProductReviewAdap
                 if(snapshot.exists()){
                     holder.username.setText(snapshot.child("name").getValue().toString());
                     if(!snapshot.child("image").getValue().toString().equals("")){
-                        holder.image.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
+                        Glide.with(context).load(snapshot.child("image").getValue().toString()).into(holder.image);
+//                        holder.image.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
                     }
                 }
             }

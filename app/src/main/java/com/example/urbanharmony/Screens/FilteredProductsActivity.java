@@ -64,7 +64,7 @@ public class FilteredProductsActivity extends AppCompatActivity {
     ChipGroup categoryChipgroup;
     Chip allChip;
     ArrayList<ProductModel> datalist = new ArrayList<>();
-    String categoryId, categoryName;
+    String categoryId, categoryName, subcategoryName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +80,7 @@ public class FilteredProductsActivity extends AppCompatActivity {
         if (extras != null) {
             categoryId = extras.getString("categoryId");
             categoryName = extras.getString("categoryName");
+            subcategoryName = extras.getString("subcategoryName");
         }
 
         if(!sharedPreferences.getString("UID","").equals("")){
@@ -110,10 +111,10 @@ public class FilteredProductsActivity extends AppCompatActivity {
                         SubCategoryModel data = dataSnapshot.getValue(SubCategoryModel.class);
                         subcategories.add(data.getName());
                     }
-                    for (String name:subcategories) {
+                    for (String name : subcategories) {
                         Chip chip = new Chip(new ContextThemeWrapper(FilteredProductsActivity.this, R.style.CustomCategoryChipStyle));
-                        chip.setChipDrawable(ChipDrawable.createFromAttributes(FilteredProductsActivity.this,null,0, com.google.android.material.R.style.Widget_MaterialComponents_Chip_Choice));
-                        chip.setText(""+name);
+                        chip.setChipDrawable(ChipDrawable.createFromAttributes(FilteredProductsActivity.this, null, 0, com.google.android.material.R.style.Widget_MaterialComponents_Chip_Choice));
+                        chip.setText(name);
                         chip.setCheckable(true);
                         chip.setChipIconSize(30);
                         chip.setCheckedIconEnabled(true);
@@ -121,25 +122,34 @@ public class FilteredProductsActivity extends AppCompatActivity {
                         chip.setChipEndPadding(10);
                         chip.setCheckedIconVisible(true);
                         chip.setCheckedIconTint(getResources().getColorStateList(R.color.accent_50));
+
+                        // Check if this chip matches subcategoryName
+                        if (name.equals(subcategoryName)) {
+                            chip.setChecked(true);
+                            // Automatically fetch data for the default subcategory
+                            fetchData(subcategoryName);
+                        }
+
+                        // Set onClickListener to fetch data when chip is clicked
                         chip.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 fetchData(chip.getText().toString());
                             }
                         });
+
                         categoryChipgroup.addView(chip);
                     }
                 }
             }
 
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                // Handle database error
             }
         });
 
-        fetchData("");
+//        fetchData("");
 
         categoryTitle.setText(categoryName);
 

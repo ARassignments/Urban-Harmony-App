@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingHorizontal="30dp"
+    android:paddingTop="20dp"
+    android:background="@color/transparent">
+
+    <LinearLayout
+        android:id="@+id/listItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="15dp"
+        style="@style/customButton">
+
+        <TextView
+            android:id="@+id/sno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:layout_marginEnd="16dp"
+            style="@style/authLabel"/>
+
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/promotion_shape"
+            android:backgroundTint="@color/accent_50"
+            android:padding="6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ticket_star"
+                    app:tint="@color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/promoName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:text="Special 25% Off"
+                    android:textAlignment="textStart"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    style="@style/authTitle"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/promoDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/urbanist_medium"
+                android:text="Special promo only today!"
+                android:textAlignment="textStart"
+                android:textSize="12sp"
+                style="@style/authLabel"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/menu"
+            style="@style/appBarIcon" />
+
+    </LinearLayout>
+
+</LinearLayout>

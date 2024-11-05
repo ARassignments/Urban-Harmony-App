@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/transparent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
+        android:layout_margin="20dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="30dp"
+                android:orientation="vertical"
+                style="@style/ScreenBg">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add Shipping"
+                    android:textAlignment="center"
+                    android:layout_marginBottom="20dp"
+                    style="@style/authTitle"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/nameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:endIconMode="clear_text"
+                    app:counterMaxLength="20"
+                    app:helperText="Only Text Allowed"
+                    android:hint="Shipping Name"
+                    style="@style/inputTextMaterial">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/nameInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:maxLength="20"
+                        style="@style/inputTextEditMaterial"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/detailLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:endIconMode="clear_text"
+                    app:counterMaxLength="100"
+                    app:helperText="Only Text Allowed"
+                    android:hint="Shipping Detail"
+                    style="@style/inputTextMaterial">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/detailInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:maxLength="100"
+                        style="@style/inputTextEditMaterial"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/priceLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:endIconMode="clear_text"
+                    app:counterMaxLength="8"
+                    app:helperText="Only Digit  Allowed"
+                    android:hint="Shipping Price"
+                    app:prefixText="$ "
+                    style="@style/inputTextMaterial">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/priceInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="8"
+                        style="@style/inputTextEditMaterial"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_marginTop="16dp">
+
+                    <Button
+                        android:id="@+id/addDataBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Add Data"
+                        android:layout_marginBottom="16dp"
+                        style="@style/flatButton"/>
+
+                    <Button
+                        android:id="@+id/cancelBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Cancel"
+                        style="@style/logoutButton"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

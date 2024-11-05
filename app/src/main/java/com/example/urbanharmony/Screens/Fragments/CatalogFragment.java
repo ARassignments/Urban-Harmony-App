@@ -17,9 +17,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,13 +43,20 @@ import com.example.urbanharmony.Models.BrandModel;
 import com.example.urbanharmony.Models.CategoryModel;
 import com.example.urbanharmony.Models.ProductModel;
 import com.example.urbanharmony.Models.StyleModel;
+import com.example.urbanharmony.Models.SubCategoryModel;
 import com.example.urbanharmony.Models.WishlistModel;
 import com.example.urbanharmony.R;
+import com.example.urbanharmony.Screens.FilteredProductsActivity;
 import com.example.urbanharmony.Screens.ProductDetailActivity;
 import com.example.urbanharmony.Screens.ProductsActivity;
+import com.example.urbanharmony.Screens.ProfileActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.slider.RangeSlider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -58,6 +67,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -67,13 +77,18 @@ public class CatalogFragment extends Fragment {
     SharedPreferences.Editor editor;
     static String UID = "";
     static String sortingStatus = "dsc";
+    static float defaultMinPrice = 0;
+    static float defaultMaxPrice = 40000;
     GridView gridView;
     LinearLayout loader, notifyBar, notfoundContainer;
-//    ImageView sortBtn;
+    ImageView filterBtn;
     EditText searchInput;
     TextView searchedWord, totalCount;
     ArrayList<ProductModel> datalist = new ArrayList<>();
     View view;
+
+    ChipGroup categoryChipgroup, brandsChipgroup, stylesChipgroup, sortsChipgroup;
+    RangeSlider priceRangeSlider;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,7 +109,7 @@ public class CatalogFragment extends Fragment {
         searchedWord = view.findViewById(R.id.searchedWord);
         totalCount = view.findViewById(R.id.totalCount);
         searchInput = view.findViewById(R.id.searchInput);
-//        sortBtn = view.findViewById(R.id.sortBtn);
+        filterBtn = view.findViewById(R.id.filterBtn);
 
         searchInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -114,37 +129,238 @@ public class CatalogFragment extends Fragment {
             }
         });
 
-        fetchData("");
+        filterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialogFilter = new Dialog(getContext());
+                dialogFilter.setContentView(R.layout.dialog_bottom_product_filter);
+                dialogFilter.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialogFilter.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialogFilter.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationBottom;
+                dialogFilter.getWindow().setGravity(Gravity.BOTTOM);
+                dialogFilter.setCanceledOnTouchOutside(false);
+                dialogFilter.setCancelable(false);
+                dialogFilter.show();
+                Button cancelBtn, applyBtn;
+                Chip allChipCategory, allChipBrand, allChipStyle, ascChip, descChip, priceHighChip, priceLowChip, atozChip, ztoacChip;
+                cancelBtn = dialogFilter.findViewById(R.id.cancelBtn);
+                applyBtn = dialogFilter.findViewById(R.id.applyBtn);
+                priceRangeSlider = dialogFilter.findViewById(R.id.priceRangeSlider);
+                categoryChipgroup = dialogFilter.findViewById(R.id.categoryChipgroup);
+                brandsChipgroup = dialogFilter.findViewById(R.id.brandsChipgroup);
+                stylesChipgroup = dialogFilter.findViewById(R.id.stylesChipgroup);
+                sortsChipgroup = dialogFilter.findViewById(R.id.sortsChipgroup);
+                allChipCategory = dialogFilter.findViewById(R.id.allChipCategory);
+                allChipBrand = dialogFilter.findViewById(R.id.allChipBrand);
+                allChipStyle = dialogFilter.findViewById(R.id.allChipStyle);
+                ascChip = dialogFilter.findViewById(R.id.ascChip);
+                descChip = dialogFilter.findViewById(R.id.descChip);
+                priceHighChip = dialogFilter.findViewById(R.id.priceHighChip);
+                priceLowChip = dialogFilter.findViewById(R.id.priceLowChip);
+                atozChip = dialogFilter.findViewById(R.id.atozChip);
+                ztoacChip = dialogFilter.findViewById(R.id.ztoacChip);
 
-//        sortBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                sorting();
-//            }
-//        });
+                // Initialize SharedPreferences
+                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+                String lastCategory = sharedPrefs.getString("selectedCategory", "All");
+                String lastBrand = sharedPrefs.getString("selectedBrand", "All");
+                String lastStyle = sharedPrefs.getString("selectedStyle", "All");
+                String lastSort = sharedPrefs.getString("selectedSort", "Descending");
+                float savedMinPrice = sharedPrefs.getFloat("selectedMinPrice", defaultMinPrice);
+                float savedMaxPrice = sharedPrefs.getFloat("selectedMaxPrice", defaultMaxPrice);
+
+                priceRangeSlider.setValueFrom(defaultMinPrice);
+                priceRangeSlider.setValueTo(defaultMaxPrice);
+                priceRangeSlider.setValues(savedMinPrice, savedMaxPrice);
+
+                MainActivity.db.child("Category").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                Chip chip = new Chip(new ContextThemeWrapper(getContext(), R.style.CustomCategoryChipStyle));
+                                chip.setChipDrawable(ChipDrawable.createFromAttributes(getContext(),null,0, com.google.android.material.R.style.Widget_MaterialComponents_Chip_Choice));
+                                chip.setText(""+dataSnapshot.child("name").getValue().toString());
+                                chip.setCheckable(true);
+                                chip.setChipIconSize(27);
+                                chip.setCheckedIconEnabled(true);
+                                chip.setChipStartPadding(10);
+                                chip.setChipEndPadding(0);
+                                chip.setCheckedIconVisible(true);
+                                chip.setCheckedIconTint(getResources().getColorStateList(R.color.accent_50));
+                                if(dataSnapshot.child("name").getValue().toString().equals(lastCategory)){
+                                    chip.setChecked(true);
+                                }
+                                categoryChipgroup.addView(chip);
+                            }
+                        }
+                    }
+
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                MainActivity.db.child("Brands").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                Chip chip = new Chip(new ContextThemeWrapper(getContext(), R.style.CustomCategoryChipStyle));
+                                chip.setChipDrawable(ChipDrawable.createFromAttributes(getContext(),null,0, com.google.android.material.R.style.Widget_MaterialComponents_Chip_Choice));
+                                chip.setText(""+dataSnapshot.child("name").getValue().toString());
+                                chip.setCheckable(true);
+                                chip.setChipIconSize(27);
+                                chip.setCheckedIconEnabled(true);
+                                chip.setChipStartPadding(10);
+                                chip.setChipEndPadding(0);
+                                chip.setCheckedIconVisible(true);
+                                chip.setCheckedIconTint(getResources().getColorStateList(R.color.accent_50));
+                                if(dataSnapshot.child("name").getValue().toString().equals(lastBrand)){
+                                    chip.setChecked(true);
+                                }
+                                brandsChipgroup.addView(chip);
+                            }
+                        }
+                    }
+
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                MainActivity.db.child("Styles").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                Chip chip = new Chip(new ContextThemeWrapper(getContext(), R.style.CustomCategoryChipStyle));
+                                chip.setChipDrawable(ChipDrawable.createFromAttributes(getContext(),null,0, com.google.android.material.R.style.Widget_MaterialComponents_Chip_Choice));
+                                chip.setText(""+dataSnapshot.child("name").getValue().toString());
+                                chip.setCheckable(true);
+                                chip.setChipIconSize(27);
+                                chip.setCheckedIconEnabled(true);
+                                chip.setChipStartPadding(10);
+                                chip.setChipEndPadding(0);
+                                chip.setCheckedIconVisible(true);
+                                chip.setCheckedIconTint(getResources().getColorStateList(R.color.accent_50));
+                                if(dataSnapshot.child("name").getValue().toString().equals(lastStyle)){
+                                    chip.setChecked(true);
+                                }
+                                stylesChipgroup.addView(chip);
+                            }
+                        }
+                    }
+
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                for (int i = 0; i < sortsChipgroup.getChildCount(); i++) {
+                    Chip chip = (Chip) sortsChipgroup.getChildAt(i);
+                    if (chip.getText().toString().equals(lastSort)) {
+                        chip.setChecked(true);
+                        break;
+                    }
+                }
+
+                applyBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String selectedCategory = getSelectedChipText(categoryChipgroup);
+                        String selectedBrand = getSelectedChipText(brandsChipgroup);
+                        String selectedStyle = getSelectedChipText(stylesChipgroup);
+                        String selectedSort = getSelectedChipText(sortsChipgroup);
+                        float selectedMinPrice = priceRangeSlider.getValues().get(0);
+                        float selectedMaxPrice = priceRangeSlider.getValues().get(1);
+
+                        sharedPrefs.edit()
+                                .putString("selectedCategory", selectedCategory)
+                                .putString("selectedBrand", selectedBrand)
+                                .putString("selectedStyle", selectedStyle)
+                                .putString("selectedSort", selectedSort)
+                                .putFloat("selectedMinPrice", selectedMinPrice)
+                                .putFloat("selectedMaxPrice", selectedMaxPrice)
+                                .apply();
+
+                        // Fetch data based on selected filters
+                        fetchData("", (int) selectedMinPrice, (int) selectedMaxPrice, selectedCategory, selectedBrand, selectedStyle, selectedSort);
+                        dialogFilter.dismiss();
+                    }
+                });
+
+                cancelBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        categoryChipgroup.clearCheck();
+                        brandsChipgroup.clearCheck();
+                        stylesChipgroup.clearCheck();
+                        sortsChipgroup.clearCheck();
+                        priceRangeSlider.setValues(defaultMinPrice, defaultMaxPrice);
+
+                        sharedPrefs.edit()
+                                .remove("selectedCategory")
+                                .remove("selectedBrand")
+                                .remove("selectedStyle")
+                                .remove("selectedSort")
+                                .remove("selectedMinPrice")
+                                .remove("selectedMaxPrice")
+                                .apply();
+
+                        // Fetch default data (without any filter)
+                        fetchData("", (int) defaultMinPrice, (int) defaultMaxPrice, "", "", "", "");
+
+                        dialogFilter.dismiss();
+                    }
+                });
+            }
+        });
+
+        fetchData("", (int) defaultMinPrice, (int) defaultMaxPrice, "", "", "", "Descending");
 
         return view;
     }
 
-//    public void sorting(){
-//        if(sortingStatus.equals("asc")){
-//            sortingStatus = "dsc";
-//            sortBtn.setImageResource(R.drawable.deasscending_order);
-//        } else if(sortingStatus.equals("dsc")){
-//            sortingStatus = "asc";
-//            sortBtn.setImageResource(R.drawable.asscending_order);
-//        }
-//        fetchData("");
-//    }
+    private String getSelectedChipText(ChipGroup chipGroup) {
+        int selectedChipId = chipGroup.getCheckedChipId();
+        if (selectedChipId != -1) {
+            Chip selectedChip = chipGroup.findViewById(selectedChipId);
+            if (selectedChip != null && selectedChip.getText().toString().equalsIgnoreCase("All")) {
+                return "";
+            }
+            return selectedChip.getText().toString();
+        }
+        return "";
+    }
 
-    public void fetchData(String data){
+    public void fetchData(String data, int minPrice, int maxPrice, String category, String brand, String style, String sort){
         MainActivity.db.child("Products").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     datalist.clear();
                     for (DataSnapshot ds: snapshot.getChildren()){
-                        if(data.equals("")){
+                        String pName = ds.child("pName").getValue().toString();
+                        int pPrice = Integer.parseInt(ds.child("pPrice").getValue().toString());
+                        String pCategory = ds.child("pCategory").getValue().toString();
+                        String pBrand = ds.child("pBrand").getValue().toString();
+                        String pStyle = ds.child("pStyle").getValue().toString();
+
+                        boolean matchesSearch = data.isEmpty() || pName.toLowerCase().contains(data.toLowerCase());
+                        boolean matchesPriceRange = pPrice >= minPrice && pPrice <= maxPrice;
+                        boolean matchesCategory = category.isEmpty() || pCategory.toLowerCase().equals(category.toLowerCase());
+                        boolean matchesBrand = brand.isEmpty() || pBrand.toLowerCase().equals(brand.toLowerCase());
+                        boolean matchesStyle = style.isEmpty() || pStyle.toLowerCase().equals(style.toLowerCase());
+
+                        if(matchesSearch && matchesPriceRange && matchesCategory && matchesBrand && matchesStyle){
                             ProductModel model = new ProductModel(ds.getKey(),
                                     ds.child("pName").getValue().toString(),
                                     ds.child("pPrice").getValue().toString(),
@@ -159,31 +375,24 @@ public class CatalogFragment extends Fragment {
                                     ds.child("status").getValue().toString()
                             );
                             datalist.add(model);
-                        } else {
-                            if(ds.child("pName").getValue().toString().trim().toLowerCase().contains(data.toLowerCase().trim())){
-                                ProductModel model = new ProductModel(ds.getKey(),
-                                        ds.child("pName").getValue().toString(),
-                                        ds.child("pPrice").getValue().toString(),
-                                        ds.child("pStock").getValue().toString(),
-                                        ds.child("pDiscount").getValue().toString(),
-                                        ds.child("pImage").getValue().toString(),
-                                        ds.child("pDesc").getValue().toString(),
-                                        ds.child("pCategory").getValue().toString(),
-                                        ds.child("pSubcategory").getValue().toString(),
-                                        ds.child("pBrand").getValue().toString(),
-                                        ds.child("pStyle").getValue().toString(),
-                                        ds.child("status").getValue().toString()
-                                );
-                                datalist.add(model);
-                            }
                         }
                     }
                     if(datalist.size() > 0){
                         loader.setVisibility(View.GONE);
                         gridView.setVisibility(View.VISIBLE);
                         notfoundContainer.setVisibility(View.GONE);
-                        if(sortingStatus.equals("dsc")){
+                        if(sort.equals("Descending")){
                             Collections.reverse(datalist);
+                        } else if(sort.equals("Ascending")){
+                            Collections.sort(datalist, Comparator.comparing(ProductModel::getpName));
+                        } else if(sort.equals("A to Z")){
+                            Collections.sort(datalist, Comparator.comparing(ProductModel::getpName));
+                        } else if(sort.equals("Z to A")){
+                            Collections.sort(datalist, (a, b) -> b.getpName().compareTo(a.getpName()));
+                        } else if(sort.equals("Price High")){
+                            Collections.sort(datalist, (a, b) -> Integer.compare(Integer.parseInt(b.getpPrice()), Integer.parseInt(a.getpPrice())));
+                        } else if(sort.equals("Price Low")){
+                            Collections.sort(datalist, (a, b) -> Integer.compare(Integer.parseInt(a.getpPrice()), Integer.parseInt(b.getpPrice())));
                         }
                         MyAdapter adapter = new MyAdapter(getContext(),datalist);
                         gridView.setAdapter(adapter);
@@ -219,13 +428,20 @@ public class CatalogFragment extends Fragment {
             searchInput.setError("Only text allowed!!!");
         } else {
             searchInput.setError(null);
-            if(input.isEmpty()){
+            String selectedCategory = getSelectedChipText(categoryChipgroup);
+            String selectedBrand = getSelectedChipText(brandsChipgroup);
+            String selectedStyle = getSelectedChipText(stylesChipgroup);
+            String selectedSort = getSelectedChipText(sortsChipgroup);
+            float selectedMinPrice = priceRangeSlider.getValues().get(0);
+            float selectedMaxPrice = priceRangeSlider.getValues().get(1);
+
+            if (input.isEmpty()) {
                 notifyBar.setVisibility(View.GONE);
-                fetchData("");
             } else {
                 notifyBar.setVisibility(View.VISIBLE);
-                fetchData(searchInput.getText().toString().trim());
             }
+
+            fetchData(input, (int) selectedMinPrice, (int) selectedMaxPrice, selectedCategory, selectedBrand, selectedStyle, selectedSort);
         }
     }
 

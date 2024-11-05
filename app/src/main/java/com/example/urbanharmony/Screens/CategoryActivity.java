@@ -34,6 +34,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.Models.CategoryModel;
 import com.example.urbanharmony.Models.SubCategoryModel;
@@ -86,6 +87,14 @@ public class CategoryActivity extends AppCompatActivity {
             R.drawable.dining,
             R.drawable.stove,
             R.drawable.chair
+    };
+
+    String[] imagesUrl = {
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/CategoriesImages%2FSofa%20(3).png?alt=media&token=21bf22b7-4168-4927-ad9d-08b541309336",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/CategoriesImages%2FBed.png?alt=media&token=215ad6f8-39b7-430e-9344-e2cde09570df",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/CategoriesImages%2FDining.png?alt=media&token=e3369ae5-f9d3-466c-b19b-f82254653be5",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/CategoriesImages%2FStove.png?alt=media&token=2c684018-2cdb-4b7b-9c42-b2d492167b43",
+            "https://firebasestorage.googleapis.com/v0/b/urban-harmony-8fd99.appspot.com/o/CategoriesImages%2FChair.png?alt=media&token=479d900c-ef59-4a51-929a-de80e73f0450"
     };
 
     @Override
@@ -343,8 +352,11 @@ public class CategoryActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
                         nameInput.setText(snapshot.child("name").getValue().toString().trim());
-                        categoryImage.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString().trim()));
-                        imageIdText.setText(snapshot.child("image").getValue().toString().trim());
+                        if(!snapshot.child("image").getValue().toString().trim().equals("")){
+//                            categoryImage.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString().trim()));
+                            Glide.with(CategoryActivity.this).load(snapshot.child("image").getValue().toString().trim()).into(categoryImage);
+                            imageIdText.setText(snapshot.child("image").getValue().toString().trim());
+                        }
                     }
                 }
 
@@ -459,7 +471,7 @@ public class CategoryActivity extends AppCompatActivity {
 
     public void setProfileImage(int value){
         categoryImage.setImageResource(images[value]);
-        imageIdText.setText(""+images[value]);
+        imageIdText.setText(""+imagesUrl[value]);
         imageValidation();
         Dialog dialogSuccess = new Dialog(CategoryActivity.this);
         dialogSuccess.setContentView(R.layout.dialog_success);
@@ -523,7 +535,10 @@ public class CategoryActivity extends AppCompatActivity {
 
             sno.setText(""+(i+1));
             name.setText(data.get(i).getName());
-            image.setImageResource(Integer.parseInt(data.get(i).getImage()));
+            if(!data.get(i).getImage().equals("")){
+//                image.setImageResource(Integer.parseInt(data.get(i).getImage()));
+                Glide.with(CategoryActivity.this).load(data.get(i).getImage()).into(image);
+            }
 
             listItem.setOnClickListener(new View.OnClickListener() {
                 @Override

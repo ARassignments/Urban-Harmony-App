@@ -124,7 +124,8 @@ public class AddNewAddressActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     if(!snapshot.child("image").getValue().toString().equals("")){
-                        profileimage.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
+                        Glide.with(AddNewAddressActivity.this).load(snapshot.child("image").getValue().toString()).into(profileimage);
+//                        profileimage.setImageResource(Integer.parseInt(snapshot.child("image").getValue().toString()));
                     }
                 }
             }

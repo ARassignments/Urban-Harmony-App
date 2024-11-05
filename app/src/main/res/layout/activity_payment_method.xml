@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    style="@style/ScreenBg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Screens.PaymentMethodActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="30dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/backBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back"
+                style="@style/appBarIcon"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment Methods"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                style="@style/appBarTitle"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            style="@style/horizontalRow"/>
+
+        <LinearLayout
+            android:id="@+id/loader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:visibility="visible">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:rotation="180"
+                style="@style/SplashLogo"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/notfoundContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginHorizontal="30dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                style="@style/notFoundImage"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginTop="30dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Not Found"
+                    android:textSize="18sp"
+                    style="@style/authTitle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sorry, the payment methods you are looking for does not exist."
+                    android:textAlignment="center"
+                    android:layout_marginTop="5dp"
+                    style="@style/notFoundMessageText"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:visibility="gone"
+            tools:listitem="@layout/payment_methods_custom_listview"/>
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/addBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Payment Method"
+        android:drawableEnd="@drawable/add"
+        app:elevation="10dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="30dp"
+        style="@style/floatingActionButtonExtend"/>
+
+</FrameLayout>

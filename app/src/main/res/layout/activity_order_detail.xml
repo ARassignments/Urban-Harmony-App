@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ScreenBg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Screens.OrderDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="30dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/backBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back"
+                style="@style/appBarIcon"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Order Detail"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                style="@style/appBarTitle"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            style="@style/horizontalRow"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/barcode"
+            style="@style/appBarIcon"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/orderIdHead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="#AB45Gk98YL"
+            android:textAlignment="center"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/urbanist_bold"
+            android:textSize="25sp"
+            android:layout_marginTop="-15dp"
+            style="@style/detailBookSubTitle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/urbanist_bold"
+            android:text="Order List Items"
+            android:textSize="18sp"
+            style="@style/detailBookSubTitle"/>
+
+        <LinearLayout
+            android:id="@+id/orderList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/customButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/urbanist_medium"
+                    android:text="Amount"
+                    android:textAlignment="textStart"
+                    android:textSize="14sp"
+                    style="@style/authLabel"/>
+
+                <TextView
+                    android:id="@+id/totalAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/urbanist_semibold"
+                    android:text="-"
+                    android:textAlignment="textEnd"
+                    android:textSize="16sp"
+                    style="@style/authTitle"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/urbanist_medium"
+                    android:text="Shipping"
+                    android:textAlignment="textStart"
+                    android:textSize="14sp"
+                    style="@style/authLabel"/>
+
+                <TextView
+                    android:id="@+id/shippingAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/urbanist_semibold"
+                    android:text="-"
+                    android:textAlignment="textEnd"
+                    android:textSize="16sp"
+                    style="@style/authTitle"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/urbanist_medium"
+                    android:text="Promo"
+                    android:textAlignment="textStart"
+                    android:textSize="14sp"
+                    style="@style/authLabel"/>
+
+                <TextView
+                    android:id="@+id/promoAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/urbanist_semibold"
+                    android:text="-"
+                    android:textAlignment="textEnd"
+                    android:textSize="16sp"
+                    style="@style/authTitle"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="10dp"
+                android:visibility="visible"
+                style="@style/listImageBg"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/urbanist_medium"
+                    android:text="Total"
+                    android:textAlignment="textStart"
+                    android:textSize="14sp"
+                    style="@style/authLabel"/>
+
+                <TextView
+                    android:id="@+id/grandTotalAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/urbanist_semibold"
+                    android:text="-"
+                    android:textAlignment="textEnd"
+                    android:textSize="16sp"
+                    style="@style/authTitle"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/customButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="top"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/urbanist_medium"
+                    android:text="Shipping Address"
+                    android:textAlignment="textStart"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="16dp"
+                    style="@style/authLabel"/>
+
+                <TextView
+                    android:id="@+id/shippingAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/urbanist_semibold"
+                    android:text="Cash On Delivery"
+                    android:textAlignment="textEnd"
+                    android:textSize="16sp"
+                    style="@style/authTitle"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/urbanist_medium"
+                    android:text="Payment Method"
+                    android:textAlignment="textStart"
+                    android:textSize="14sp"
+                    style="@style/authLabel"/>
+
+                <TextView
+                    android:id="@+id/paymentMethod"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/urbanist_semibold"
+                    android:text="Cash On Delivery"
+                    android:textAlignment="textEnd"
+                    android:textSize="16sp"
+                    style="@style/authTitle"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/urbanist_medium"
+                    android:text="Date"
+                    android:textAlignment="textStart"
+                    android:textSize="14sp"
+                    style="@style/authLabel"/>
+
+                <TextView
+                    android:id="@+id/orderDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/urbanist_semibold"
+                    android:text="Dec 15, 2024 | 10:00:27 AM"
+                    android:textAlignment="textEnd"
+                    android:textSize="16sp"
+                    style="@style/authTitle"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/urbanist_medium"
+                    android:text="Order Id"
+                    android:textAlignment="textStart"
+                    android:textSize="14sp"
+                    style="@style/authLabel"/>
+
+                <TextView
+                    android:id="@+id/orderId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/urbanist_semibold"
+                    android:text="SK7263727399"
+                    android:textAlignment="textEnd"
+                    android:textSize="16sp"
+                    style="@style/authTitle"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/urbanist_medium"
+                    android:text="Status"
+                    android:textAlignment="textStart"
+                    android:textSize="14sp"
+                    style="@style/authLabel"/>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <Button
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:text="Paid"
+                    android:textSize="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="0dp"
+                    android:paddingHorizontal="0dp"
+                    android:gravity="center"
+                    style="@style/flatButton"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -30,6 +30,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.urbanharmony.MainActivity;
 import com.example.urbanharmony.Models.BrandModel;
 import com.example.urbanharmony.Models.UsersModel;
@@ -180,7 +181,8 @@ public class UsersActivity extends AppCompatActivity {
                                                 ds.child("address").getValue().toString(),
                                                 ds.child("shipping").getValue().toString(),
                                                 ds.child("created_on").getValue().toString(),
-                                                ds.child("status").getValue().toString()
+                                                ds.child("status").getValue().toString(),
+                                                ds.child("contact").getValue().toString()
                                         );
                                         datalist.add(model);
                                     }
@@ -195,7 +197,8 @@ public class UsersActivity extends AppCompatActivity {
                                                 ds.child("address").getValue().toString(),
                                                 ds.child("shipping").getValue().toString(),
                                                 ds.child("created_on").getValue().toString(),
-                                                ds.child("status").getValue().toString()
+                                                ds.child("status").getValue().toString(),
+                                                ds.child("contact").getValue().toString()
                                         );
                                         datalist.add(model);
                                     }
@@ -210,7 +213,8 @@ public class UsersActivity extends AppCompatActivity {
                                                 ds.child("address").getValue().toString(),
                                                 ds.child("shipping").getValue().toString(),
                                                 ds.child("created_on").getValue().toString(),
-                                                ds.child("status").getValue().toString()
+                                                ds.child("status").getValue().toString(),
+                                                ds.child("contact").getValue().toString()
                                         );
                                         datalist.add(model);
                                     }
@@ -230,7 +234,8 @@ public class UsersActivity extends AppCompatActivity {
                                                 ds.child("address").getValue().toString(),
                                                 ds.child("shipping").getValue().toString(),
                                                 ds.child("created_on").getValue().toString(),
-                                                ds.child("status").getValue().toString()
+                                                ds.child("status").getValue().toString(),
+                                                ds.child("contact").getValue().toString()
                                         );
                                         datalist.add(model);
                                     }
@@ -245,7 +250,8 @@ public class UsersActivity extends AppCompatActivity {
                                                 ds.child("address").getValue().toString(),
                                                 ds.child("shipping").getValue().toString(),
                                                 ds.child("created_on").getValue().toString(),
-                                                ds.child("status").getValue().toString()
+                                                ds.child("status").getValue().toString(),
+                                                ds.child("contact").getValue().toString()
                                         );
                                         datalist.add(model);
                                     }
@@ -260,7 +266,8 @@ public class UsersActivity extends AppCompatActivity {
                                                 ds.child("address").getValue().toString(),
                                                 ds.child("shipping").getValue().toString(),
                                                 ds.child("created_on").getValue().toString(),
-                                                ds.child("status").getValue().toString()
+                                                ds.child("status").getValue().toString(),
+                                                ds.child("contact").getValue().toString()
                                         );
                                         datalist.add(model);
                                     }
@@ -374,7 +381,8 @@ public class UsersActivity extends AppCompatActivity {
             });
 
             if(!data.get(i).getImage().equals("")){
-                image.setImageResource(Integer.parseInt(data.get(i).getImage()));
+                Glide.with(context).load(data.get(i).getImage()).into(image);
+//                image.setImageResource(Integer.parseInt(data.get(i).getImage()));
             }
 
             if(i==data.size()-1){
