@@ -63,6 +63,8 @@ public class OrdersActiveAdapter extends RecyclerView.Adapter<OrdersActiveAdapte
             holder.orderStatus.setText("In Shipping");
         } else if(data.get(i).getStatus().equals("4")){
             holder.orderStatus.setText("Completed");
+        } else if(data.get(i).getStatus().equals("5")){
+            holder.orderStatus.setText("Cancelled");
         }
 
         holder.item.setOnClickListener(new View.OnClickListener() {

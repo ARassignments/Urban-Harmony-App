@@ -48,6 +48,7 @@ import com.example.urbanharmony.Screens.ShippingsActivity;
 import com.example.urbanharmony.Screens.StylesActivity;
 import com.example.urbanharmony.Screens.SubscriptionActivity;
 import com.example.urbanharmony.Screens.UsersActivity;
+import com.example.urbanharmony.Screens.UserOrdersActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -59,7 +60,7 @@ public class AccountFragment extends Fragment {
 
     View view;
     Button logoutBtn;
-    TextView profileName, userId, categoriesBtn, brandsBtn, stylesBtn, productsBtn, usersBtn, addressBtn, projectsBtn, portfolioBtn, scheduleBtn, myDesignsBtn, subscriptionBtn, privacyPolicyBtn, helpCenterBtn, messagesBtn, myReviewsBtn, shippingBtn, promoBtn, paymentMethodBtn, myConsultationsBtn;
+    TextView profileName, userId, categoriesBtn, brandsBtn, stylesBtn, productsBtn, usersBtn, addressBtn, projectsBtn, portfolioBtn, scheduleBtn, myDesignsBtn, subscriptionBtn, privacyPolicyBtn, helpCenterBtn, messagesBtn, myReviewsBtn, shippingBtn, promoBtn, paymentMethodBtn, myConsultationsBtn, userAppointmentsBtn, userOrdersBtn;
     LinearLayout adminOptions, designerOptions;
     static String UID = "";
     SharedPreferences sharedPreferences;
@@ -97,6 +98,8 @@ public class AccountFragment extends Fragment {
         promoBtn = view.findViewById(R.id.promoBtn);
         paymentMethodBtn = view.findViewById(R.id.paymentMethodBtn);
         myConsultationsBtn = view.findViewById(R.id.myConsultationsBtn);
+        userAppointmentsBtn = view.findViewById(R.id.userAppointmentsBtn);
+        userOrdersBtn = view.findViewById(R.id.userOrdersBtn);
 
         sharedPreferences = getContext().getSharedPreferences("myData",MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -130,6 +133,10 @@ public class AccountFragment extends Fragment {
 
         sliderHandler.removeCallbacks(sliderRunnable);
         sliderHandler.postDelayed(sliderRunnable, 3000);
+
+        if(DashboardActivity.getRole().equals("admin")){
+            myConsultationsBtn.setVisibility(View.GONE);
+        }
 
         view.findViewById(R.id.profileBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -282,6 +289,20 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), MyConsultaionsActivity.class));
+            }
+        });
+
+        userAppointmentsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), MyConsultaionsActivity.class));
+            }
+        });
+
+        userOrdersBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), UserOrdersActivity.class));
             }
         });
 

@@ -55,6 +55,7 @@ public class MyConsultaionsActivity extends AppCompatActivity {
     static String sortingStatus = "dsc";
     ListView listView;
     LinearLayout loader, notfoundContainer;
+    TextView title;
     ArrayList<BookingModel> datalist = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +74,13 @@ public class MyConsultaionsActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         notfoundContainer = findViewById(R.id.notfoundContainer);
         loader = findViewById(R.id.loader);
+        title = findViewById(R.id.title);
 
         fetchData("");
+
+        if(DashboardActivity.getRole().equals("admin")){
+            title.setText("User's Appointments");
+        }
 
         findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +122,16 @@ public class MyConsultaionsActivity extends AppCompatActivity {
                                 );
                                 datalist.add(model);
                             }
+                        } else if(DashboardActivity.getRole().equals("admin")){
+                            BookingModel model = new BookingModel(ds.getKey(),
+                                    ds.child("designerId").getValue().toString(),
+                                    ds.child("userId").getValue().toString(),
+                                    ds.child("day").getValue().toString(),
+                                    ds.child("slot").getValue().toString(),
+                                    ds.child("onBooking").getValue().toString(),
+                                    ds.child("status").getValue().toString()
+                            );
+                            datalist.add(model);
                         }
                     }
                     if(datalist.size() > 0){
@@ -176,20 +192,27 @@ public class MyConsultaionsActivity extends AppCompatActivity {
         @Override
         public View getView(int i, View convertView, ViewGroup parent) {
             View customListItem = LayoutInflater.from(context).inflate(R.layout.booking_consultation_custom_listview,null);
-            TextView name, bookingDay, bookingDate, bookingSlots;
-            ImageView image;
-            Button bookingStatus, viewDetailsBtn, cancelBtn;
+            TextView userName, name, bookingDay, bookingDate, bookingSlots;
+            ImageView image, userImage;
+            Button bookingStatus, viewDetailsBtn, cancelBtn, bookingStatusTwo, designerLabel;
+            LinearLayout userContainer;
 
             name = customListItem.findViewById(R.id.name);
+            userName = customListItem.findViewById(R.id.userName);
             bookingDay = customListItem.findViewById(R.id.bookingDay);
             bookingDate = customListItem.findViewById(R.id.bookingDate);
             bookingSlots = customListItem.findViewById(R.id.bookingSlots);
             image = customListItem.findViewById(R.id.image);
+            userImage = customListItem.findViewById(R.id.userImage);
             bookingStatus = customListItem.findViewById(R.id.bookingStatus);
+            bookingStatusTwo = customListItem.findViewById(R.id.bookingStatusTwo);
             viewDetailsBtn = customListItem.findViewById(R.id.viewDetailsBtn);
             cancelBtn = customListItem.findViewById(R.id.cancelBtn);
+            designerLabel = customListItem.findViewById(R.id.designerLabel);
+            userContainer = customListItem.findViewById(R.id.userContainer);
 
             bookingStatus.setText(data.get(i).getStatus());
+            bookingStatusTwo.setText("Appointment "+data.get(i).getStatus());
             bookingDay.setText(data.get(i).getDay());
             bookingDate.setText("Date: "+data.get(i).getOnBooking());
             bookingSlots.setText("Timing Slots: "+data.get(i).getSlot());
@@ -411,6 +434,47 @@ public class MyConsultaionsActivity extends AppCompatActivity {
                         }
                     });
                 }
+
+            } else if(DashboardActivity.getRole().equals("admin")){
+                viewDetailsBtn.setVisibility(View.GONE);
+                cancelBtn.setVisibility(View.GONE);
+                bookingStatus.setVisibility(View.GONE);
+                designerLabel.setVisibility(View.VISIBLE);
+                userContainer.setVisibility(View.VISIBLE);
+
+                MainActivity.db.child("Users").child(data.get(i).getDesignerId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            name.setText(snapshot.child("name").getValue().toString());
+                            if (!snapshot.child("image").getValue().toString().equals("")) {
+                                Glide.with(context).load(snapshot.child("image").getValue().toString()).into(image);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                MainActivity.db.child("Users").child(data.get(i).getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            userName.setText(snapshot.child("name").getValue().toString());
+                            if (!snapshot.child("image").getValue().toString().equals("")) {
+                                Glide.with(context).load(snapshot.child("image").getValue().toString()).into(userImage);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
 
             if(i==data.size()-1){

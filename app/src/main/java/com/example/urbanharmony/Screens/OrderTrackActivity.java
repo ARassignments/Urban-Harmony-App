@@ -80,6 +80,8 @@ public class OrderTrackActivity extends AppCompatActivity {
         } else if(OStatus.equals("4")){
             statusContainerFour.setVisibility(View.VISIBLE);
             statusContent.setText("Order Delivered");
+        } else if(OStatus.equals("5")){
+            statusContent.setText("Order Cancelled");
         }
 
         MainActivity.db.child("Orders").child(OID).child("items").child("item_1").addListenerForSingleValueEvent(new ValueEventListener() {

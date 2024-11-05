@@ -6,7 +6,7 @@
     style="@style/ScreenBg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Screens.MyConsultaionsActivity">
+    tools:context=".Screens.UserOrdersActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,10 +27,9 @@
                 style="@style/appBarIcon"/>
 
             <TextView
-                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My Consultations"
+                android:text="User's Orders"
                 android:layout_marginTop="2dp"
                 android:layout_weight="1"
                 android:textAlignment="center"
@@ -49,6 +48,32 @@
             android:layout_height="1dp"
             style="@style/horizontalRow"/>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="20dp">
+
+            <EditText
+                android:id="@+id/searchInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:maxLength="25"
+                android:hint="Search Order no Here..."
+                style="@style/inputText" />
+
+            <ImageView
+                android:id="@+id/sortBtn"
+                android:layout_width="22dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/deasscending_order"
+                android:layout_gravity="center|end"
+                android:layout_marginEnd="22dp"
+                style="@style/appBarIcon" />
+
+        </FrameLayout>
+
         <LinearLayout
             android:id="@+id/loader"
             android:layout_width="match_parent"
@@ -64,6 +89,47 @@
                 app:lottie_loop="true"
                 android:rotation="180"
                 style="@style/SplashLogo"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/notifyBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='Result for “'
+                style="@style/searchLabelText"/>
+
+            <TextView
+                android:id="@+id/searchedWord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='search here...'
+                android:maxLength="20"
+                style="@style/searchText"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='”'
+                style="@style/searchLabelText"/>
+
+            <TextView
+                android:id="@+id/totalCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="textEnd"
+                android:text='0 found'
+                style="@style/searchText"/>
 
         </LinearLayout>
 
@@ -99,7 +165,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sorry, My Consultations not found. Please try again later."
+                    android:text="Sorry, the keyword you entered cannot be found, please check again or search with another keyword."
                     android:textAlignment="center"
                     android:layout_marginTop="5dp"
                     style="@style/notFoundMessageText"/>
@@ -117,7 +183,7 @@
             android:divider="@null"
             android:dividerHeight="0dp"
             android:visibility="gone"
-            tools:listitem="@layout/booking_consultation_custom_listview"/>
+            tools:listitem="@layout/styles_custom_listview"/>
 
     </LinearLayout>
 

@@ -474,10 +474,25 @@
                 style="@style/horizontalRow"/>
 
             <TextView
-                android:id="@+id/reportsBtn"
+                android:id="@+id/userAppointmentsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Reports"
+                android:text="User's Appointments"
+                android:layout_marginTop="2dp"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="32dp"
+                style="@style/settingsItems"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                style="@style/horizontalRow"/>
+
+            <TextView
+                android:id="@+id/userOrdersBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="User's Orders"
                 android:layout_marginTop="2dp"
                 android:paddingVertical="16dp"
                 android:paddingHorizontal="32dp"
