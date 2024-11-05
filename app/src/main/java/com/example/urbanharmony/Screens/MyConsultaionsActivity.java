@@ -314,8 +314,15 @@ public class MyConsultaionsActivity extends AppCompatActivity {
                     }
                 });
 
+                if(data.get(i).getStatus().equals("Approved")){
+                    viewDetailsBtn.setVisibility(View.GONE);
+                } else if(data.get(i).getStatus().equals("Cancelled")){
+                    viewDetailsBtn.setVisibility(View.GONE);
+                    cancelBtn.setVisibility(View.GONE);
+                }
+
             } else if(DashboardActivity.getRole().equals("user")){
-                cancelBtn.setText("Write a Review");
+
                 viewDetailsBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -328,9 +335,51 @@ public class MyConsultaionsActivity extends AppCompatActivity {
                 cancelBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(context, DesignerDetailActivity.class);
-                        intent.putExtra("userId",data.get(i).getDesignerId());
-                        startActivity(intent);
+                        Dialog actiondialog = new Dialog(context);
+                        actiondialog.setContentView(R.layout.dialog_confirm);
+                        actiondialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                        actiondialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                        actiondialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+                        actiondialog.getWindow().setGravity(Gravity.CENTER);
+                        actiondialog.setCancelable(false);
+                        actiondialog.setCanceledOnTouchOutside(false);
+                        Button cancelBtn, yesBtn;
+                        yesBtn = actiondialog.findViewById(R.id.yesBtn);
+                        cancelBtn = actiondialog.findViewById(R.id.cancelBtn);
+                        cancelBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                actiondialog.dismiss();
+                            }
+                        });
+                        yesBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                MainActivity.db.child("Booking").child(data.get(i).getId()).child("status").setValue("Cancelled");
+                                Dialog dialog = new Dialog(context);
+                                dialog.setContentView(R.layout.dialog_success);
+                                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+                                dialog.getWindow().setGravity(Gravity.CENTER);
+                                dialog.setCanceledOnTouchOutside(false);
+                                dialog.setCancelable(false);
+                                TextView msg = dialog.findViewById(R.id.msgDialog);
+                                msg.setText("Appointment Cancelled Successfully!!!");
+                                dialog.show();
+
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dialog.dismiss();
+                                        actiondialog.dismiss();
+                                        fetchData("");
+                                    }
+                                },2000);
+                            }
+                        });
+
+                        actiondialog.show();
                     }
                 });
 
@@ -351,6 +400,17 @@ public class MyConsultaionsActivity extends AppCompatActivity {
                     }
                 });
 
+                if(data.get(i).getStatus().equals("Approved") || data.get(i).getStatus().equals("Cancelled")){
+                    cancelBtn.setText("Write a Review");
+                    cancelBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(context, DesignerDetailActivity.class);
+                            intent.putExtra("userId",data.get(i).getDesignerId());
+                            startActivity(intent);
+                        }
+                    });
+                }
             }
 
             if(i==data.size()-1){

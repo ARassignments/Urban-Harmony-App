@@ -38,7 +38,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Date: June 12, 2022"
-                android:textSize="13sp"
+                android:textSize="12sp"
+                android:layout_gravity="bottom"
                 style="@style/detailBookAuther"/>
 
         </LinearLayout>
@@ -50,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:text="Timing Slots: 10:00PM - 11:00PM"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:paddingHorizontal="10dp"
             android:paddingTop="5dp"
             android:paddingBottom="2dp"
